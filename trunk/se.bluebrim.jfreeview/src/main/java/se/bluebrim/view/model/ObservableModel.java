@@ -4,8 +4,8 @@ import java.beans.*;
 import java.beans.PropertyChangeSupport;
 
 /**
- * Subclasses represent model objects in the model-view paradigm we are using
- * in allocation graph design. A view that wants to be notified of changes in its model
+ * Superclass to objects that acts as models in the model view controller paradigm. 
+ * A view that wants to be notified of changes in its model
  * register as property listener at the model. The view will get a callback each time
  * a property of interest is changed. <br>
  * This kind of object is often called beans but I think we should avoid that kind of nonsense name. 

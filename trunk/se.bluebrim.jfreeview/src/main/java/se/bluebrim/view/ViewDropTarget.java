@@ -24,7 +24,7 @@ public interface ViewDropTarget extends View
 	public boolean isChild(TransferableView transferable);
 	/**
 	 * Overridden by rop targets that has an aspect that should be reflected in 
-	 * the transferabe. For example when a process view is dragged in the
+	 * the transferabe. For example when a process view is dragged in an
 	 * allocation graph the length of the process view should reflect the capacity
 	 * of the drop target resource
 	 * @param transferable TODO

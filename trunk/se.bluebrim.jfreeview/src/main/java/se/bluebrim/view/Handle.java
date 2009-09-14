@@ -42,9 +42,9 @@ public interface Handle extends View
 	public Rectangle2D getRepaintRegion();
 	
 	/**
-	 * Overides by handles that manipulates an aspect of a view that should be
+	 * Overrides by handles that manipulates an aspect of a view that should be
 	 * painted during the drag. For example a handle is manipulating the start time
-	 * of an allocationview. During the drag the starttime should be drawn to give the
+	 * of an resource allocation view. During the drag the start time should be drawn to give the
 	 * user maximum feedback. The handle use a callback to the view to perform the painting.
 	 * 
 	 */
