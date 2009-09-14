@@ -124,8 +124,8 @@ public class DragAndDropTool extends SubTool
 
 	/**
 	 * Sometimes its desirable to reflect aspects of the drop target in the
-	 * transferable view. For example when a process view is dragged in the
-	 * allocation graph the length of the process view should reflect the capacity
+	 * transferable view. For example when a process view is dragged in a resource
+	 * allocation application the length of the process view should reflect the capacity
 	 * of the drop target resource.<br>
 	 * The method assumes that we only have one transferable view.
 	 */
@@ -236,7 +236,7 @@ public class DragAndDropTool extends SubTool
 	/**
 	 * The concept of fixed Y or X is a way to handle the fact that movement of a view during
 	 * a drag and drop that is done to change the container of the view is not always should change
-	 * the coordinates as well. For example when moving an allocation block from one resource to
+	 * the coordinates as well. For example when moving a resource allocation block from one resource to
 	 * another the y-coordinate should not change but the x-coordinate will change to reflect the
 	 * movement in time that i possible to do at the same time as change of resource. I have plans
 	 * to replace most or all of the code in this class by the MoveHandle and then this aspect should
