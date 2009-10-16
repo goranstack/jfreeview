@@ -5,7 +5,13 @@
 	<artifactId>se.bluebrim.desktop.application.graphical</artifactId>
 	<name>Abstract Graphical Desktop Application</name>
 	<version>0.0.1-SNAPSHOT</version>
-	<description>Abstract supeclass to desktop application handling graphical content by using JFreeView</description>
+	<description>Abstract superclass to desktop application handling graphical content by using JFreeView</description>
+	<parent>
+		<artifactId>jfreeview-parent</artifactId>
+		<groupId>se.bluebrim</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../jfreeview-parent</relativePath>
+	</parent>
 	<dependencies>
 		<dependency>
 			<groupId>se.bluebrim</groupId>

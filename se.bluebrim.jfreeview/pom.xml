@@ -4,7 +4,13 @@
 	<groupId>se.bluebrim</groupId>
 	<artifactId>jfreeview</artifactId>
 	<name>JFreeView</name>
-	<version>1.0.1-SNAPSHOT</version>
+	<version>1.0.0-SNAPSHOT</version>
+	<parent>
+		<artifactId>jfreeview-parent</artifactId>
+		<groupId>se.bluebrim</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../jfreeview-parent</relativePath>
+	</parent>
 	<scm>
 		<connection>scm:svn:http://jfreeview.googlecode.com/svn/trunk/se.bluebrim.jfreeview</connection>
 		<developerConnection>scm:svn:https://jfreeview.googlecode.com/svn/trunk/se.bluebrim.jfreeview</developerConnection>
