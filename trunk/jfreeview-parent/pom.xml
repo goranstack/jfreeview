@@ -7,6 +7,11 @@
 	<name>JFreeView Parent</name>
 	<version>1.0.0-SNAPSHOT</version>
 	<description>JFreeView Maven Parent Project</description>
+	<scm>
+		<connection>scm:svn:http://jfreeview.googlecode.com/svn/trunk/${pom.artifactId}</connection>
+		<developerConnection>scm:svn:https://jfreeview.googlecode.com/svn/trunk/${pom.artifactId}</developerConnection>
+	</scm>
+	
 	<build>
 		<resources>
 		<!-- Make it possible to put resource files along side the java classes -->
@@ -46,6 +51,7 @@
 						<phase>install</phase>
 						<goals>
 							<goal>jar</goal>
+							<goal>test-jar</goal>
 						</goals>
 					</execution>
 				</executions>
@@ -67,7 +73,41 @@
 			<name>Esox Maven Repo</name>
 			<url>http://esox.googlecode.com/svn/repo</url>
 		</repository>
-	</repositories>	
+	</repositories>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>se.bluebrim</groupId>
+				<artifactId>se.bluebrim.desktop.application</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>se.bluebrim</groupId>
+				<artifactId>se.bluebrim.desktop.application.example.jdbc</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>se.bluebrim</groupId>
+				<artifactId>se.bluebrim.desktop.application.graphical</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>se.bluebrim</groupId>
+				<artifactId>se.bluebrim.desktop.dbschemagraph</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+				<scope>compile</scope>
+			</dependency>
+			<dependency>
+				<groupId>se.bluebrim</groupId>
+				<artifactId>se.bluebrim.view</artifactId>
+				<version>1.0.0-SNAPSHOT</version>
+				<scope>compile</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>	
 	<!--
 		Found at Don Brown's Weblog:
 		http://www.jroller.com/mrdon/entry/find_of_the_day_wagon
