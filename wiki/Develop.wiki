@@ -1,0 +1,1 @@
+#summary Learn how to check out the source code using Eclipse.
