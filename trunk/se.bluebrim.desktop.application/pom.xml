@@ -6,6 +6,12 @@
 	<name>Desktop Application</name>
 	<version>0.0.1-SNAPSHOT</version>
 	<description>An abstract super class to desktop applications handling local file system persistence inclusive recent files menu. The class also handles multiple documents in separate windows. Not MDI-style but that is not to hard to add on if that is desired.</description>
+	<parent>
+		<artifactId>jfreeview-parent</artifactId>
+		<groupId>se.bluebrim</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../jfreeview-parent</relativePath>
+	</parent>
 	<build>
 		<plugins>
 			<plugin>

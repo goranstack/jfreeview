@@ -4,6 +4,12 @@
 	<groupId>se.bluebrim</groupId>
 	<artifactId>se.bluebrim.desktop.dbschemagraph</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<parent>
+		<artifactId>jfreeview-parent</artifactId>
+		<groupId>se.bluebrim</groupId>
+		<version>1.0.0-SNAPSHOT</version>
+		<relativePath>../jfreeview-parent</relativePath>
+	</parent>
 	<dependencies>
 		<dependency>
 			<groupId>net.sourceforge.jtds</groupId>
