@@ -2,10 +2,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>se.bluebrim</groupId>
-	<artifactId>jfreecrud-parent</artifactId>
+	<artifactId>jfreeview-parent</artifactId>
 	<packaging>pom</packaging>
-	<name>JFreeCrud Parent</name>
-	<version>0.0.1-SNAPSHOT</version>
+	<name>JFreeView Parent</name>
+	<version>1.0.0-SNAPSHOT</version>
 	<description>JFreeCrud Maven Parent Project</description>
 	<modules>
 		<module>../se.bluebrim.desktop.application</module>
