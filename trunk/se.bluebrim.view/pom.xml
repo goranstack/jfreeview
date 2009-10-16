@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>se.bluebrim</groupId>
-	<artifactId>jfreeview</artifactId>
+	<artifactId>se.bluebrim.view</artifactId>
 	<name>JFreeView</name>
 	<version>1.0.0-SNAPSHOT</version>
 	<parent>
@@ -11,55 +11,6 @@
 		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../jfreeview-parent</relativePath>
 	</parent>
-	<scm>
-		<connection>scm:svn:http://jfreeview.googlecode.com/svn/trunk/se.bluebrim.jfreeview</connection>
-		<developerConnection>scm:svn:https://jfreeview.googlecode.com/svn/trunk/se.bluebrim.jfreeview</developerConnection>
-	</scm>
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<artifactId>maven-source-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-		</plugins>
-
-		<extensions>
-			<extension>
-				<groupId>org.jvnet.wagon-svn</groupId>
-				<artifactId>wagon-svn</artifactId>
-				<version>1.9</version>
-			</extension>
-		</extensions>
-	</build>
-
-	<!--
-		Found at Don Brown's Weblog:
-		http://www.jroller.com/mrdon/entry/find_of_the_day_wagon
-	-->
-	<distributionManagement>
-		<repository>
-			<uniqueVersion>false</uniqueVersion>
-			<id>googlecode-jfreeview</id>
-			<url>svn:https://jfreeview.googlecode.com/svn/repo</url>
-		</repository>
-	</distributionManagement>
-
 	<dependencies>
 		<dependency>
 			<groupId>org.swinglabs</groupId>
