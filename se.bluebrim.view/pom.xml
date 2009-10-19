@@ -9,7 +9,6 @@
 		<artifactId>jfreeview-parent</artifactId>
 		<groupId>se.bluebrim</groupId>
 		<version>1.0.0-SNAPSHOT</version>
-		<relativePath>../jfreeview-parent</relativePath>
 	</parent>
 	<dependencies>
 		<dependency>
