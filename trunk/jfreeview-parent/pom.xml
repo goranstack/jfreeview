@@ -121,10 +121,10 @@
 	</distributionManagement>
 	
 	<modules>
-		<module>../se.bluebrim.desktop.application</module>
-		<module>../se.bluebrim.desktop.application.example.jdbc</module>
-		<module>../se.bluebrim.desktop.application.graphical</module>
-		<module>../se.bluebrim.desktop.dbschemagraph</module>
-		<module>../se.bluebrim.view</module>
+		<module>se.bluebrim.desktop.application</module>
+		<module>se.bluebrim.desktop.application.example.jdbc</module>
+		<module>se.bluebrim.desktop.application.graphical</module>
+		<module>se.bluebrim.desktop.dbschemagraph</module>
+		<module>se.bluebrim.view</module>
 	</modules>
 </project>
