@@ -124,7 +124,7 @@
 		<module>../se.bluebrim.desktop.application</module>
 		<module>../se.bluebrim.desktop.application.example.jdbc</module>
 		<module>../se.bluebrim.desktop.application.graphical</module>
-		<module>../se.bluebrim.desktop.application.dbschemagraph</module>
-		<module>../se.bluebrim.jfreeview</module>
+		<module>../se.bluebrim.desktop.dbschemagraph</module>
+		<module>../se.bluebrim.view</module>
 	</modules>
 </project>
