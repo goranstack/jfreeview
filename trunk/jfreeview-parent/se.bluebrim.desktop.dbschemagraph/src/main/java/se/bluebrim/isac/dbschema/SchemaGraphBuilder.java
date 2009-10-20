@@ -36,6 +36,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -58,6 +59,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
+
+import com.carbonfive.db.migration.DriverManagerMigrationManager;
+import com.carbonfive.db.migration.MigrationManager;
 
 import se.bluebrim.isac.desktop.PropertyPersistableHTMLView;
 import se.bluebrim.isac.desktop.PropertyPersistableView;
@@ -486,16 +490,21 @@ public class SchemaGraphBuilder
 		throw new IllegalArgumentException("No table called: \"" + tableName + "\"");
 	}
 
-	
-	protected Connection createConnection(String databaseName) throws Exception
-	{
-    Class.forName("net.sourceforge.jtds.jdbc.Driver"); // Load the JDBC driver
-    Connection connection = SchemaMigrationTool.createConnectionNoParticularDatabase();   
-		Statement statement = connection.createStatement();
-		statement.execute("use " + databaseName);
+	/**
+	 * http://code.google.com/p/c5-db-migration/wiki/ApplicationEmbedding
+	 */
+	protected Connection createConnection(String databaseName) throws Exception {
+		String databaseURL = "jdbc:hsqldb:mem:aname";
+		String databaseUser = "sa";
+		String password = "";
+		
+		MigrationManager migrationManager = new DriverManagerMigrationManager(
+				"org.hsqldb.jdbcDriver", databaseURL, databaseUser, password);
+		migrationManager.migrate();
+
+		Connection connection = DriverManager.getConnection(databaseURL, databaseUser, password);		
 		return connection;
 	}
-
 	
 	private class Table
 	{

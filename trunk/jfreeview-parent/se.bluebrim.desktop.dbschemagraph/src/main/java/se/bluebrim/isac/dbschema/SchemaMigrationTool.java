@@ -25,7 +25,7 @@ import javax.swing.UIManager;
  * If the database don't exists the database is created and all scripts specified
  * in the "install/ListOfSQLFiles.txt" is run.
  * 
- * 
+ * @deprecated use c5-db-migration instead
  * @author GStack
  *
  */
