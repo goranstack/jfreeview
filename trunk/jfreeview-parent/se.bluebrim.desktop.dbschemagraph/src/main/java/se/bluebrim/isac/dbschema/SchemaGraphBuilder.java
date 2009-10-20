@@ -33,6 +33,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -63,8 +65,8 @@ import javax.swing.WindowConstants;
 import com.carbonfive.db.migration.DriverManagerMigrationManager;
 import com.carbonfive.db.migration.MigrationManager;
 
-import se.bluebrim.isac.desktop.PropertyPersistableHTMLView;
-import se.bluebrim.isac.desktop.PropertyPersistableView;
+import se.bluebrim.desktop.graphical.PropertyPersistableHTMLView;
+import se.bluebrim.desktop.graphical.PropertyPersistableView;
 import se.bluebrim.view.DesktopView;
 import se.bluebrim.view.Handle;
 import se.bluebrim.view.Layoutable;
@@ -134,8 +136,7 @@ public class SchemaGraphBuilder
 	public static void main(String[] args) throws Exception
 	{
 		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		String dbName = "isac_schema";
-//		new SchemaMigrationTool().run(dbName);
+		String dbName = "example-db";
 		new SchemaGraphBuilder(dbName).run();
 	}
 	
@@ -162,7 +163,6 @@ public class SchemaGraphBuilder
 		metaData = connection.getMetaData();
 		getClass().getClassLoader();
 		keyIcon = ImageIO.read(getClass().getResourceAsStream("key-icon.png"));
-		readSQLManagementTable();
 		initPageFormat();
 		pdfFileChooser = new JFileChooser();
 		pdfFileChooser.setSelectedFile(createPdfFile());
@@ -172,19 +172,7 @@ public class SchemaGraphBuilder
 	{
 		return new File(databaseName + " ER diagram.pdf");
 	}
-	
-	protected void readSQLManagementTable() throws SQLException
-	{
-		sqlFileNames = new ArrayList<String>();
-		Statement stmt = connection.createStatement();
-		stmt.execute("USE " + databaseName);
-		ResultSet rs = stmt.executeQuery("SELECT * FROM dbo.IP_SQLScriptMgmt");
-		while (rs.next())
-		{
-			sqlFileNames.add(rs.getString("SqlPatchName"));
-		}
-	}
-	
+		
 	protected void run() throws Exception
 	{
 		Properties schemaProperties = new Properties();
@@ -324,17 +312,15 @@ public class SchemaGraphBuilder
 		testOptionMenuBuilder.addMenuItems(menu);
 	}
 
-	protected String getSchemaPropertiesFilePath()
+	private URI getSchemaPropertiesFilePath()
 	{
-		return "config/schema.properties";
+		try {
+			return getClass().getResource("/config/schema.properties").toURI();
+		} catch (URISyntaxException e) {
+			throw new RuntimeException(e);
+		}
 	}
 	
-	private File getConfigDir()
-	{
-		return new File(getSchemaPropertiesFilePath()).getParentFile();
-	}
-	
-
 	private void printWindow(Printable erDiagram)
 	{
 		PrinterJob printerJob = getPrinterJob();
@@ -351,7 +337,7 @@ public class SchemaGraphBuilder
 
 	protected String getPrinterJobName()
 	{
-		return "ISAC ER Diagram";
+		return "ER Diagram";
 	}
 	
 	
@@ -494,7 +480,7 @@ public class SchemaGraphBuilder
 	 * http://code.google.com/p/c5-db-migration/wiki/ApplicationEmbedding
 	 */
 	protected Connection createConnection(String databaseName) throws Exception {
-		String databaseURL = "jdbc:hsqldb:mem:aname";
+		String databaseURL = "jdbc:hsqldb:mem:" + databaseName;
 		String databaseUser = "sa";
 		String password = "";
 		
@@ -502,7 +488,7 @@ public class SchemaGraphBuilder
 				"org.hsqldb.jdbcDriver", databaseURL, databaseUser, password);
 		migrationManager.migrate();
 
-		Connection connection = DriverManager.getConnection(databaseURL, databaseUser, password);		
+		Connection connection = DriverManager.getConnection(databaseURL, databaseUser, password);
 		return connection;
 	}
 	
@@ -693,12 +679,12 @@ public class SchemaGraphBuilder
 
 		private void buildHTMLViews(ViewContext viewContext, SchemaGraphBuilder schemaGraphBuilder) throws Exception
 		{
-			URL legendURL = new File(schemaGraphBuilder.getConfigDir(), "legend.html").toURI().toURL();
+			URL legendURL = getClass().getResource("/config/legend.html").toURI().toURL();
 			URL documentBase = legendURL;
 			LegendView legendView = new LegendView(viewContext, documentBase, legendURL, schemaGraphBuilder);
 			addChild(legendView);
 			schemaGraphBuilder.propertyBasedGeometryViews.add(legendView);
-			HeadlineView headlineView = new HeadlineView(viewContext, documentBase, new File(schemaGraphBuilder.getConfigDir(), "headline.html").toURI().toURL());
+			HeadlineView headlineView = new HeadlineView(viewContext, documentBase, getClass().getResource("/config/headline.html").toURI().toURL());
 			addChild(headlineView);
 			schemaGraphBuilder.propertyBasedGeometryViews.add(headlineView);
 		}
