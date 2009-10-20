@@ -1,4 +1,4 @@
-package se.bluebrim.isac.desktop;
+package se.bluebrim.desktop.graphical;
 
 import java.awt.geom.Point2D;
 import java.util.Properties;
