@@ -19,6 +19,8 @@ import javax.swing.WindowConstants;
 import javax.swing.plaf.basic.BasicHTML;
 import javax.swing.text.View;
 
+import org.junit.Test;
+
 import se.bluebrim.view.geom.DoubleInsets;
 
 public class DrawHTMLTest
@@ -32,7 +34,8 @@ public class DrawHTMLTest
 
 	}
 
-	private void run() throws Exception
+	@Test
+	public void run() throws Exception
 	{
 		component.putClientProperty(BasicHTML.documentBaseKey, getClass().getResource("test.html"));
 		String html = loadHTML();
