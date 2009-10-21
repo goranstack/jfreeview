@@ -21,7 +21,6 @@
 		<dependency>
 			<groupId>se.bluebrim</groupId>
 			<artifactId>se.bluebrim.crud.client</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
