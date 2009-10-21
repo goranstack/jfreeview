@@ -69,6 +69,17 @@
 	</build>
 	<repositories>
 		<repository>
+			<id>googlecode-jfreecrud</id>
+			<name>JFreeCrud Maven Repo</name>
+			<url>http://jfreecrud.googlecode.com/svn/repo</url>
+			<releases>
+				<updatePolicy>always</updatePolicy>
+			</releases>
+			<snapshots>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
 			<id>googlecode-esox</id>
 			<name>Esox Maven Repo</name>
 			<url>http://esox.googlecode.com/svn/repo</url>
