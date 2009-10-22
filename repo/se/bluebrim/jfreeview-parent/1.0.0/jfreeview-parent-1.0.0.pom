@@ -1,0 +1,154 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>se.bluebrim</groupId>
+	<artifactId>jfreeview-parent</artifactId>
+	<packaging>pom</packaging>
+	<name>JFreeView Parent</name>
+	<version>1.0.0</version>
+	<description>JFreeView Maven Parent Project</description>
+	<scm>
+		<connection>scm:svn:http://jfreeview.googlecode.com/svn/tags/jfreeview-parent-1.0.0</connection>
+		<developerConnection>scm:svn:https://jfreeview.googlecode.com/svn/tags/jfreeview-parent-1.0.0</developerConnection>
+	</scm>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<!--
+				Make it possible to put resource files along side the java classes
+			-->
+			<resource>
+				<directory>src/main/java</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
+			<testResource>
+				<directory>src/test/java</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</testResource>
+		</testResources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.6</source>
+					<target>1.6</target>
+				</configuration>
+			</plugin>
+			<!--
+				Make it possible to for test code to depend on test code in other
+				modules
+			-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>install</phase>
+						<goals>
+							<goal>jar</goal>
+							<goal>test-jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+
+		<extensions>
+			<extension>
+				<groupId>org.jvnet.wagon-svn</groupId>
+				<artifactId>wagon-svn</artifactId>
+				<version>1.9</version>
+			</extension>
+		</extensions>
+	</build>
+	<repositories>
+		<repository>
+			<id>googlecode-jfreecrud</id>
+			<name>JFreeCrud Maven Repo</name>
+			<url>http://jfreecrud.googlecode.com/svn/repo</url>
+			<releases>
+				<updatePolicy>always</updatePolicy>
+			</releases>
+			<snapshots>
+				<updatePolicy>always</updatePolicy>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>googlecode-esox</id>
+			<name>Esox Maven Repo</name>
+			<url>http://esox.googlecode.com/svn/repo</url>
+		</repository>
+	</repositories>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>se.bluebrim</groupId>
+				<artifactId>se.bluebrim.crud.client</artifactId>
+				<version>1.0.2</version>
+				<type>test-jar</type>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>se.bluebrim</groupId>
+				<artifactId>se.bluebrim.crud.client</artifactId>
+				<version>1.0.2</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-lang</groupId>
+				<artifactId>commons-lang</artifactId>
+				<version>2.4</version>
+			</dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.7</version>
+				<type>jar</type>
+				<scope>compile</scope>
+			</dependency>
+
+		</dependencies>
+	</dependencyManagement>
+	<!--
+		Found at Don Brown's Weblog:
+		http://www.jroller.com/mrdon/entry/find_of_the_day_wagon
+	-->
+	<distributionManagement>
+		<repository>
+			<uniqueVersion>false</uniqueVersion>
+			<id>googlecode-jfreeview</id>
+			<url>svn:https://jfreeview.googlecode.com/svn/repo</url>
+		</repository>
+	</distributionManagement>
+
+	<modules>
+		<module>se.bluebrim.desktop.application</module>
+		<module>se.bluebrim.desktop.application.example.jdbc</module>
+		<module>se.bluebrim.desktop.application.graphical</module>
+		<module>se.bluebrim.desktop.dbschemagraph</module>
+		<module>se.bluebrim.view</module>
+	</modules>
+</project>
