@@ -11,10 +11,15 @@
 		<connection>scm:svn:http://jfreeview.googlecode.com/svn/trunk/${pom.artifactId}</connection>
 		<developerConnection>scm:svn:https://jfreeview.googlecode.com/svn/trunk/${pom.artifactId}</developerConnection>
 	</scm>
-	
+
 	<build>
 		<resources>
-		<!-- Make it possible to put resource files along side the java classes -->
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+			<!--
+				Make it possible to put resource files along side the java classes
+			-->
 			<resource>
 				<directory>src/main/java</directory>
 				<excludes>
@@ -22,6 +27,17 @@
 				</excludes>
 			</resource>
 		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+			</testResource>
+			<testResource>
+				<directory>src/test/java</directory>
+				<excludes>
+					<exclude>**/*.java</exclude>
+				</excludes>
+			</testResource>
+		</testResources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -31,7 +47,10 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
-			<!-- Make it possible to for test code to depend on test code in other modules -->
+			<!--
+				Make it possible to for test code to depend on test code in other
+				modules
+			-->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -89,42 +108,24 @@
 		<dependencies>
 			<dependency>
 				<groupId>se.bluebrim</groupId>
-				<artifactId>se.bluebrim.desktop.application</artifactId>
-				<version>1.0.0-SNAPSHOT</version>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>se.bluebrim</groupId>
-				<artifactId>se.bluebrim.desktop.application.example.jdbc</artifactId>
-				<version>1.0.0-SNAPSHOT</version>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>se.bluebrim</groupId>
-				<artifactId>se.bluebrim.desktop.application.graphical</artifactId>
-				<version>1.0.0-SNAPSHOT</version>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>se.bluebrim</groupId>
-				<artifactId>se.bluebrim.desktop.dbschemagraph</artifactId>
-				<version>1.0.0-SNAPSHOT</version>
-				<scope>compile</scope>
-			</dependency>
-			<dependency>
-				<groupId>se.bluebrim</groupId>
-				<artifactId>se.bluebrim.view</artifactId>
-				<version>1.0.0-SNAPSHOT</version>
-				<scope>compile</scope>
+				<artifactId>se.bluebrim.crud.client</artifactId>
+				<version>1.0.0</version>
+				<type>test-jar</type>
+				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>se.bluebrim</groupId>
 				<artifactId>se.bluebrim.crud.client</artifactId>
 				<version>1.0.0</version>
-		</dependency>
-			
+			</dependency>
+			<dependency>
+				<groupId>commons-lang</groupId>
+				<artifactId>commons-lang</artifactId>
+				<version>2.4</version>
+			</dependency>
+
 		</dependencies>
-	</dependencyManagement>	
+	</dependencyManagement>
 	<!--
 		Found at Don Brown's Weblog:
 		http://www.jroller.com/mrdon/entry/find_of_the_day_wagon
@@ -136,7 +137,7 @@
 			<url>svn:https://jfreeview.googlecode.com/svn/repo</url>
 		</repository>
 	</distributionManagement>
-	
+
 	<modules>
 		<module>se.bluebrim.desktop.application</module>
 		<module>se.bluebrim.desktop.application.example.jdbc</module>
