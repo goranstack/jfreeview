@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>jfreeview-parent</artifactId>
 		<groupId>se.bluebrim</groupId>
-		<version>1.0.0</version>
+		<version>1.0.1-SNAPSHOT</version>
 	</parent>
 	
 	<artifactId>se.bluebrim.desktop.application.example.jdbc</artifactId>

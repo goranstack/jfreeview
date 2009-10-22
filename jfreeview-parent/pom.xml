@@ -4,11 +4,11 @@
 	<artifactId>jfreeview-parent</artifactId>
 	<packaging>pom</packaging>
 	<name>JFreeView Parent</name>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<description>JFreeView Maven Parent Project</description>
 	<scm>
-		<connection>scm:svn:http://jfreeview.googlecode.com/svn/tags/jfreeview-parent-1.0.0</connection>
-		<developerConnection>scm:svn:https://jfreeview.googlecode.com/svn/tags/jfreeview-parent-1.0.0</developerConnection>
+		<connection>scm:svn:http://jfreeview.googlecode.com/svn/trunk/jfreeview-parent</connection>
+		<developerConnection>scm:svn:https://jfreeview.googlecode.com/svn/trunk/jfreeview-parent</developerConnection>
 	</scm>
 
 	<build>
