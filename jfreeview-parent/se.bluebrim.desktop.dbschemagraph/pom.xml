@@ -6,7 +6,7 @@
 		<version>1.0.1-SNAPSHOT</version>
 	</parent>
 	
-	<artifactId>se.bluebrim.desktop.dbschemagraph</artifactId>
+	<artifactId>se.bluebrim.view.example.dbschemagraph</artifactId>
 	<name>Database Schema Graph Example</name>
 	
 	<dependencies>
