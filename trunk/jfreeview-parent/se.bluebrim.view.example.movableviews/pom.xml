@@ -9,4 +9,12 @@
   <artifactId>se.bluebrim.view.example.movableviews</artifactId>
   <name>Movable Views Example</name>
   <description>Example application showing various features of JFreeView </description>
+  <dependencies>
+  	<dependency>
+  		<groupId>${project.groupId}</groupId>
+  		<artifactId>se.bluebrim.view.example</artifactId>
+  		<version>${project.version}</version>
+  		<scope>compile</scope>
+  	</dependency>
+  </dependencies>
 </project>
