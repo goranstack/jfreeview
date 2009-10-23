@@ -1,4 +1,4 @@
-package se.bluebrim.isac.dbschema;
+package se.bluebrim.view.example.dbschemagraph;
 
 import java.io.BufferedReader;
 import java.io.File;

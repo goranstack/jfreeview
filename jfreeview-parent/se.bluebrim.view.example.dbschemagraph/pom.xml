@@ -47,4 +47,59 @@
 		</pluginRepository>
 	</pluginRepositories>
 
+	<build>
+		<plugins>
+			<!--
+				http://mojo.codehaus.org/webstart/webstart-maven-plugin/jnlp-mojos-overview.html
+				http://tipatech.com/java/20/build-groovy-swing-based-web-start-application-using-maven
+				http://blogs.sun.com/thejavatutorials/entry/deploying_your_rich_internet_application
+				The webstart-maven-plugin must be executed manually due to a bug. Run mvn webstart:jnlp
+			-->
+			<plugin>
+				<groupId>org.codehaus.mojo.webstart</groupId>
+				<artifactId>webstart-maven-plugin</artifactId>
+				<configuration>
+					<libPath>lib</libPath>
+					<jnlp>
+            			<inputTemplateResourcePath>${project.basedir}/src/jnlp</inputTemplateResourcePath>
+           				<inputTemplate>template.vm</inputTemplate>
+						<outputFile>dbschemagraph.jnlp</outputFile>
+						<mainClass>se.bluebrim.view.example.dbschemagraph.SchemaGraphBuilder</mainClass>
+					</jnlp>
+					<sign>
+						<keystore>${project.basedir}/src/jnlp/dbschemagraph.jks</keystore>
+						<keypass>12345678</keypass>
+						<storepass>12345678</storepass>
+						<storetype>jks</storetype>
+						<validity>365</validity>						
+						<alias>jfreeview</alias>
+						<dnameCn>Göran Stäck</dnameCn>
+						<dnameOu>JFreeView</dnameOu>
+						<dnameO>JFreeView Team</dnameO>
+						<dnameL>Stockholm</dnameL>
+						<dnameSt>Sweden</dnameSt>
+						<dnameC>SE</dnameC>
+						<verify>true</verify>
+						<!-- KEYSTORE MANAGEMENT -->
+						<keystoreConfig>
+							<delete>true</delete>
+							<gen>true</gen>
+						</keystoreConfig>
+					</sign>
+					<pack200>true</pack200>
+					<gzip>true</gzip>
+					<outputJarVersions>true</outputJarVersions>
+					<verbose>true</verbose>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	<repositories>
+		<repository>
+			<id>codehaus-repository</id>
+			<name>Codehaus Repository</name>
+			<url>http://repository.codehaus.org/</url>
+		</repository>
+	</repositories>
+
 </project>
