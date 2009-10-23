@@ -10,6 +10,7 @@
 	<scm>
 		<connection>scm:svn:http://jfreeview.googlecode.com/svn/trunk/jfreeview-parent</connection>
 		<developerConnection>scm:svn:https://jfreeview.googlecode.com/svn/trunk/jfreeview-parent</developerConnection>
+		<url>http://code.google.com/p/jfreeview/source/browse</url>
 	</scm>
 
 	<build>
