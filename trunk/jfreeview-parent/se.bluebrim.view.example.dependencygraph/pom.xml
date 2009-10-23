@@ -6,7 +6,7 @@
     <version>1.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>se.bluebrim.view.dependencygraph</artifactId>
+  <artifactId>se.bluebrim.view.example.dependencygraph</artifactId>
   <name>Dependency Graph Example</name>  
   <description>Application that creates a dependency graph based on a Eclipse workspace</description>
   
