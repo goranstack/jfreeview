@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <name>Zoom Example</name>
+  <description>An application with a zoom tool and nothing more.</description>
+
+  <parent>
+    <artifactId>jfreeview-parent</artifactId>
+    <groupId>se.bluebrim</groupId>
+    <version>1.0.1-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>se.bluebrim.view.example.zoom</artifactId>
+  <dependencies>
+  	<dependency>
+  		<groupId>${project.groupId}</groupId>
+  		<artifactId>se.bluebrim.view</artifactId>
+  		<version>${project.version}</version>
+  		<scope>compile</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>${project.groupId}</groupId>
+  		<artifactId>se.bluebrim.view.example</artifactId>
+  		<version>${project.version}</version>
+  		<scope>compile</scope>
+  	</dependency>
+  </dependencies>
+
+</project>
