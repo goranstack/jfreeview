@@ -1,0 +1,20 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>jfreeview-parent</artifactId>
+    <groupId>se.bluebrim</groupId>
+    <version>1.0.1-SNAPSHOT</version>
+  </parent>
+
+   <artifactId>se.bluebrim.view.example.architecturegraph</artifactId>
+  <name>Architecture Graph Example</name>
+  <description>An application that demonstrates how to create a block diagram programatically with Java and Swing Layout Managers.</description>
+  <dependencies>
+  	<dependency>
+  		<groupId>${project.groupId}</groupId>
+  		<artifactId>se.bluebrim.desktop.application.graphical</artifactId>
+  		<version>${project.version}</version>
+  		<scope>compile</scope>
+  	</dependency>
+  </dependencies>
+</project>
