@@ -158,5 +158,6 @@
 		<module>se.bluebrim.view.example.svg.rasterizer</module>
 		<module>se.bluebrim.view.example.architecturegraph</module>
 		<module>se.bluebrim.view.example.dependencygraph</module>
+		<module>se.bluebrim.view.example.zoom</module>
 	</modules>
 </project>
