@@ -1,4 +1,4 @@
-package se.bluebrim.isac.dbschema;
+package se.bluebrim.view.example.dbschemagraph;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
