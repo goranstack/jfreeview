@@ -121,6 +121,7 @@ import se.bluebrim.view.zoom.ZoomController;
  * 
  * Database model samples
  * http://www.databaseanswers.org/tutorial4_db_schema/index.htm
+ * https://petstore.dev.java.net/
  * 
  * Modeling tools
  * http://www.databaseanswers.com/modelling_tools.htm
@@ -453,7 +454,7 @@ public class SchemaGraphBuilder
 
 	private void buildModel() throws SQLException
 	{
-		ResultSet rs = metaData.getTables(databaseName, "dbo", null, new String[] { "TABLE" });
+		ResultSet rs = metaData.getTables(null, null, null, new String[]{ "TABLE" });
 		while (rs.next())
 		{
 			System.out.println(rs.getString("TABLE_NAME"));
@@ -502,7 +503,7 @@ public class SchemaGraphBuilder
 		public Table(String name) throws SQLException
 		{
 			this.name = name;
-			ResultSet rs = metaData.getColumns(databaseName, null, name, null);
+			ResultSet rs = metaData.getColumns(null, null, name, null);
 			while (rs.next())
 			{
 				String columnName = rs.getString("COLUMN_NAME");
@@ -510,7 +511,7 @@ public class SchemaGraphBuilder
 				System.out.println("     " + columnName + " isNullable: " + isNullable);
 				columns.add(new Column(this, columnName, isNullable));
 			}
-			rs = metaData.getPrimaryKeys(databaseName, null, name);
+			rs = metaData.getPrimaryKeys(null, null, name);
 			while (rs.next())
 			{
 				String columnName = rs.getString("COLUMN_NAME");
@@ -561,7 +562,7 @@ public class SchemaGraphBuilder
 		 */
 		public void updateForeignKeyList() throws SQLException
 		{
-			ResultSet rs = metaData.getExportedKeys(databaseName, null, name);
+			ResultSet rs = metaData.getExportedKeys(null, null, name);
 			while (rs.next())
 			{
 				String foreignKeyTableName = rs.getString("FKTABLE_NAME"); 	// The table that defines the foreign key
