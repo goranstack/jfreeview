@@ -7,7 +7,7 @@
 	</parent>
 	
 	<artifactId>se.bluebrim.desktop.dbschemagraph</artifactId>
-	<name>Database schema graph example</name>
+	<name>Database Schema Graph Example</name>
 	
 	<dependencies>
 		<dependency>
