@@ -150,13 +150,13 @@
 		<module>se.bluebrim.desktop.application</module>
 		<module>se.bluebrim.desktop.application.example.jdbc</module>
 		<module>se.bluebrim.desktop.application.graphical</module>
-		<module>se.bluebrim.desktop.dbschemagraph</module>
 		<module>se.bluebrim.view</module>
 		<module>se.bluebrim.view.example</module>
+		<module>se.bluebrim.view.example.dbschemagraph</module>
 		<module>se.bluebrim.view.example.movableviews</module>
 		<module>se.bluebrim.view.example.dnd</module>
 		<module>se.bluebrim.view.example.svg.rasterizer</module>
 		<module>se.bluebrim.view.example.architecturegraph</module>
-		<module>se.bluebrim.view.dependencygraph</module>
+		<module>se.bluebrim.view.example.dependencygraph</module>
 	</modules>
 </project>
