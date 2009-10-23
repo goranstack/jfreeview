@@ -3,9 +3,10 @@
 	<groupId>se.bluebrim</groupId>
 	<artifactId>jfreeview-parent</artifactId>
 	<packaging>pom</packaging>
-	<name>JFreeView Parent</name>
+	<name>JFreeView</name>
 	<version>1.0.1-SNAPSHOT</version>
-	<description>JFreeView Maven Parent Project</description>
+	<description>Framework based on Java Swing and Java2D for visualizing and editing various kinds of models. The central objects are views that render them selfs on a JPanel. Views can be moved and resized by connected handles.</description>
+	<url>http://code.google.com/p/jfreeview</url>
 	<scm>
 		<connection>scm:svn:http://jfreeview.googlecode.com/svn/trunk/jfreeview-parent</connection>
 		<developerConnection>scm:svn:https://jfreeview.googlecode.com/svn/trunk/jfreeview-parent</developerConnection>
