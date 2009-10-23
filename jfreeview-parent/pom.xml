@@ -152,5 +152,6 @@
 		<module>se.bluebrim.desktop.application.graphical</module>
 		<module>se.bluebrim.desktop.dbschemagraph</module>
 		<module>se.bluebrim.view</module>
+		<module>se.bluebrim.view.example</module>
 	</modules>
 </project>
