@@ -1,5 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+  <description>A collection of views that are used in demo applications</description>
   <parent>
     <artifactId>jfreeview-parent</artifactId>
     <groupId>se.bluebrim</groupId>
@@ -7,6 +8,13 @@
   </parent>
 
   <artifactId>se.bluebrim.view.example</artifactId>
-  <name>Example Application</name>
-  <description>Demo application showing various features of JFreeCrud</description>
+  <name>Example Views</name>
+  <dependencies>
+  	<dependency>
+  		<groupId>${project.groupId}</groupId>
+  		<artifactId>se.bluebrim.view</artifactId>
+  		<version>${project.version}</version>
+  		<scope>compile</scope>
+  	</dependency>
+  </dependencies>
 </project>
