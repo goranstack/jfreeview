@@ -8,8 +8,8 @@
 	<description>Framework based on Java Swing and Java2D for visualizing and editing various kinds of models. The central objects are views that render them selfs on a JPanel. Views can be moved and resized by connected handles.</description>
 	<url>http://code.google.com/p/jfreeview</url>
 	<scm>
-		<connection>scm:svn:http://jfreeview.googlecode.com/svn/trunk/jfreeview-parent</connection>
-		<developerConnection>scm:svn:https://jfreeview.googlecode.com/svn/trunk/jfreeview-parent</developerConnection>
+		<connection>scm:svn:http://jfreeview.googlecode.com/svn/trunk/${artifactId}</connection>
+		<developerConnection>scm:svn:https://jfreeview.googlecode.com/svn/trunk/${artifactId}</developerConnection>
 		<url>http://code.google.com/p/jfreeview/source/browse</url>
 	</scm>
 
