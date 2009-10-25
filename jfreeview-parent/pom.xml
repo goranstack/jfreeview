@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>se.bluebrim</groupId>
 	<artifactId>jfreeview-parent</artifactId>
@@ -86,7 +87,49 @@
 				<version>1.9</version>
 			</extension>
 		</extensions>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo.webstart</groupId>
+					<artifactId>webstart-maven-plugin</artifactId>
+					<version>1.0-alpha-2</version>					
+					<configuration>
+						<libPath>lib</libPath>
+						<jnlp>
+							<inputTemplateResourcePath>${project.basedir}/src/main/jnlp</inputTemplateResourcePath>
+							<inputTemplate>template.vm</inputTemplate>
+							<outputFile>launch.jnlp</outputFile>
+						</jnlp>
+						<sign>
+							<keystore>${project.basedir}/src/jnlp/keystore.jks</keystore>
+							<keypass>12345678</keypass>
+							<storepass>12345678</storepass>
+							<storetype>jks</storetype>
+							<validity>365</validity>
+							<alias>jfreeview</alias>
+							<dnameCn>Goran Stack</dnameCn>
+							<dnameOu>JFreeView</dnameOu>
+							<dnameO>JFreeView Team</dnameO>
+							<dnameL>Stockholm</dnameL>
+							<dnameSt>Sweden</dnameSt>
+							<dnameC>SE</dnameC>
+							<verify>true</verify>
+							<!-- KEYSTORE MANAGEMENT -->
+							<keystoreConfig>
+								<delete>true</delete>
+								<gen>true</gen>
+							</keystoreConfig>
+						</sign>
+						<pack200>true</pack200>
+						<gzip>true</gzip>
+						<outputJarVersions>true</outputJarVersions>
+						<verbose>true</verbose>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
 	</build>
+
 	<repositories>
 		<repository>
 			<id>googlecode-jfreecrud</id>
@@ -103,7 +146,12 @@
 			<id>googlecode-esox</id>
 			<name>Esox Maven Repo</name>
 			<url>http://esox.googlecode.com/svn/repo</url>
-		</repository>
+		</repository>		
+		<repository>
+			<id>codehaus-repository</id>
+			<name>Codehaus Repository</name>
+			<url>http://repository.codehaus.org/</url>
+		</repository>				
 	</repositories>
 	<dependencyManagement>
 		<dependencies>
