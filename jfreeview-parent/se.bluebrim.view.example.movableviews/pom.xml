@@ -1,20 +1,43 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <artifactId>jfreeview-parent</artifactId>
-    <groupId>se.bluebrim</groupId>
-    <version>1.0.1-SNAPSHOT</version>
-  </parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>jfreeview-parent</artifactId>
+		<groupId>se.bluebrim</groupId>
+		<version>1.0.1-SNAPSHOT</version>
+	</parent>
 
-  <artifactId>se.bluebrim.view.example.movableviews</artifactId>
-  <name>Movable Views Example</name>
-  <description>Example application showing various features of JFreeView </description>
-  <dependencies>
-  	<dependency>
-  		<groupId>${project.groupId}</groupId>
-  		<artifactId>se.bluebrim.view.example</artifactId>
-  		<version>${project.version}</version>
-  		<scope>compile</scope>
-  	</dependency>
-  </dependencies>
+	<artifactId>se.bluebrim.view.example.movableviews</artifactId>
+	<name>Movable Views Example</name>
+	<description>Example application showing various features of JFreeView </description>
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>se.bluebrim.view.example</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!--
+				http://mojo.codehaus.org/webstart/webstart-maven-plugin/jnlp-mojos-overview.html
+				http://tipatech.com/java/20/build-groovy-swing-based-web-start-application-using-maven
+				http://blogs.sun.com/thejavatutorials/entry/deploying_your_rich_internet_application
+				The webstart-maven-plugin must be executed manually due to a bug.
+				Run mvn webstart:jnlp
+			-->
+			<plugin>
+				<groupId>org.codehaus.mojo.webstart</groupId>
+				<artifactId>webstart-maven-plugin</artifactId>
+				<configuration>
+					<jnlp>
+						<mainClass>se.bluebrim.view.example.movableviews.MovableViewsExample</mainClass>
+					</jnlp>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>

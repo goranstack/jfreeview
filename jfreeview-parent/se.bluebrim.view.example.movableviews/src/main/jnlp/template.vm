@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0+" codebase="http://jfreeview.googlecode.com/svn/trunk/site/jnlp" href="$outputFile">
+ <information>
+    <title>JFreeView Movable Views Example</title>
+    <vendor>JFreeView Team</vendor>
+    <homepage href="http://code.google.com/p/jfreeview"/>
+    <description kind="one-line">JFreeView Movable Views Example</description>
+    <description kind="short">JFreeView Movable Views Example - desktop application showing various features of JFreeView</description>
+    <description kind="tooltip">JFreeView Movable Views Example - desktop application showing various features of JFreeView</description>
+    <icon href="bluebrim-logo-liten.png" kind="default"/>
+    <shortcut online="false"><desktop/><menu submenu="JFreeView Movable Views Example"/></shortcut>
+ </information>
+ <security>
+ <all-permissions/>
+ </security>
+ <resources>
+    <j2se version="1.6+" initial-heap-size="32m" max-heap-size="128m" />
+    <property name="jnlp.versionEnabled" value="true"/>
+    $dependencies
+ </resources>
+ <application-desc main-class="$mainClass">
+ </application-desc>
+</jnlp>
