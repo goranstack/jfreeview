@@ -7,7 +7,7 @@
     <description kind="one-line">JFreeView Movable Views Example</description>
     <description kind="short">JFreeView Movable Views Example - desktop application showing various features of JFreeView</description>
     <description kind="tooltip">JFreeView Movable Views Example - desktop application showing various features of JFreeView</description>
-    <icon href="bluebrim-logo-liten.png" kind="default"/>
+    <icon href="jfreeview-logo-32x32.png" kind="default"/>
     <shortcut online="false"><desktop/><menu submenu="JFreeView Movable Views Example"/></shortcut>
  </information>
  <security>
