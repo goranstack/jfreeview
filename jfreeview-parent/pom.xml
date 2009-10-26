@@ -92,22 +92,23 @@
 				<plugin>
 					<groupId>org.codehaus.mojo.webstart</groupId>
 					<artifactId>webstart-maven-plugin</artifactId>
-					<version>1.0-alpha-2</version>					
+					<version>1.0-alpha-2</version>				
 					<configuration>
-						<libPath>lib</libPath>
+						<skip>true</skip>
+						<libPath>lib</libPath>						
 						<jnlp>
-							<inputTemplateResourcePath>${project.basedir}/src/main/jnlp</inputTemplateResourcePath>
-							<inputTemplate>template.vm</inputTemplate>
+							<inputTemplateResourcePath>${project.basedir}</inputTemplateResourcePath>
+							<inputTemplate>src/main/jnlp/template.vm</inputTemplate>
 							<outputFile>launch.jnlp</outputFile>
 						</jnlp>
 						<sign>
-							<keystore>${project.basedir}/src/jnlp/keystore.jks</keystore>
+							<keystore>${project.basedir}/src/main/jnlp/keystore.jks</keystore>
 							<keypass>12345678</keypass>
 							<storepass>12345678</storepass>
 							<storetype>jks</storetype>
 							<validity>365</validity>
 							<alias>jfreeview</alias>
-							<dnameCn>Goran Stack</dnameCn>
+							<dnameCn>Göran Stäck</dnameCn>
 							<dnameOu>JFreeView</dnameOu>
 							<dnameO>JFreeView Team</dnameO>
 							<dnameL>Stockholm</dnameL>
@@ -120,9 +121,9 @@
 								<gen>true</gen>
 							</keystoreConfig>
 						</sign>
-						<pack200>true</pack200>
-						<gzip>true</gzip>
-						<outputJarVersions>true</outputJarVersions>
+						<pack200>false</pack200>
+						<outputJarVersions>false</outputJarVersions>
+						<gzip>false</gzip>
 						<verbose>true</verbose>
 					</configuration>
 				</plugin>
