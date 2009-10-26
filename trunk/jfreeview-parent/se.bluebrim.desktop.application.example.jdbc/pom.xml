@@ -12,13 +12,14 @@
 	
 	<dependencies>
 		<dependency>
-			<groupId>se.bluebrim</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>se.bluebrim.desktop.application</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>se.bluebrim</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>se.bluebrim.crud.client</artifactId>
+			<version>${project.version}</version>
 			<type>test-jar</type>
 			<scope>test</scope>
 		</dependency>

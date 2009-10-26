@@ -16,8 +16,9 @@
 			<artifactId>commons-lang</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>se.bluebrim</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>se.bluebrim.crud.client</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 
