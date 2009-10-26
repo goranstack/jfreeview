@@ -6,7 +6,10 @@
 	<packaging>pom</packaging>
 	<name>JFreeView</name>
 	<version>1.0.1-SNAPSHOT</version>
-	<description>Framework based on Java Swing and Java2D for visualizing and editing various kinds of models. The central objects are views that render them selfs on a JPanel. Views can be moved and resized by connected handles.</description>
+	<description>Framework based on Java Swing and Java2D for visualizing
+		and editing various kinds of models. The central objects are views
+		that render them selfs on a JPanel. Views can be moved and resized by
+		connected handles.</description>
 	<url>http://code.google.com/p/jfreeview</url>
 	<scm>
 		<connection>scm:svn:http://jfreeview.googlecode.com/svn/trunk/${artifactId}</connection>
@@ -77,7 +80,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 		</plugins>
 
 		<extensions>
@@ -92,17 +94,19 @@
 				<plugin>
 					<groupId>org.codehaus.mojo.webstart</groupId>
 					<artifactId>webstart-maven-plugin</artifactId>
-					<version>1.0-alpha-2</version>				
+					<version>1.0-alpha-2</version>
 					<configuration>
 						<skip>true</skip>
-						<libPath>lib</libPath>						
+						<libPath>lib</libPath>
 						<jnlp>
-							<inputTemplateResourcePath>${project.basedir}</inputTemplateResourcePath>
+							<inputTemplateResourcePath>${project.basedir}
+							</inputTemplateResourcePath>
 							<inputTemplate>src/main/jnlp/template.vm</inputTemplate>
 							<outputFile>launch.jnlp</outputFile>
 						</jnlp>
 						<sign>
-							<keystore>${project.basedir}/src/main/jnlp/keystore.jks</keystore>
+							<keystore>${project.basedir}/src/main/jnlp/keystore.jks
+							</keystore>
 							<keypass>12345678</keypass>
 							<storepass>12345678</storepass>
 							<storetype>jks</storetype>
@@ -147,12 +151,12 @@
 			<id>googlecode-esox</id>
 			<name>Esox Maven Repo</name>
 			<url>http://esox.googlecode.com/svn/repo</url>
-		</repository>		
+		</repository>
 		<repository>
 			<id>codehaus-repository</id>
 			<name>Codehaus Repository</name>
 			<url>http://repository.codehaus.org/</url>
-		</repository>				
+		</repository>
 	</repositories>
 	<dependencyManagement>
 		<dependencies>
