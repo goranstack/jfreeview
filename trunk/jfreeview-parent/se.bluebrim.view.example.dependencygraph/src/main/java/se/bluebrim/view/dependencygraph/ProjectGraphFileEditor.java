@@ -266,14 +266,14 @@ public class ProjectGraphFileEditor extends GraphicalFileEditor
 
 	private void createHeadlineView(ViewContext viewContext) throws MalformedURLException, Exception
 	{
-		URL headLineView = new ClassPathResource("html/headline.html", getClass()).getURL();
+		URL headLineView = new ClassPathResource("html/headline.html").getURL();
 		headlineView = new HeadLineView(viewContext, headLineView, headLineView);
 		paperView.addChild(headlineView);
 	}
 	
 	private void createLegendView(ViewContext viewContext) throws MalformedURLException, Exception
 	{
-		URL legendView = new ClassPathResource("html/legend.html", getClass()).getURL();
+		URL legendView = new ClassPathResource("html/legend.html").getURL();
 		HTMLView headlineView = new PropertyPersistableHTMLView(viewContext, legendView, legendView)
 		{
 			@Override
