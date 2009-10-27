@@ -200,5 +200,6 @@
 		<module>se.bluebrim.view.example.architecturegraph</module>
 		<module>se.bluebrim.view.example.dependencygraph</module>
 		<module>se.bluebrim.view.example.zoom</module>
+		<module>se.bluebrim.view.renderhtmltest</module>
 	</modules>
 </project>
