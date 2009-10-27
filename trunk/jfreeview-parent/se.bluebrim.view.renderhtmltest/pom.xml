@@ -9,4 +9,12 @@
   <artifactId>se.bluebrim.view.renderhtmltest</artifactId>
   <name>Render HTML test</name>
   <description>Application that show Swing capabilities to render HTML</description>
+  <dependencies>
+  	<dependency>
+  		<groupId>${project.groupId}</groupId>
+  		<artifactId>se.bluebrim.view</artifactId>
+  		<version>${project.version}</version>
+  		<scope>compile</scope>
+  	</dependency>
+  </dependencies>
 </project>
