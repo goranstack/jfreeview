@@ -6,7 +6,7 @@
     <version>1.0.1-SNAPSHOT</version>
   </parent>
 
-  <artifactId>se.bluebrim.view.renderhtmltest</artifactId>
+  <artifactId>se.bluebrim.view.example.htmlpanel</artifactId>
   <name>Render HTML test</name>
   <description>Application that show Swing capabilities to render HTML</description>
   <dependencies>
