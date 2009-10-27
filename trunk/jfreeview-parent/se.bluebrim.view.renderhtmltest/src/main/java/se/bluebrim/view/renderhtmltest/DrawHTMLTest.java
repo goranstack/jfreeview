@@ -23,6 +23,7 @@ import javax.swing.text.View;
 
 public class DrawHTMLTest
 {
+	private static final String SAMPLE_HTML_PATH = "/test.html";
 	static private final JComponent component = new JLabel();
 	
 
@@ -34,9 +35,9 @@ public class DrawHTMLTest
 
 	public void run() throws Exception
 	{
-		component.putClientProperty(BasicHTML.documentBaseKey, getClass().getResource("test.html"));
+		component.putClientProperty(BasicHTML.documentBaseKey, getClass().getResource(SAMPLE_HTML_PATH));
 		String html = loadHTML();
-		System.out.println("HTML: \"" + html + "\"");
+//		System.out.println("HTML: \"" + html + "\"");
 		View htmlView = BasicHTML.createHTMLView(component, html);
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -50,7 +51,7 @@ public class DrawHTMLTest
 	
 	private String loadHTML() throws IOException
 	{
-		BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream("test.html")));
+		BufferedReader reader = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(SAMPLE_HTML_PATH)));
 		StringBuffer fileData = new StringBuffer(1000);
 		char[] buf = new char[1024];
 		int numRead = 0;
@@ -63,9 +64,7 @@ public class DrawHTMLTest
 		reader.close();
 		return fileData.toString();			
 	}
-
-
-
+		
 	private static class HTMLPanel extends JPanel
 	{
 		private View htmlView;
