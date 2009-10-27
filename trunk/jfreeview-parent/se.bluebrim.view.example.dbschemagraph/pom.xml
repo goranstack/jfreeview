@@ -58,6 +58,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo.webstart</groupId>
 				<artifactId>webstart-maven-plugin</artifactId>
+				<version>1.0-alpha-2</version>
 				<configuration>
 					<jnlp>
 						<mainClass>se.bluebrim.view.example.dbschemagraph.SchemaGraphBuilder</mainClass>
