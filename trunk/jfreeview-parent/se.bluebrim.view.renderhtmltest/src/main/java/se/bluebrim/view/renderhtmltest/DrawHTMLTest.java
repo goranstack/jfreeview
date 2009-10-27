@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Insets;
 import java.awt.Rectangle;
+import java.awt.RenderingHints;
 import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
 import java.io.BufferedReader;
@@ -42,7 +43,8 @@ public class DrawHTMLTest
 		Container contentPane = frame.getContentPane();
 		contentPane.setLayout(new BorderLayout());
 		contentPane.add(new HTMLPanel(htmlView), BorderLayout.CENTER);
-		frame.setSize(300, 300);
+		frame.setSize(700, 700);
+		frame.setLocation(100, 100);
 		frame.setVisible(true);
 	}
 	
@@ -83,6 +85,7 @@ public class DrawHTMLTest
 		
 		private void drawTextView(Graphics2D g, javax.swing.text.View htmlView, Insets textInsets)
 		{
+			g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 			Rectangle2D bounds = getBounds();
 			Shape restoreClip = g.getClip();
 			g.clip(getBounds()); // fix NPE in javax.swing.text.BoxView.paint when dragging      
