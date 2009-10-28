@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0+" codebase="http://jfreeview.googlecode.com/svn/trunk/site/jnlp" href="$outputFile">
+ <information>
+    <title>JFreeView Architecture Graph Example</title>
+    <vendor>JFreeView Team</vendor>
+    <homepage href="http://code.google.com/p/jfreeview"/>
+    <description kind="one-line">JFreeView Architecture Graph Example</description>
+    <description kind="short">JFreeView Architecture Graph Example - desktop application that programmatically creates block diagrams</description>
+    <description kind="tooltip">JFreeView Architecture Graph Example - desktop application that programmatically creates block diagrams</description>
+    <icon href="jfreeview-logo-32x32.png" kind="default"/>
+    <shortcut online="false"><desktop/><menu submenu="JFreeView Architecture Graph Example"/></shortcut>
+ </information>
+ <security>
+ <all-permissions/>
+ </security>
+ <resources>
+    <j2se version="1.6+" initial-heap-size="32m" max-heap-size="128m" />
+    <property name="jnlp.versionEnabled" value="false"/>
+    <property name="jnlp.packEnabled" value="false"/>    
+    $dependencies
+ </resources>
+ <application-desc main-class="$mainClass">
+ </application-desc>
+</jnlp>
