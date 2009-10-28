@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.Toolkit;
 import java.awt.geom.Rectangle2D;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -46,7 +47,8 @@ public class ZoomToolTest
 	{
 		window = new JFrame();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setTitle("Zoom tool test");
+		window.setTitle("Zoom Tool Test");
+		window.setIconImage(new ImageIcon(getClass().getResource("jfreeview-logo-32x32.png")).getImage());
 
 		ViewContext viewContext = new ViewContext(new Scale(), new Scale(), window);
 		viewPanel = new ViewPanel(null, viewContext);
