@@ -1,1 +1,8 @@
 #summary Run example application.
+
+==Movable Views Example==
+This application show many features of the JFreeView library.
+
+http://jfreeview.googlecode.com/svn/site/images/movableviews.png
+
+[http://jfreeview.googlecode.com/svn/site/jnlp/se.bluebrim.view.example.movableviews.jnlp http://jfreeview.googlecode.com/svn/site/jnlp/webstart.png]
