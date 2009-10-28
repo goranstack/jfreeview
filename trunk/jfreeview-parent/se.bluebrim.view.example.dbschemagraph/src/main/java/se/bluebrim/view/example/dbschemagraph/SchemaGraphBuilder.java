@@ -30,11 +30,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
@@ -46,10 +43,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -60,6 +60,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
+
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 import se.bluebrim.desktop.graphical.PropertyPersistableHTMLView;
 import se.bluebrim.desktop.graphical.PropertyPersistableView;
@@ -86,7 +89,10 @@ import se.bluebrim.view.zoom.Scale;
 import se.bluebrim.view.zoom.ZoomController;
 
 import com.carbonfive.db.migration.DriverManagerMigrationManager;
-import com.carbonfive.db.migration.MigrationManager;
+import com.carbonfive.db.migration.Migration;
+import com.carbonfive.db.migration.MigrationResolver;
+import com.carbonfive.db.migration.SQLScriptMigration;
+import com.carbonfive.db.migration.SimpleVersionExtractor;
 
 
 /**
@@ -175,9 +181,9 @@ public class SchemaGraphBuilder
 	protected void run() throws Exception
 	{
 		Properties schemaProperties = new Properties();
-		File file = new File(getSchemaPropertiesFilePath());
-		if (file.exists())
-			schemaProperties.load(new FileReader(file));				
+		Resource resource = getSchemaPropertiesFilePath();
+		if (resource.exists())
+			schemaProperties.load(resource.getInputStream());				
 
 		buildModel();
 		applyModelProperties(schemaProperties);
@@ -192,8 +198,10 @@ public class SchemaGraphBuilder
 
 	private void buildWindow()
 	{
-		frame = new JFrame(databaseName);
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);				
+		frame = new JFrame("Database Schema Graph Example");
+		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		frame.setIconImage(new ImageIcon(getClass().getResource("jfreeview-logo-32x32.png")).getImage());
+
 		frame.addWindowListener(new WindowAdapter(){
 			@Override
 			public void windowClosing(WindowEvent e)
@@ -311,13 +319,9 @@ public class SchemaGraphBuilder
 		testOptionMenuBuilder.addMenuItems(menu);
 	}
 
-	private URI getSchemaPropertiesFilePath()
+	private Resource getSchemaPropertiesFilePath()
 	{
-		try {
-			return getClass().getResource("/config/schema.properties").toURI();
-		} catch (URISyntaxException e) {
-			throw new RuntimeException(e);
-		}
+		return new ClassPathResource("/config/schema.properties");
 	}
 	
 	private void printWindow(Printable erDiagram)
@@ -416,14 +420,14 @@ public class SchemaGraphBuilder
 			table.writeProperties(schemaProperties);
 		}
 		
-		File file = new File(getSchemaPropertiesFilePath());
+		Resource resource = getSchemaPropertiesFilePath();
 		try
 		{
-			file.createNewFile();
+			File file = resource.getFile();
 			schemaProperties.store(new FileWriter(file), null);
 		} catch (IOException e)
 		{
-			throw new RuntimeException("Unable to store properties");
+			System.out.println("Unable to store properties. Not possible if running Java Web Start when the property file is part of a jar file.");
 		}		
 	}
 	
@@ -477,14 +481,28 @@ public class SchemaGraphBuilder
 
 	/**
 	 * http://code.google.com/p/c5-db-migration/wiki/ApplicationEmbedding
+	 * TODO: The migration manager is unable to find migration scripts when running as
+	 * Java Web Start. Implemented a work around with a hard coded MigrationResolver
+	 * that did work. Report this as bug or find out if we are doing something wrong.
 	 */
 	protected Connection createConnection(String databaseName) throws Exception {
 		String databaseURL = "jdbc:hsqldb:mem:" + databaseName;
 		String databaseUser = "sa";
 		String password = "";
 		
-		MigrationManager migrationManager = new DriverManagerMigrationManager(
+		DriverManagerMigrationManager migrationManager = new DriverManagerMigrationManager(
 				"org.hsqldb.jdbcDriver", databaseURL, databaseUser, password);
+		migrationManager.setMigrationResolver(new MigrationResolver() {
+			
+			@Override
+			public Set<Migration> resolve() {
+				Set<Migration> migrations = new HashSet<Migration>();
+				ClassPathResource script = new ClassPathResource("db/migrations/20091023162412_petstore.sql");
+				String version = new SimpleVersionExtractor().extractVersion(script.getFilename());
+				migrations.add(new SQLScriptMigration(version, script));
+				return migrations;
+			}
+		});
 		migrationManager.migrate();
 
 		Connection connection = DriverManager.getConnection(databaseURL, databaseUser, password);
