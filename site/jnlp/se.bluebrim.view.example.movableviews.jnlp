@@ -14,7 +14,7 @@
  <all-permissions/>
  </security>
  <resources>
-    <j2se version="1.6+" initial-heap-size="32m" max-heap-size="128m" />
+    <j2se version="1.6+" initial-heap-size="32m" max-heap-size="128m" java-vm-args="-Dsun.java2d.d3d=false"/>
     <property name="jnlp.versionEnabled" value="false"/>
     <property name="jnlp.packEnabled" value="false"/>    
     
