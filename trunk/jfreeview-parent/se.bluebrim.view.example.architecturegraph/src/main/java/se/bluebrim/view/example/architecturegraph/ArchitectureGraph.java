@@ -10,9 +10,9 @@ import se.bluebrim.desktop.DesktopApp;
 import se.bluebrim.desktop.FileEditor;
 
 /**
- * Creates and visualizes a graph over the projects that makes up a system. The jar files that the project
- * are dependent on is also displayed. There is no automatic algorithm that creates an optimal layout instead
- * the layout is created manually in a GUI by dragging around the symbols. The resulting layout is saved in
+ * Creates an example of an architecture graph The blocks in the graph is created programmatically and the layout of the blocks
+ * are handled by Swing layout managers. The position of the blocks and additional graphic elements that are created from resources
+ * files can be manually adjusted in the GUI by dragging around the elements. The resulting layout is saved in
  * a properties file.
  * 
  * @author GStack
