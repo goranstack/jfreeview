@@ -7,6 +7,7 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -60,7 +61,8 @@ public class MovableViewsExample
 	{
 		window = new JFrame();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setTitle("Zoom test");
+		window.setTitle("Movable Views Example");
+		window.setIconImage(new ImageIcon(getClass().getResource("jfreeview-logo-32x32.png")).getImage());
 
 		ViewContext viewContext = new ViewContext(new Scale(), new Scale(), window);
 		viewPanel = new ViewPanel(null, viewContext);
@@ -69,7 +71,7 @@ public class MovableViewsExample
 
 		TestRootView rootView = new TestRootView(viewContext, new VerticalDistributeLayout(10));
 		rootView.setWidth(800);
-		rootView.setHeight(400);
+		rootView.setHeight(600);
 		viewPanel.setRootView(rootView);
 
 		SelectionManager selectionManager = new StandardSelectionManager(viewPanel);
