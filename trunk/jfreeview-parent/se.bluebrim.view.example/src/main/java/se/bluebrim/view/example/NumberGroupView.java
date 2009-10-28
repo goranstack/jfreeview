@@ -30,7 +30,7 @@ public class NumberGroupView extends AbstractParentView implements Layoutable, S
 		if (Paintable.RANDOM_COLORS.value)
 			g.setRandomColor();
 		else
-			g.setColor(Color.PINK);
+			g.setColor(Color.LIGHT_GRAY);
 		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.5f));
 		g.fill(getBounds());
 		g.setColor(Color.BLUE);
