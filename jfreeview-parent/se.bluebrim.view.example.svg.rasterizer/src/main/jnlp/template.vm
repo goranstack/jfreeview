@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0+" codebase="http://jfreeview.googlecode.com/svn/trunk/site/jnlp" href="$outputFile">
+ <information>
+    <title>JFreeView SVGRasterizer Test</title>
+    <vendor>JFreeView Team</vendor>
+    <homepage href="http://code.google.com/p/jfreeview"/>
+    <description kind="one-line">JFreeView SVGRasterizer Test</description>
+    <description kind="short">JFreeView SVGRasterizer Test - desktop application testing the SVGRasterizer class from the Batik library</description>
+    <description kind="tooltip">JFreeView SVGRasterizer Test - desktop application testing the SVGRasterizer class from the Batik library</description>
+    <icon href="jfreeview-logo-32x32.png" kind="default"/>
+    <shortcut online="false"><desktop/><menu submenu="JFreeView SVGRasterizer Test"/></shortcut>
+ </information>
+ <security>
+ <all-permissions/>
+ </security>
+ <resources>
+    <j2se version="1.6+" initial-heap-size="32m" max-heap-size="128m" />
+    <property name="jnlp.versionEnabled" value="false"/>
+    <property name="jnlp.packEnabled" value="true"/>    
+    $dependencies
+ </resources>
+ <application-desc main-class="$mainClass">
+ </application-desc>
+</jnlp>
