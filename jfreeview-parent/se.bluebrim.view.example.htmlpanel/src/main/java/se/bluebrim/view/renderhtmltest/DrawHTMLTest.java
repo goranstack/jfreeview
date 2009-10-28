@@ -9,6 +9,13 @@ import javax.swing.WindowConstants;
 
 import se.bluebrim.view.swing.HTMLPanel;
 
+/**
+ * Feeds a HTMLPanel with a sample HTML file using CSS and containing an image reference.
+ * The HTMLPanel is then displayed in a standard window.
+ * 
+ * @author Goran Stack
+ *
+ */
 public class DrawHTMLTest
 {
 	public static void main(String[] args) throws Exception
