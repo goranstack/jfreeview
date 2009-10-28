@@ -100,12 +100,12 @@
 					<artifactId>webstart-maven-plugin</artifactId>
 					<version>1.0-alpha-2</version>
 					<configuration>
-						<!--libPath>lib</libPath--> <!-- We can't use this because of bug: http://jira.codehaus.org/browse/MWEBSTART-130 -->
+						<libPath>lib</libPath> <!-- We can't use this with pack200 because of bug: http://jira.codehaus.org/browse/MWEBSTART-130 -->
 						<jnlp>
 							<inputTemplateResourcePath>${project.basedir}
 							</inputTemplateResourcePath>
 							<inputTemplate>src/main/jnlp/template.vm</inputTemplate>
-							<outputFile>launch.jnlp</outputFile>
+							<outputFile>${project.artifactId}.jnlp</outputFile>
 						</jnlp>
 						<sign>
 							<keystore>${project.basedir}/src/main/jnlp/keystore.jks
@@ -128,9 +128,9 @@
 								<gen>true</gen>
 							</keystoreConfig>
 						</sign>
-						<pack200>true</pack200>
+						<pack200>false</pack200>
 						<outputJarVersions>false</outputJarVersions>
-						<gzip>true</gzip>
+						<gzip>false</gzip>
 						<verbose>true</verbose>
 					</configuration>
 				</plugin>
