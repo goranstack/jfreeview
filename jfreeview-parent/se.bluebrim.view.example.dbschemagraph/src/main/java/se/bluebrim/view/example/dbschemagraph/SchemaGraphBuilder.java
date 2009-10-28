@@ -41,7 +41,6 @@ import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -62,16 +61,12 @@ import javax.swing.JToolBar;
 import javax.swing.UIManager;
 import javax.swing.WindowConstants;
 
-import com.carbonfive.db.migration.DriverManagerMigrationManager;
-import com.carbonfive.db.migration.MigrationManager;
-
 import se.bluebrim.desktop.graphical.PropertyPersistableHTMLView;
 import se.bluebrim.desktop.graphical.PropertyPersistableView;
 import se.bluebrim.view.DesktopView;
 import se.bluebrim.view.Handle;
 import se.bluebrim.view.Layoutable;
 import se.bluebrim.view.PaperView;
-import se.bluebrim.view.ParentView;
 import se.bluebrim.view.TestOptionMenuBuilder;
 import se.bluebrim.view.TransferableView;
 import se.bluebrim.view.dnd.MouseEventDispatcher;
@@ -89,6 +84,9 @@ import se.bluebrim.view.tool.Tool;
 import se.bluebrim.view.transaction.MockTransactionManager;
 import se.bluebrim.view.zoom.Scale;
 import se.bluebrim.view.zoom.ZoomController;
+
+import com.carbonfive.db.migration.DriverManagerMigrationManager;
+import com.carbonfive.db.migration.MigrationManager;
 
 
 /**
