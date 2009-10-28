@@ -15,20 +15,20 @@ import se.bluebrim.view.tool.*;
 import se.bluebrim.view.zoom.Scale;
 
 /**
- * Test of drag and drop betweeen two ViewPanels using a supervisor objects that
+ * Test of drag and drop between two ViewPanels using a supervisor objects that
  * dispatch mouse events to the two ViewPanels in a way that enables them to
  * handle a drag and drop.
  * 
- * @author G Stack
+ * @author Goran Stack
  * 
  */
-public class DndTestTest {
+public class DndTest {
 
 	private JFrame window;
 	private ToolDispatcher[] toolDispatchers = new ToolDispatcher[4];
 
 	public static void main(String[] args) {
-		new DndTestTest().run();
+		new DndTest().run();
 
 	}
 
