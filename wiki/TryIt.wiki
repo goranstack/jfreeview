@@ -6,3 +6,10 @@ This application show many features of the JFreeView library.
 http://jfreeview.googlecode.com/svn/site/images/movableviews.png
 
 [http://jfreeview.googlecode.com/svn/site/jnlp/se.bluebrim.view.example.movableviews.jnlp http://jfreeview.googlecode.com/svn/site/jnlp/webstart.png]
+
+==Database Schema Graph Example==
+
+Reads the meta data from a database and creates graph of the tables and the foreign key
+relations. This demo uses an embedded memory based HSQLDB containing a simple Pet Store database model.
+
+[http://jfreeview.googlecode.com/svn/site/jnlp/se.bluebrim.view.example.dbschemagraph.jnlp http://jfreeview.googlecode.com/svn/site/jnlp/webstart.png]
