@@ -4,12 +4,13 @@
 	<groupId>se.bluebrim</groupId>
 	<artifactId>jfreeview-keystore</artifactId>
 	<packaging>pom</packaging>
-	<name>JFreeView Keystore</name>
+	<name>Keystore</name>
 	<version>1.0.1-SNAPSHOT</version>
 	<description>Project for generating a shared keystore file.</description>
 	<build>
 		<plugins>
 			<plugin>
+				<!-- Do not bind to any phase. Run manually. -->
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>keytool-maven-plugin</artifactId>
 				<configuration>
