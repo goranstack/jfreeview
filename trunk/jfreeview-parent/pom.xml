@@ -110,9 +110,7 @@
 						<sign>
 							<keystore>${project.basedir}/../jfreeview-keystore/keystore.jks
 							</keystore>
-							<keypass>12345678</keypass>
 							<storepass>12345678</storepass>
-							<storetype>jks</storetype>
 							<alias>jfreeview</alias>
 							<!-- KEYSTORE MANAGEMENT -->
 							<keystoreConfig>
