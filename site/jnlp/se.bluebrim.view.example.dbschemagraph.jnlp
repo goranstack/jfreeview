@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0+" codebase="http://jfreeview.googlecode.com/svn/site href="se.bluebrim.view.example.dbschemagraph.jnlp">
+ <information>
+    <title>JFreeView Database Schema Graph Example</title>
+    <vendor>JFreeView Team</vendor>
+    <homepage href="http://code.google.com/p/jfreeview"/>
+    <description kind="one-line">JFreeView Database Schema Graph Example</description>
+    <description kind="short">JFreeView Database Schema Graph Example - desktop application for generating a graph from a SQL database schema</description>
+    <description kind="tooltip">JFreeView Database Schema Graph Example - desktop application for generating a graph from a SQL database schema</description>
+    <icon href="jfreeview-logo-32x32.png" kind="default"/>
+    <shortcut online="false"><desktop/><menu submenu="JFreeView Database Schema Graph Example"/></shortcut>
+ </information>
+ <security>
+ <all-permissions/>
+ </security>
+ <resources>
+    <j2se version="1.6+" initial-heap-size="32m" max-heap-size="128m" java-vm-args="-Dsun.java2d.d3d=false"/>
+    <property name="jnlp.versionEnabled" value="false"/>
+    <property name="jnlp.packEnabled" value="false"/>   
+    
+<jar href="lib/se.bluebrim.view.example.dbschemagraph-1.0.1-SNAPSHOT.jar" main="true"/>
+<jar href="lib/se.bluebrim.desktop.application.graphical-1.0.1-SNAPSHOT.jar"/>
+<jar href="lib/se.bluebrim.desktop.application-1.0.1-SNAPSHOT.jar"/>
+<jar href="lib/commons-lang-2.4.jar"/>
+<jar href="lib/se.bluebrim.crud.client-1.0.1-SNAPSHOT.jar"/>
+<jar href="lib/jcalendar-1.3.2.jar"/>
+<jar href="lib/esoxGui-2.1.0.jar"/>
+<jar href="lib/esoxCore-2.1.0.jar"/>
+<jar href="lib/eventbus-1.3.jar"/>
+<jar href="lib/swingx-1.0.jar"/>
+<jar href="lib/se.bluebrim.crud-1.0.1-SNAPSHOT.jar"/>
+<jar href="lib/log4j-1.2.14.jar"/>
+<jar href="lib/spring-2.5.6.jar"/>
+<jar href="lib/commons-logging-1.1.1.jar"/>
+<jar href="lib/SwingActionManager-0.8.1.jar"/>
+<jar href="lib/looks-2.2.2.jar"/>
+<jar href="lib/se.bluebrim.view-1.0.1-SNAPSHOT.jar"/>
+<jar href="lib/itext-1.3.jar"/>
+<jar href="lib/batik-svggen-1.6.jar"/>
+<jar href="lib/batik-transcoder-1.6.jar"/>
+<jar href="lib/batik-bridge-1.6-1.jar"/>
+<jar href="lib/batik-gvt-1.6-1.jar"/>
+<jar href="lib/batik-awt-util-1.6-1.jar"/>
+<jar href="lib/batik-util-1.6-1.jar"/>
+<jar href="lib/batik-gui-util-1.6-1.jar"/>
+<jar href="lib/batik-ext-1.6-1.jar"/>
+<jar href="lib/xmlParserAPIs-2.0.2.jar"/>
+<jar href="lib/batik-script-1.6-1.jar"/>
+<jar href="lib/batik-svg-dom-1.6-1.jar"/>
+<jar href="lib/batik-dom-1.6-1.jar"/>
+<jar href="lib/batik-css-1.6-1.jar"/>
+<jar href="lib/batik-xml-1.6-1.jar"/>
+<jar href="lib/xercesImpl-2.4.0.jar"/>
+<jar href="lib/batik-parser-1.6-1.jar"/>
+<jar href="lib/js-1.5R4.1.jar"/>
+<jar href="lib/db-migration-0.9.8.jar"/>
+<jar href="lib/db-support-0.9.8.jar"/>
+<jar href="lib/jcl-over-slf4j-1.5.8.jar"/>
+<jar href="lib/slf4j-api-1.5.8.jar"/>
+<jar href="lib/commons-io-1.4.jar"/>
+<jar href="lib/commons-collections-3.2.1.jar"/>
+<jar href="lib/hsqldb-1.8.0.1.jar"/>
+<jar href="lib/slf4j-log4j12-1.5.8.jar"/>
+<jar href="lib/junit-4.7.jar"/>
+
+ </resources>
+ <application-desc main-class="se.bluebrim.view.example.dbschemagraph.SchemaGraphBuilder">
+ </application-desc>
+</jnlp>

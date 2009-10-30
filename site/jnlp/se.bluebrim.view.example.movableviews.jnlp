@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<jnlp spec="1.0+" codebase="http://jfreeview.googlecode.com/svn/site/jnlp" href="se.bluebrim.view.example.movableviews.jnlp">
+<jnlp spec="1.0+" codebase="http://jfreeview.googlecode.com/svn/site href="se.bluebrim.view.example.movableviews.jnlp">
  <information>
     <title>JFreeView Movable Views Example</title>
     <vendor>JFreeView Team</vendor>
