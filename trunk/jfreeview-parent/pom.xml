@@ -108,24 +108,16 @@
 							<outputFile>${project.artifactId}.jnlp</outputFile>
 						</jnlp>
 						<sign>
-							<keystore>${project.basedir}/src/main/jnlp/keystore.jks
+							<keystore>${project.basedir}/../jfreeview-keystore/keystore.jks
 							</keystore>
 							<keypass>12345678</keypass>
 							<storepass>12345678</storepass>
 							<storetype>jks</storetype>
-							<validity>365</validity>
 							<alias>jfreeview</alias>
-							<dnameCn>Göran Stäck</dnameCn>
-							<dnameOu>JFreeView</dnameOu>
-							<dnameO>JFreeView Team</dnameO>
-							<dnameL>Stockholm</dnameL>
-							<dnameSt>Sweden</dnameSt>
-							<dnameC>SE</dnameC>
-							<verify>true</verify>
 							<!-- KEYSTORE MANAGEMENT -->
 							<keystoreConfig>
-								<delete>true</delete>
-								<gen>true</gen>
+								<delete>false</delete>
+								<gen>false</gen>
 							</keystoreConfig>
 						</sign>
 						<pack200>false</pack200>
