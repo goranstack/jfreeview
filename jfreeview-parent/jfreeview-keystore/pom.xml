@@ -1,0 +1,26 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>se.bluebrim</groupId>
+	<artifactId>jfreeview-keystore</artifactId>
+	<packaging>pom</packaging>
+	<name>JFreeView Keystore</name>
+	<version>1.0.1-SNAPSHOT</version>
+	<description>Project for generating a shared keystore file.</description>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>keytool-maven-plugin</artifactId>
+				<configuration>
+					<keystore>${project.basedir}/keystore.jks</keystore>
+					<dname>cn=Göran Stäck, ou=JFreeView, L=Stockholm, ST=Sweden, o=JFreeView Team, c=SE</dname>
+					<alias>jfreeview</alias>
+					<keypass>12345678</keypass>
+					<storepass>12345678</storepass>
+					<validity>365</validity>					
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
