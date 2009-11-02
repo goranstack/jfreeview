@@ -1,0 +1,21 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>se.bluebrim</groupId>
+	<artifactId>jfreeview-webstart-aggregator</artifactId>
+	<version>1.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>Java Web Start Aggregator Project</name>
+	<description>Aggregates all modules that has the webstart plugin</description>
+	<modules>
+		<module>se.bluebrim.desktop.application.example.jdbc</module>
+		<module>se.bluebrim.view.example.dbschemagraph</module>
+		<module>se.bluebrim.view.example.movableviews</module>
+		<module>se.bluebrim.view.example.dnd</module>
+		<module>se.bluebrim.view.example.svg.rasterizer</module>
+		<module>se.bluebrim.view.example.architecturegraph</module>
+		<module>se.bluebrim.view.example.dependencygraph</module>
+		<module>se.bluebrim.view.example.zoom</module>
+		<module>se.bluebrim.view.example.htmlpanel</module>
+	</modules>
+</project>
