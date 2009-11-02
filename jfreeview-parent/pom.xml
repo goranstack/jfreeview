@@ -127,6 +127,21 @@
 			</plugins>
 		</pluginManagement>
 	</build>
+	<profiles>
+		<profile>
+			<id>codebase-local-filesystem</id>
+			<properties>
+				<codebase>file:///${project.build.directory}/jnlp</codebase>
+			</properties>
+		</profile>
+		<profile>
+			<id>codebase-project-site</id>
+			<properties>
+				<codebase>http://jfreeview.googlecode.com/svn/site/jnlp</codebase>
+			</properties>
+		</profile>
+		
+	</profiles>
 
 	<repositories>
 		<repository>
