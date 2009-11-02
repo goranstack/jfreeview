@@ -33,6 +33,7 @@ import java.util.Map;
 import java.util.Properties;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -334,7 +335,7 @@ public class ProjectGraphFileEditor extends GraphicalFileEditor
 	@Override
 	protected String getFileContentName()
 	{
-		return "project-graph";
+		return "Dependency Graph";
 	}
 
 	@Override
@@ -346,7 +347,7 @@ public class ProjectGraphFileEditor extends GraphicalFileEditor
 	@Override
 	protected String getFileFilterDescription()
 	{
-		return "ISAC project graph";
+		return "JFreeView Dependency Graph";
 	}
 
 	@Override
@@ -403,8 +404,7 @@ public class ProjectGraphFileEditor extends GraphicalFileEditor
 	@Override
 	protected Image getIcon()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new ImageIcon(getClass().getResource("jfreeview-logo-32x32.png")).getImage();
 	}
 
 	@Override
