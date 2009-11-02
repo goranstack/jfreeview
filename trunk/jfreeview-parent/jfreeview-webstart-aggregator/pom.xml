@@ -18,4 +18,17 @@
 		<module>../se.bluebrim.view.example.zoom</module>
 		<module>../se.bluebrim.view.example.htmlpanel</module>
 	</modules>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo.webstart</groupId>
+				<artifactId>webstart-maven-plugin</artifactId>
+				<version>1.0-alpha-2</version>				
+				<configuration>							
+					<jnlp>					
+					</jnlp>
+				</configuration>			
+			</plugin>
+		</plugins>
+	</build>
 </project>
