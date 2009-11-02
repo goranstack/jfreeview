@@ -22,9 +22,6 @@
 	<build>
 		<plugins>
 			<!--
-				http://mojo.codehaus.org/webstart/webstart-maven-plugin/jnlp-mojos-overview.html
-				http://tipatech.com/java/20/build-groovy-swing-based-web-start-application-using-maven
-				http://blogs.sun.com/thejavatutorials/entry/deploying_your_rich_internet_application
 				The webstart-maven-plugin must be executed manually due to a bug.
 				Run mvn webstart:jnlp
 			-->

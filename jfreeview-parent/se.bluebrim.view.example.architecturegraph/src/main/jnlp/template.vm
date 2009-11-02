@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<jnlp spec="1.0+" codebase="http://jfreeview.googlecode.com/svn/site href="$outputFile">
+<jnlp spec="1.0+" codebase="${codebase}" href="$outputFile">
  <information>
     <title>JFreeView Architecture Graph Example</title>
     <vendor>JFreeView Team</vendor>

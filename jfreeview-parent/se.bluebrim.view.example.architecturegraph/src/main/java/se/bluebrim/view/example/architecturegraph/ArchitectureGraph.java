@@ -1,6 +1,9 @@
 package se.bluebrim.view.example.architecturegraph;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Properties;
 
 import javax.swing.UIManager;
 
@@ -32,18 +35,41 @@ public class ArchitectureGraph extends DesktopApp
 		new ArchitectureGraph().run();
 	}
 
+	/**
+	 * Handles three cases:
+	 * <ol>
+	 * <li>The "architecture-graph.properties" resource does exist and is a file in the file system</li> 
+	 * <li>The "architecture-graph.properties" resource does not exist</li> 
+	 * <li>The "architecture-graph.properties" resource does exist and is embedded in a jar file, which is the case
+	 * when running as Java Web Start</li> 
+	 * </ol>
+	 * 
+	 */
 	private void run() throws IOException
 	{
-		ArchitectureGraphModel model = new ArchitectureGraphModel();
 		ClassPathResource classPathResource = new ClassPathResource("architecture-graph.properties", getClass());
 		if (classPathResource.exists())
 		{
-			new FileEditor.OpenFileCommand(new ArchitectureGraphFileEditor(null, this), classPathResource.getFile()).run();
+			try {
+				File file = classPathResource.getFile();
+				new FileEditor.OpenFileCommand(new ArchitectureGraphFileEditor(null, this), file).run();
+			} catch (FileNotFoundException e) {
+				Properties properties = new Properties();
+				properties.load(classPathResource.getInputStream());
+				openFromProperties(properties);
+			}
+			
 		} else
 		{
-			ArchitectureGraphFileEditor editor = new ArchitectureGraphFileEditor(model, this);
-			editor.createWindow();
+			openFromProperties(null);
 		}
+	}
+
+	private void openFromProperties(Properties properties) 
+	{
+		ArchitectureGraphModel model = new ArchitectureGraphModel(properties);
+		ArchitectureGraphFileEditor editor = new ArchitectureGraphFileEditor(model, this);
+		editor.createWindow();
 	}
 
 	@Override

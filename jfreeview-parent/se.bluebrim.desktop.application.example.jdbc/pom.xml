@@ -1,15 +1,16 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>jfreeview-parent</artifactId>
 		<groupId>se.bluebrim</groupId>
 		<version>1.0.1-SNAPSHOT</version>
 	</parent>
-	
+
 	<artifactId>se.bluebrim.desktop.application.example.jdbc</artifactId>
 	<name>Desktop Application JDBC Connection Example</name>
 	<description>A simple example of a desktop application showing a JDBC Connection panel</description>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
@@ -30,4 +31,20 @@
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo.webstart</groupId>
+				<artifactId>webstart-maven-plugin</artifactId>
+				<version>1.0-alpha-2</version>
+				<configuration>
+					<jnlp>
+						<mainClass>se.bluebrim.desktop.jdbc.connect.JdbcConnectionMaker</mainClass>
+					</jnlp>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>

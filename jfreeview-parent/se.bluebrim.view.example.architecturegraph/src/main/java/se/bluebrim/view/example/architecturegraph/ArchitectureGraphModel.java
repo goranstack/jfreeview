@@ -28,6 +28,11 @@ public class ArchitectureGraphModel extends DirtyPredicateModel
 	{
 	}
 	
+	public ArchitectureGraphModel(Properties properties)
+	{
+		this.properties = properties;
+	}
+	
 	public void read(File file)
 	{
 		this.properties = new Properties();
