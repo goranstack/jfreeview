@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <jnlp spec="1.0+" codebase="${codebase}" href="$outputFile">
  <information>
-    <title>JFreeView Movable Views Example</title>
+    <title>JFreeView Multidocument Desktop Application Example</title>
     <vendor>JFreeView Team</vendor>
     <homepage href="http://code.google.com/p/jfreeview"/>
-    <description kind="one-line">JFreeView Movable Views Example</description>
-    <description kind="short">JFreeView Movable Views Example - desktop application showing various features of JFreeView</description>
-    <description kind="tooltip">JFreeView Movable Views Example - desktop application showing various features of JFreeView</description>
+    <description kind="one-line">JFreeView Multidocument Desktop Application Example</description>
+    <description kind="short">JFreeView Multidocument Desktop Application Example - desktop application that creates a dependency graph of the projects in an Eclipse workspace</description>
+    <description kind="tooltip">JFreeView Multidocument Desktop Application Example - desktop application that creates a dependency graph of the projects in an Eclipse workspace</description>
     <icon href="jfreeview-logo-32x32.png" kind="default"/>
-    <shortcut online="false"><desktop/><menu submenu="JFreeView Movable Views Example"/></shortcut>
+    <shortcut online="false"><desktop/><menu submenu="JFreeView Dependency Graph Example"/></shortcut>
  </information>
  <security>
  <all-permissions/>

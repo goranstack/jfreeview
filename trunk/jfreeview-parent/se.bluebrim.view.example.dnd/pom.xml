@@ -1,13 +1,14 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <artifactId>jfreeview-parent</artifactId>
-    <groupId>se.bluebrim</groupId>
-    <version>1.0.1-SNAPSHOT</version>
-  </parent>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>jfreeview-parent</artifactId>
+		<groupId>se.bluebrim</groupId>
+		<version>1.0.1-SNAPSHOT</version>
+	</parent>
 
-  <artifactId>se.bluebrim.view.example.dnd</artifactId>
-  <name>Drag and Drop Example</name>
+	<artifactId>se.bluebrim.view.example.dnd</artifactId>
+	<name>Drag and Drop Example</name>
 	<description>Demo of drag and drop between panels with autoscroll</description>
 	<dependencies>
 		<dependency>
@@ -24,5 +25,21 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo.webstart</groupId>
+				<artifactId>webstart-maven-plugin</artifactId>
+				<version>1.0-alpha-2</version>
+				<configuration>
+					<jnlp>
+						<mainClass>se.bluebrim.view.example.dnd.DndTest</mainClass>
+					</jnlp>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 
 </project>
