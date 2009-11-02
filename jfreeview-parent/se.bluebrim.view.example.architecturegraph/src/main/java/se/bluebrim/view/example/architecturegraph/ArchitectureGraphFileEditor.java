@@ -29,6 +29,7 @@ import java.util.Random;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.ImageIcon;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -393,7 +394,7 @@ public class ArchitectureGraphFileEditor extends GraphicalFileEditor
 	@Override
 	protected String getFileContentName()
 	{
-		return "architecture-graph";
+		return "Architecture Graph";
 	}
 
 	@Override
@@ -405,7 +406,7 @@ public class ArchitectureGraphFileEditor extends GraphicalFileEditor
 	@Override
 	protected String getFileFilterDescription()
 	{
-		return "ISAC system architecture graph";
+		return "JFreeView Architecture Graph";
 	}
 
 	@Override
@@ -463,8 +464,7 @@ public class ArchitectureGraphFileEditor extends GraphicalFileEditor
 	@Override
 	protected Image getIcon()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return new ImageIcon(getClass().getResource("jfreeview-logo-32x32.png")).getImage();
 	}
 
 	@Override
