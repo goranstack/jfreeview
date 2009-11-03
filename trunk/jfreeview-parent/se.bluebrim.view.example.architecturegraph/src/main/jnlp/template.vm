@@ -5,8 +5,8 @@
     <vendor>JFreeView Team</vendor>
     <homepage href="http://code.google.com/p/jfreeview"/>
     <description kind="one-line">JFreeView Architecture Graph Example</description>
-    <description kind="short">JFreeView Architecture Graph Example - desktop application that programmatically creates block diagrams</description>
-    <description kind="tooltip">JFreeView Architecture Graph Example - desktop application that programmatically creates block diagrams</description>
+    <description kind="short">A desktop application that programmatically creates block diagrams. In this case the architecture of Iprobe's ISAC system.</description>
+    <description kind="tooltip">A desktop application that programmatically creates block diagrams. In this case the architecture of Iprobe's ISAC system.</description>
     <icon href="jfreeview-logo-32x32.png" kind="default"/>
     <shortcut online="false"><desktop/><menu submenu="JFreeView Architecture Graph Example"/></shortcut>
  </information>

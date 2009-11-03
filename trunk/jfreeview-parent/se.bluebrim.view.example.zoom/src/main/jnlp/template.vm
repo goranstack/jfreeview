@@ -5,8 +5,8 @@
     <vendor>JFreeView Team</vendor>
     <homepage href="http://code.google.com/p/jfreeview"/>
     <description kind="one-line">JFreeView Zoom Tool Example</description>
-    <description kind="short">JFreeView Zoom Tool Example - a desktop application that shows how to use the zoom tool</description>
-    <description kind="tooltip">JFreeView Zoom Tool Example - a desktop application that shows how to use the zoom tool</description>
+    <description kind="short">Desktop application that shows how to use the zoom tool</description>
+    <description kind="tooltip">Desktop application that shows how to use the zoom tool</description>
     <icon href="jfreeview-logo-32x32.png" kind="default"/>
     <shortcut online="false"><desktop/><menu submenu="JFreeView Zoom Tool Example"/></shortcut>
  </information>

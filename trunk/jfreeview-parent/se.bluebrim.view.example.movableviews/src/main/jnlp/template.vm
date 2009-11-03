@@ -5,8 +5,8 @@
     <vendor>JFreeView Team</vendor>
     <homepage href="http://code.google.com/p/jfreeview"/>
     <description kind="one-line">JFreeView Movable Views Example</description>
-    <description kind="short">JFreeView Movable Views Example - desktop application showing various features of JFreeView</description>
-    <description kind="tooltip">JFreeView Movable Views Example - desktop application showing various features of JFreeView</description>
+    <description kind="short">A desktop application showing various features of JFreeView for example move, resize, double click, context menu, detail drawing level etc.</description>
+    <description kind="tooltip">A desktop application showing various features of JFreeView for example move, resize, double click, context menu, detail drawing level etc.</description>
     <icon href="jfreeview-logo-32x32.png" kind="default"/>
     <shortcut online="false"><desktop/><menu submenu="JFreeView Movable Views Example"/></shortcut>
  </information>
