@@ -18,12 +18,20 @@
 		<module>../se.bluebrim.view.example.zoom</module>
 		<module>../se.bluebrim.view.example.htmlpanel</module>
 	</modules>
-	<profiles>
-		<profile>
-			<id>webstart</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-			</activation>
-		</profile>
-	</profiles>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo.webstart</groupId>
+				<artifactId>webstart-maven-plugin</artifactId>
+				<version>1.0-alpha-2</version>
+				<configuration>
+					<jnlp>
+						<mainClass>DummyClass</mainClass>
+					</jnlp>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>
