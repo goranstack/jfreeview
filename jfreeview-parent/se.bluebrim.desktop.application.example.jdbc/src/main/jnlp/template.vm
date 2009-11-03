@@ -5,8 +5,8 @@
     <vendor>JFreeView Team</vendor>
     <homepage href="http://code.google.com/p/jfreeview"/>
     <description kind="one-line">JFreeView Multidocument Desktop Application Example</description>
-    <description kind="short">JFreeView Multidocument Desktop Application Example - desktop application that creates a dependency graph of the projects in an Eclipse workspace</description>
-    <description kind="tooltip">JFreeView Multidocument Desktop Application Example - desktop application that creates a dependency graph of the projects in an Eclipse workspace</description>
+    <description kind="short">A desktop application that demonstrates how multiple document is handled. The document is an JDBC connection.</description>
+    <description kind="tooltip">A desktop application that demonstrates how multiple document is handled. The document is an JDBC connection.</description>
     <icon href="jfreeview-logo-32x32.png" kind="default"/>
     <shortcut online="false"><desktop/><menu submenu="JFreeView Dependency Graph Example"/></shortcut>
  </information>

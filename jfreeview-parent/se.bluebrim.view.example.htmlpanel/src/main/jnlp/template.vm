@@ -5,8 +5,8 @@
     <vendor>JFreeView Team</vendor>
     <homepage href="http://code.google.com/p/jfreeview"/>
     <description kind="one-line">JFreeView HTMLPanel Test</description>
-    <description kind="short">JFreeView HTMLPanel Test - desktop application showing a HTMLPanel that is initialized with a sample html file</description>
-    <description kind="tooltip">JFreeView HTMLPanel Test - desktop application showing a HTMLPanel that is initialized with a sample html file</description>
+    <description kind="short">A desktop application showing a HTMLPanel that is initialized with a sample html file</description>
+    <description kind="tooltip">A desktop application showing a HTMLPanel that is initialized with a sample html file</description>
     <icon href="jfreeview-logo-32x32.png" kind="default"/>
     <shortcut online="false"><desktop/><menu submenu="JFreeView HTMLPanel Test"/></shortcut>
  </information>
