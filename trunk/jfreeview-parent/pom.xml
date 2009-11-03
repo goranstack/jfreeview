@@ -93,6 +93,44 @@
 				<version>1.9</version>
 			</extension>
 		</extensions>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.codehaus.mojo.webstart</groupId>
+					<artifactId>webstart-maven-plugin</artifactId>
+					<version>1.0-alpha-2</version>
+					<configuration>
+						<libPath>lib</libPath>
+						<!--
+							We can't use this with pack200 because of bug:
+							http://jira.codehaus.org/browse/MWEBSTART-130
+						-->
+						<jnlp>
+							<inputTemplateResourcePath>${project.basedir}
+							</inputTemplateResourcePath>
+							<inputTemplate>src/main/jnlp/template.vm</inputTemplate>
+							<outputFile>${project.artifactId}.jnlp</outputFile>
+						</jnlp>
+						<sign>
+							<keystore>${project.basedir}/../jfreeview-keystore/keystore.jks
+							</keystore>
+							<storepass>12345678</storepass>
+							<alias>jfreeview</alias>
+							<!-- KEYSTORE MANAGEMENT -->
+							<keystoreConfig>
+								<delete>false</delete>
+								<gen>false</gen>
+							</keystoreConfig>
+						</sign>
+						<pack200>false</pack200>
+						<outputJarVersions>false</outputJarVersions>
+						<gzip>false</gzip>
+						<verbose>true</verbose>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
 	</build>
 	<profiles>
 		<profile>
@@ -107,60 +145,8 @@
 				<codebase>http://jfreeview.googlecode.com/svn/site/jnlp</codebase>
 			</properties>
 		</profile>
-		<!--
-			The webstart config resides in a profile that is activated for all
-			modules except jfreeview-webstart-aggregator. By doing this we can
-			avoid invoking the webstart:jnlp goal for the
-			jfreeview-webstart-aggregator project.
-		-->
-		<profile>
-			<id>webstart</id>
-			<activation>
-				<activeByDefault>true</activeByDefault>
-			</activation>
-			<build>
-				<pluginManagement>
-					<plugins>
-						<plugin>
-							<groupId>org.codehaus.mojo.webstart</groupId>
-							<artifactId>webstart-maven-plugin</artifactId>
-							<version>1.0-alpha-2</version>
-							<configuration>
-								<libPath>lib</libPath>
-								<!--
-									We can't use this with pack200 because of bug:
-									http://jira.codehaus.org/browse/MWEBSTART-130
-								-->
-								<jnlp>
-									<inputTemplateResourcePath>${project.basedir}
-							</inputTemplateResourcePath>
-									<inputTemplate>src/main/jnlp/template.vm</inputTemplate>
-									<outputFile>${project.artifactId}.jnlp</outputFile>
-								</jnlp>
-								<sign>
-									<keystore>${project.basedir}/../jfreeview-keystore/keystore.jks
-							</keystore>
-									<storepass>12345678</storepass>
-									<alias>jfreeview</alias>
-									<!-- KEYSTORE MANAGEMENT -->
-									<keystoreConfig>
-										<delete>false</delete>
-										<gen>false</gen>
-									</keystoreConfig>
-								</sign>
-								<pack200>false</pack200>
-								<outputJarVersions>false</outputJarVersions>
-								<gzip>false</gzip>
-								<verbose>true</verbose>
-							</configuration>
-						</plugin>
-					</plugins>
-				</pluginManagement>
-
-			</build>
-		</profile>
 	</profiles>
-	
+
 
 	<repositories>
 		<repository>
