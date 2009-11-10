@@ -16,7 +16,8 @@ import se.bluebrim.desktop.FileEditor;
  * Creates an example of an architecture graph The blocks in the graph is created programmatically and the layout of the blocks
  * are handled by Swing layout managers. The position of the blocks and additional graphic elements that are created from resources
  * files can be manually adjusted in the GUI by dragging around the elements. The resulting layout is saved in
- * a properties file.
+ * a properties file. <br>
+ * A nice example of a graph would be: http://java.sun.com/products/hotspot/images/javase.gif
  * 
  * @author GStack
  *
