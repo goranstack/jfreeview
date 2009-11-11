@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -32,6 +33,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.logging.Level;
 
 import javax.swing.AbstractAction;
@@ -44,6 +46,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JLayeredPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 import javax.swing.SwingConstants;
 import javax.swing.TransferHandler;
@@ -66,6 +69,8 @@ import se.bluebrim.view.batik.SVGRasterizer;
  */
 public class SVGRasterizerTest
 {
+	private static final Random random = new Random(System.currentTimeMillis());
+
 	private JLabel label;
 	private Container contentPane;
 	private AbstractAction hyperLinkAction;
@@ -82,14 +87,15 @@ public class SVGRasterizerTest
 		JFrame window = new JFrame();
 		window.setTitle("SVG Rasterizer Test");
 		window.setIconImage(new ImageIcon(getClass().getResource("jfreeview-logo-32x32.png")).getImage());
-		window.setSize(400, 400);
-		window.setLocation(200, 200);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = window.getContentPane();
 		contentPane.setLayout(new BorderLayout());
-		contentPane.add(createLayeredPane(), BorderLayout.CENTER);
+		contentPane.add(createCenterPanel(), BorderLayout.CENTER);
 		contentPane.add(createSouthPanel(), BorderLayout.SOUTH);
 		contentPane.add(createNorthPanel(), BorderLayout.NORTH);
+		window.pack();
+		window.setLocationRelativeTo(null); // Center on screen
+
 		DropTarget dropTarget = new DropTarget(contentPane, TransferHandler.COPY_OR_MOVE, new FileDropListener());
 		contentPane.setDropTarget(dropTarget);
 		window.setVisible(true);
@@ -99,10 +105,17 @@ public class SVGRasterizerTest
 
 	private void initializeSampleMap() throws MalformedURLException
 	{
-		svgSamples.put(new URL("http://vector-art.blogspot.com"), SVGRasterizerTest.class.getResource("Bolt_NWR1.svg"));
-		svgSamples.put(new URL("http://xmlgraphics.apache.org/batik"), SVGRasterizerTest.class.getResource("batik3D.svg"));
-		svgSamples.put(new URL("http://www.isc.tamu.edu/~lewing"), SVGRasterizerTest.class.getResource("NewTux.svg"));
-		svgSamples.put(new URL("http://openclipart.org/media/people/mokush"), SVGRasterizerTest.class.getResource("mokush_Realistic_Coffee_cup_-_Front_3D_view.svg"));
+		addSample("http://vector-art.blogspot.com", "Bolt_NWR1.svg");
+		addSample("http://xmlgraphics.apache.org/batik", "batik3D.svg");
+		addSample("http://www.isc.tamu.edu/~lewing", "NewTux.svg");
+		addSample("http://openclipart.org/media/people/mokush", "mokush_Realistic_Coffee_cup_-_Front_3D_view.svg");
+		addSample("http://openclipart.org/media/people/Chrisdesign", "glossy-buttons.svg");
+		addSample("http://openclipart.org/media/people/Chrisdesign", "tutanchamun.svg");
+	}
+	
+	private void addSample(String originator, String resourceName) throws MalformedURLException
+	{
+		svgSamples.put(new URL(originator), SVGRasterizerTest.class.getResource(resourceName));		
 	}
 	
 	private void displayNextSample()
@@ -122,8 +135,8 @@ public class SVGRasterizerTest
 	private Component createNorthPanel()
 	{
 		JToolBar toolBar = new JToolBar(JToolBar.HORIZONTAL);
-		toolBar.add(new JLabel("Drag & Drop SVG files into this window"));
-		toolBar.add(new AbstractAction("Next")
+		toolBar.add(new JLabel("Drag & Drop SVG files into this window or select next sample: "));
+		JButton nextButton = new JButton(new AbstractAction()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
@@ -131,8 +144,16 @@ public class SVGRasterizerTest
 				SVGRasterizerTest.this.displayNextSample();
 			}
 		});
-
+		nextButton.setContentAreaFilled(true);
+		nextButton.setMargin(new Insets(0, 0, 0, 0));
+		nextButton.setIcon(new ImageIcon(getClass().getResource("nav_forward.gif")));
+		toolBar.add(nextButton);
 		return toolBar;
+	}
+		
+	private Component createCenterPanel()
+	{
+		return new JScrollPane(createLayeredPane());
 	}
 
 	/**
@@ -152,7 +173,7 @@ public class SVGRasterizerTest
 			@Override
 			public Dimension getPreferredSize()
 			{
-				return contentPane.getPreferredSize();
+				return new Dimension(1000, 800);
 			}
 
 			@Override
@@ -230,30 +251,51 @@ public class SVGRasterizerTest
 		{
 			Graphics2D g2d = (Graphics2D) g;
 			int rows = getHeight() / square + 1;
+			Rectangle clipBounds = g.getClipBounds();
+
 			for (int row = 0; row < rows; row++) {
-				drawRow(g2d, row);
+				drawRow(g2d, row, clipBounds);
 			}
 		}
 
-		private void drawRow(Graphics2D g2d, int row)
+		private void drawRow(Graphics2D g2d, int row, Rectangle clipBounds)
 		{
-			AffineTransform at = g2d.getTransform();
-			int columns = getWidth() / square + 1;
-			g2d.translate(0, row * square);
-			for (int column = 0; column < columns; column++) {
-				drawSquare(g2d, row, column);
+			Rectangle rowBounds = new Rectangle(0, row * square, getWidth(), square);
+			if (rowBounds.intersects(clipBounds))
+			{
+				AffineTransform at = g2d.getTransform();
+				int columns = getWidth() / square + 1;
+				g2d.translate(0, row * square);
+				for (int column = 0; column < columns; column++) {
+					drawSquare(g2d, row, column, clipBounds);
+				}
+				g2d.setTransform(at);
 			}
-			g2d.setTransform(at);
 		}
 
-		private void drawSquare(Graphics2D g2d, int row, int column)
+		private void drawSquare(Graphics2D g2d, int row, int column, Rectangle clipBounds)
 		{
-			AffineTransform at = g2d.getTransform();
-			g2d.translate(column * square, 0);
-			g2d.setColor((isEven(row) && isEven(column)) || (isOdd(row) && isOdd(column)) ? lightGray : Color.WHITE);
-			g2d.fill(rectangle);
-			g2d.translate(square, 0);
-			g2d.setTransform(at);
+			Rectangle squareBounds = new Rectangle(column * square, row * square, square, square);
+			if (squareBounds.intersects(clipBounds))
+			{
+				AffineTransform at = g2d.getTransform();
+				g2d.translate(column * square, 0);
+				g2d.setColor((isEven(row) && isEven(column)) || (isOdd(row) && isOdd(column)) ? lightGray :getSquareColor());
+				g2d.fill(rectangle);
+				g2d.translate(square, 0);
+				g2d.setTransform(at);
+			}
+		}
+		
+		/**
+		 * Uncomment to verify clipping testing. Reveals what is repainted. Areas that
+		 * should not be repainted keep the colors.
+		 *
+		 */
+		private Color getSquareColor()
+		{
+//			return new Color(random.nextFloat(), random.nextFloat(), random.nextFloat());
+			return Color.WHITE;
 		}
 
 		private boolean isEven(int number)
