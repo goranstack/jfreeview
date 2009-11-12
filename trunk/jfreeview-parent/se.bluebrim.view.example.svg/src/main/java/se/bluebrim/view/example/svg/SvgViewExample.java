@@ -91,7 +91,6 @@ public class SvgViewExample
 		contentPane.add(toolBar, BorderLayout.NORTH);
 		contentPane.add(originatorBar, BorderLayout.SOUTH);
 
-		window.setLocation(100, 100);
 		createMenuBar();
 		zoomController = new ZoomController(viewPanel, scrollPane, toolBar, viewMenu);
 
@@ -101,6 +100,7 @@ public class SvgViewExample
 		mouseEventDispatcher.addToolDispatcher(zoomController);
 
 		window.pack();
+		window.setLocationRelativeTo(null); // Center on screen
 		window.setVisible(true);
 		viewPanel.updateCashedViewValues();
 
