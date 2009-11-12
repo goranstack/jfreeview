@@ -1,6 +1,5 @@
 package se.bluebrim.desktop.graphical;
 
-import java.awt.Color;
 import java.awt.Shape;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
@@ -23,6 +22,11 @@ public abstract class AbstractImageView extends DefaultPropertyPersistableView i
 	public AbstractImageView(ViewContext viewContext, URL url, String propertyKey)
 	{
 		super(viewContext, propertyKey);
+		setImage(url);
+	}
+
+	public void setImage(URL url) 
+	{
 		Rectangle2D originalBounds = loadImage(url);
 		originalWidth = (float) originalBounds.getWidth();
 		originalHeight = (float) originalBounds.getHeight();
