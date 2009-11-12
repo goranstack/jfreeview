@@ -1,11 +1,15 @@
 package se.bluebrim.view.example.svg;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
 import java.awt.geom.Dimension2D;
+import java.net.MalformedURLException;
 
+import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -19,6 +23,7 @@ import se.bluebrim.view.Layoutable;
 import se.bluebrim.view.ParentView;
 import se.bluebrim.view.View;
 import se.bluebrim.view.dnd.MouseEventDispatcher;
+import se.bluebrim.view.example.svg.resource.SVGSampleProvider;
 import se.bluebrim.view.impl.ViewContext;
 import se.bluebrim.view.layout.AbstractLayout;
 import se.bluebrim.view.swing.ViewPanel;
@@ -38,8 +43,10 @@ public class SvgViewExample
 	private ViewPanel viewPanel;
 	private JMenu viewMenu;
 	private ZoomController zoomController;
+	private SVGSampleProvider svgSamples;
+	private SvgView svgView;
 
-	public static void main(String[] args)
+	public static void main(String[] args) throws MalformedURLException
 	{
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -52,8 +59,9 @@ public class SvgViewExample
 		new SvgViewExample().run();
 	}
 
-	private void run()
+	private void run() throws MalformedURLException
 	{
+		svgSamples = new SVGSampleProvider();
 		window = new JFrame();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setTitle("SVGView Example");
@@ -67,18 +75,21 @@ public class SvgViewExample
 		rootView.setWidth(1000);
 		rootView.setHeight(800);
 		viewPanel.setRootView(rootView);
+		Container contentPane = window.getContentPane();
 
-		rootView.addChild(new SvgView(viewContext, getClass().getResource("gibson-les-paul.svg"), null));
+		Component originatorBar = svgSamples.createOriginatorBar();
+		svgView = new SvgView(viewContext, svgSamples.next().getResource(), null);
+		rootView.addChild(svgView);
 		rootView.layoutTree();
 
 		scrollPane = new JScrollPane();
 		scrollPane.setBorder(null);
 		scrollPane.setViewportView(viewPanel);
-		Container contentPane = window.getContentPane();
 		contentPane.setLayout(new BorderLayout());
 		contentPane.add(scrollPane, BorderLayout.CENTER);
-		JToolBar toolBar = new JToolBar();
+		JToolBar toolBar = createToolBar();
 		contentPane.add(toolBar, BorderLayout.NORTH);
+		contentPane.add(originatorBar, BorderLayout.SOUTH);
 
 		window.setLocation(100, 100);
 		createMenuBar();
@@ -103,6 +114,27 @@ public class SvgViewExample
 		viewMenu = new JMenu("View");
 		menuBar.add(viewMenu);
 	}
+	
+	private JToolBar createToolBar()
+	{
+		JToolBar toolBar = svgSamples.createNavigatorToolbar(new AbstractAction()
+		{
+			@Override
+			public void actionPerformed(ActionEvent e)
+			{
+				SvgViewExample.this.displayNextSample();
+			}
+		});
+		return toolBar;
+	}
+
+
+	protected void displayNextSample() 
+	{
+		svgView.setImage(svgSamples.next().getResource());
+		viewPanel.repaint();
+	}
+
 
 	/**
 	 * Hard wired to layout one single view
