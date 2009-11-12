@@ -29,7 +29,6 @@ import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +54,8 @@ import org.apache.batik.transcoder.TranscoderException;
 import org.jdesktop.swingx.JXErrorPane;
 import org.jdesktop.swingx.error.ErrorInfo;
 
+import se.bluebrim.view.example.svg.resource.SVGSampleProvider;
+
 /**
  * Uses Batik framework to display SVG images in a Swing panel. This is
  * normally done by JSVGCanvas but we needed a more lightweight component that
@@ -73,9 +74,7 @@ public class SVGRasterizerTest
 
 	private JLabel label;
 	private Container contentPane;
-	private AbstractAction hyperLinkAction;
-	private Map<URL, URL> svgSamples = new HashMap<URL, URL>();
-	private Iterator<Map.Entry<URL, URL>> sampleIterator;
+	private SVGSampleProvider svgSamples;
 
 	public static void main(String[] args) throws TranscoderException, MalformedURLException
 	{
@@ -84,6 +83,7 @@ public class SVGRasterizerTest
 
 	private void run() throws TranscoderException, MalformedURLException
 	{
+		svgSamples = new SVGSampleProvider();
 		JFrame window = new JFrame();
 		window.setTitle("SVG Rasterizer Test");
 		window.setIconImage(new ImageIcon(getClass().getResource("jfreeview-logo-32x32.png")).getImage());
@@ -91,7 +91,7 @@ public class SVGRasterizerTest
 		contentPane = window.getContentPane();
 		contentPane.setLayout(new BorderLayout());
 		contentPane.add(createCenterPanel(), BorderLayout.CENTER);
-		contentPane.add(createSouthPanel(), BorderLayout.SOUTH);
+		contentPane.add(svgSamples.createOriginatorBar(), BorderLayout.SOUTH);
 		contentPane.add(createNorthPanel(), BorderLayout.NORTH);
 		window.pack();
 		window.setLocationRelativeTo(null); // Center on screen
@@ -99,35 +99,15 @@ public class SVGRasterizerTest
 		DropTarget dropTarget = new DropTarget(contentPane, TransferHandler.COPY_OR_MOVE, new FileDropListener());
 		contentPane.setDropTarget(dropTarget);
 		window.setVisible(true);
-		initializeSampleMap();
 		displayNextSample();
 	}
 
-	private void initializeSampleMap() throws MalformedURLException
-	{
-		addSample("http://vector-art.blogspot.com", "Bolt_NWR1.svg");
-		addSample("http://xmlgraphics.apache.org/batik", "batik3D.svg");
-		addSample("http://www.isc.tamu.edu/~lewing", "NewTux.svg");
-		addSample("http://openclipart.org/media/people/mokush", "mokush_Realistic_Coffee_cup_-_Front_3D_view.svg");
-		addSample("http://openclipart.org/media/files/Chrisdesign/3587", "glossy-buttons.svg");
-		addSample("http://openclipart.org/media/files/Chrisdesign/9624", "tutanchamun.svg");
-		addSample("http://openclipart.org/media/files/Chrisdesign/3727", "gibson-les-paul.svg");
-	}
-	
-	private void addSample(String originator, String resourceName) throws MalformedURLException
-	{
-		svgSamples.put(new URL(originator), getClass().getResource(resourceName));		
-	}
 	
 	private void displayNextSample()
 	{
-		if (sampleIterator == null || !sampleIterator.hasNext())
-			sampleIterator = svgSamples.entrySet().iterator();
-
-		Map.Entry<URL, URL> entry = sampleIterator.next();
-		hyperLinkAction.putValue(Action.NAME, entry.getKey().toExternalForm());
+		SVGSampleProvider.Resource svgSample = svgSamples.next();
 		try {
-			SVGRasterizerTest.this.displaySVG(entry.getValue());
+			SVGRasterizerTest.this.displaySVG(svgSample.getResource());
 		} catch (TranscoderException e1) {
 			throw new RuntimeException(e1);
 		}
@@ -135,9 +115,7 @@ public class SVGRasterizerTest
 
 	private Component createNorthPanel()
 	{
-		JToolBar toolBar = new JToolBar(JToolBar.HORIZONTAL);
-		toolBar.add(new JLabel("Drag & Drop SVG files into this window or select next sample: "));
-		JButton nextButton = new JButton(new AbstractAction()
+		JToolBar toolBar = svgSamples.createNavigatorToolbar(new AbstractAction()
 		{
 			@Override
 			public void actionPerformed(ActionEvent e)
@@ -145,10 +123,7 @@ public class SVGRasterizerTest
 				SVGRasterizerTest.this.displayNextSample();
 			}
 		});
-		nextButton.setContentAreaFilled(true);
-		nextButton.setMargin(new Insets(0, 0, 0, 0));
-		nextButton.setIcon(new ImageIcon(getClass().getResource("nav_forward.gif")));
-		toolBar.add(nextButton);
+		toolBar.add(new JLabel("Drag & Drop SVG files into this window or select next sample: "), 0);
 		return toolBar;
 	}
 		
@@ -191,42 +166,6 @@ public class SVGRasterizerTest
 		return layeredPane;
 	}
 	
-	private Component createSouthPanel()
-	{
-		Box box = new Box(BoxLayout.X_AXIS);
-		box.add(createHyperLinkButton());
-		return box;
-	}
-
-	@SuppressWarnings("unchecked")
-	private JButton createHyperLinkButton()
-	{
-		hyperLinkAction = new AbstractAction("Xxxxxxxx")
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				try {
-					Desktop.getDesktop().browse(new URI((String) hyperLinkAction.getValue(Action.NAME)));
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				} catch (URISyntaxException e1) {
-					e1.printStackTrace();
-				}
-			}
-		};
-		JButton hyperLinkButton = new JButton(hyperLinkAction);
-		hyperLinkButton.setBorderPainted(false);
-		hyperLinkButton.setContentAreaFilled(false);
-
-		Map map = hyperLinkButton.getFont().getAttributes();
-		map.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
-		map.put(TextAttribute.WEIGHT, TextAttribute.WEIGHT_REGULAR);
-		map.put(TextAttribute.FOREGROUND, Color.BLUE);
-		hyperLinkButton.setFont(new Font(map));
-		hyperLinkButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		return hyperLinkButton;
-	}
-
 	private void displaySVG(URL resource) throws TranscoderException
 	{
 		SVGRasterizer rasterizer = new SVGRasterizer(resource);
@@ -326,7 +265,7 @@ public class SVGRasterizerTest
 						file = fileList.get(0);
 						URL url = file.toURI().toURL();
 						SVGRasterizerTest.this.displaySVG(url);
-						hyperLinkAction.putValue(Action.NAME, url.toExternalForm());
+						svgSamples.setForeignURL(url);
 					}
 					dropTargetDropEvent.getDropTargetContext().dropComplete(true);
 				} else {
