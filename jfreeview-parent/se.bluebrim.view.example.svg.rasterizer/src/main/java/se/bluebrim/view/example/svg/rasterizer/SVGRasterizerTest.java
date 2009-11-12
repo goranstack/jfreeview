@@ -55,10 +55,6 @@ import org.apache.batik.transcoder.TranscoderException;
 import org.jdesktop.swingx.JXErrorPane;
 import org.jdesktop.swingx.error.ErrorInfo;
 
-import se.bluebrim.view.zoom.Scale;
-import se.bluebrim.view.zoom.ZoomController;
-import se.bluebrim.view.zoom.Zoomable;
-
 /**
  * Uses Batik framework to display SVG images in a Swing panel. This is
  * normally done by JSVGCanvas but we needed a more lightweight component that
@@ -77,7 +73,6 @@ public class SVGRasterizerTest
 
 	private JLabel label;
 	private Container contentPane;
-	private ZoomController zoomController;
 	private AbstractAction hyperLinkAction;
 	private Map<URL, URL> svgSamples = new HashMap<URL, URL>();
 	private Iterator<Map.Entry<URL, URL>> sampleIterator;
@@ -246,12 +241,11 @@ public class SVGRasterizerTest
 		JXErrorPane.showDialog(contentPane, new ErrorInfo("Drop failure", message, null, null, e, Level.SEVERE, null));
 	}
 
-	private static class CheckerBoardPanel extends JPanel implements Zoomable
+	private static class CheckerBoardPanel extends JPanel
 	{
 		private int square = 8;
 		private Rectangle rectangle = new Rectangle(0, 0, square, square);
 		private Color lightGray = new Color(239, 239, 239);
-		private Scale scale = new Scale();
 
 		@Override
 		protected void paintComponent(Graphics g)
@@ -315,42 +309,6 @@ public class SVGRasterizerTest
 			return !isEven(number);
 		}
 
-		@Override
-		public Scale getDetailLevel()
-		{
-			return new Scale();
-		}
-
-		@Override
-		public Scale getScale()
-		{
-			return scale;
-		}
-
-		@Override
-		public Dimension getUnscaledSize()
-		{
-			return new Dimension(getWidth(), getHeight());
-		}
-
-		@Override
-		public void paintImmediately()
-		{
-			paintImmediately(getBounds());
-			
-		}
-
-		@Override
-		public void setDetailLevel(Scale detailLevel)
-		{
-			// TODO Auto-generated method stub			
-		}
-
-		@Override
-		public void setScale(Scale scale)
-		{
-			this.scale = scale;			
-		}
 	}
 
 	private class FileDropListener extends DropTargetAdapter
