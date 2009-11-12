@@ -235,5 +235,6 @@
 		<module>se.bluebrim.view.example.htmlpanel</module>
 		<module>se.bluebrim.view.example.svg</module>
 		<module>jfreeview-keystore</module>
+		<module>se.bluebrim.view.example.svg.resources</module>
 	</modules>
 </project>
