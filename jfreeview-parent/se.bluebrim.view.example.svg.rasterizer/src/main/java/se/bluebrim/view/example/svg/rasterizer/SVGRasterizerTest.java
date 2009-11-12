@@ -55,14 +55,16 @@ import org.apache.batik.transcoder.TranscoderException;
 import org.jdesktop.swingx.JXErrorPane;
 import org.jdesktop.swingx.error.ErrorInfo;
 
-import se.bluebrim.view.batik.SVGRasterizer;
+import se.bluebrim.view.zoom.ZoomController;
 
 /**
  * Uses Batik framework to display SVG images in a Swing panel. This is
  * normally done by JSVGCanvas but we needed a more lightweight component that
  * only take care of the actual rendering. The SVGRasterizer can handle the SVG
  * rendering in Views that contains SVG-images.<br>
- * Find more SVG files at: http://openclipart.org/media/tags/svg 
+ * Find more SVG files at: <br>
+ * http://openclipart.org/media/tags/svg <br>
+ * http://www.opensecurityarchitecture.org/cms/library/icon-library
  *  
  * @author Goran Stack
  * 
@@ -73,6 +75,7 @@ public class SVGRasterizerTest
 
 	private JLabel label;
 	private Container contentPane;
+	private ZoomController zoomController;
 	private AbstractAction hyperLinkAction;
 	private Map<URL, URL> svgSamples = new HashMap<URL, URL>();
 	private Iterator<Map.Entry<URL, URL>> sampleIterator;
@@ -109,13 +112,14 @@ public class SVGRasterizerTest
 		addSample("http://xmlgraphics.apache.org/batik", "batik3D.svg");
 		addSample("http://www.isc.tamu.edu/~lewing", "NewTux.svg");
 		addSample("http://openclipart.org/media/people/mokush", "mokush_Realistic_Coffee_cup_-_Front_3D_view.svg");
-		addSample("http://openclipart.org/media/people/Chrisdesign", "glossy-buttons.svg");
-		addSample("http://openclipart.org/media/people/Chrisdesign", "tutanchamun.svg");
+		addSample("http://openclipart.org/media/files/Chrisdesign/3587", "glossy-buttons.svg");
+		addSample("http://openclipart.org/media/files/Chrisdesign/9624", "tutanchamun.svg");
+		addSample("http://openclipart.org/media/files/Chrisdesign/3727", "gibson-les-paul.svg");
 	}
 	
 	private void addSample(String originator, String resourceName) throws MalformedURLException
 	{
-		svgSamples.put(new URL(originator), SVGRasterizerTest.class.getResource(resourceName));		
+		svgSamples.put(new URL(originator), getClass().getResource(resourceName));		
 	}
 	
 	private void displayNextSample()

@@ -22,19 +22,9 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>batik</groupId>
-			<artifactId>batik-gvt</artifactId>
-			<version>1.6-1</version>
-		</dependency>
-		<dependency>
-			<groupId>batik</groupId>
-			<artifactId>batik-svg-dom</artifactId>
-			<version>1.6-1</version>
-		</dependency>
-		<dependency>
-			<groupId>batik</groupId>
-			<artifactId>batik-script</artifactId>
-			<version>1.6-1</version>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>batik-bridge</artifactId>
+			<version>1.7</version>
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>

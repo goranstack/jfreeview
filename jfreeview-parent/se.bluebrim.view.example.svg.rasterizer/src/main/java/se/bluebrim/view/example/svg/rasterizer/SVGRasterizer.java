@@ -1,4 +1,4 @@
-package se.bluebrim.view.batik;
+package se.bluebrim.view.example.svg.rasterizer;
 /*****************************************************************************
  * Copyright (C) The Apache Software Foundation. All rights reserved.        *
  * ------------------------------------------------------------------------- *
