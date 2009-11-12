@@ -14,19 +14,21 @@
 			<groupId>${project.groupId}</groupId>
 			<artifactId>se.bluebrim.view</artifactId>
 			<version>${project.version}</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>se.bluebrim.view.example</artifactId>
 			<version>${project.version}</version>
-			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>se.bluebrim.desktop.application.graphical</artifactId>
 			<version>${project.version}</version>
-			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>se.bluebrim.view.example.svg.resource</artifactId>
+			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 
