@@ -74,6 +74,7 @@ public class SVGSampleProvider {
 		addSample("http://openclipart.org/media/files/Chrisdesign/3587", "glossy-buttons.svg");
 		addSample("http://openclipart.org/media/files/Chrisdesign/9624", "tutanchamun.svg");
 		addSample("http://openclipart.org/media/files/Chrisdesign/3727", "gibson-les-paul.svg");
+		addSample("http://openclipart.org/media/files/yves_guillou/11115", "yves_guillou_sport_car_2.svg");
 	}
 	
 	private void addSample(String originator, String resourceName) throws MalformedURLException
