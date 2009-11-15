@@ -11,6 +11,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.List;
 
 import javax.swing.AbstractAction;
@@ -62,14 +63,6 @@ public class SVGCanvasExample {
 	private RSyntaxTextArea sourceTextArea;
 
 	public static void main(String[] args) throws MalformedURLException {
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception e) {
-		}
-
-		Toolkit.getDefaultToolkit().setDynamicLayout(false); // Works badly
-		// together with
-		// OptimalFitLayoutManager
 		new SVGCanvasExample().run();
 	}
 
@@ -132,13 +125,14 @@ public class SVGCanvasExample {
 	}
 
 	protected void displayNextSample() {
+		URL resource = svgSamples.next().getResource();
 		try {
-			canvas.setURI(svgSamples.next().getResource().toURI().toString());
+			canvas.setURI(resource.toURI().toString());
 		} catch (URISyntaxException e) {
 			throw new RuntimeException(e);
 		}
 		try {
-			sourceTextArea.setText(new JEditorPane(svgSamples.next().getResource()).getText());
+			sourceTextArea.setText(new JEditorPane(resource).getText());
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
