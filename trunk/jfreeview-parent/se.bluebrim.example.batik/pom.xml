@@ -1,0 +1,48 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>jfreeview-parent</artifactId>
+		<groupId>se.bluebrim</groupId>
+		<version>1.0.1-SNAPSHOT</version>
+	</parent>
+	<groupId>se.bluebrim</groupId>
+	<artifactId>se.bluebrim.example.batik</artifactId>
+	<version>1.0.1-SNAPSHOT</version>
+	<name>Batik Example</name>
+	<description>Desktop SVG browser based on JSVGCanvas</description>
+	<dependencies>
+		<dependency>
+			<groupId>se.bluebrim</groupId>
+			<artifactId>se.bluebrim.view.example.svg.resource</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>batik-swing</artifactId>
+			<version>1.7</version>
+		</dependency>
+		<dependency>
+			<groupId>org.fife.ui</groupId>
+			<artifactId>rsyntaxtextarea</artifactId>
+			<version>1.3.4</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/rsyntaxtextarea-1.3.4.jar</systemPath>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo.webstart</groupId>
+				<artifactId>webstart-maven-plugin</artifactId>
+				<version>1.0-alpha-2</version>
+				<configuration>
+					<jnlp>
+						<mainClass>se.bluebrim.view.example.zoom.ZoomToolTest</mainClass>
+					</jnlp>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
