@@ -38,7 +38,7 @@
 				<version>1.0-alpha-2</version>
 				<configuration>
 					<jnlp>
-						<mainClass>se.bluebrim.view.example.zoom.ZoomToolTest</mainClass>
+						<mainClass>se.bluebrim.example.svgcanvas.SVGCanvasExample</mainClass>
 					</jnlp>
 				</configuration>
 			</plugin>
