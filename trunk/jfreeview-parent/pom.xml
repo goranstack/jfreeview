@@ -236,5 +236,6 @@
 		<module>se.bluebrim.view.example.svg</module>
 		<module>jfreeview-keystore</module>
 		<module>se.bluebrim.view.example.svg.resources</module>
+		<module>se.bluebrim.example.batik</module>
 	</modules>
 </project>
