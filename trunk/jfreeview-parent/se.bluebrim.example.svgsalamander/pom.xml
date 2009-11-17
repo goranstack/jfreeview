@@ -17,10 +17,14 @@
 			<artifactId>se.bluebrim.view.example.svg.resource</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<!-- Unable to download the salamander jar from Maven repo-->
 		<dependency>
 			<groupId>com.kitfox.svg</groupId>
 			<artifactId>svg-salamander</artifactId>
 			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/lib/svgSalamander.jar</systemPath>
 		</dependency>
+		 
 	</dependencies>
 </project>
