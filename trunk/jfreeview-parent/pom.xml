@@ -172,12 +172,6 @@
 			<id>googlecode-jfreecrud</id>
 			<name>JFreeCrud Maven Repo</name>
 			<url>http://jfreecrud.googlecode.com/svn/repo</url>
-			<releases>
-				<updatePolicy>always</updatePolicy>
-			</releases>
-			<snapshots>
-				<updatePolicy>always</updatePolicy>
-			</snapshots>
 		</repository>
 		<repository>
 			<id>googlecode-esox</id>
@@ -204,7 +198,6 @@
 				<type>jar</type>
 				<scope>compile</scope>
 			</dependency>
-
 		</dependencies>
 	</dependencyManagement>
 	<!--
@@ -237,5 +230,6 @@
 		<module>jfreeview-keystore</module>
 		<module>se.bluebrim.view.example.svg.resources</module>
 		<module>se.bluebrim.example.batik</module>
+		<module>se.bluebrim.example.svgsalamander</module>
 	</modules>
 </project>
