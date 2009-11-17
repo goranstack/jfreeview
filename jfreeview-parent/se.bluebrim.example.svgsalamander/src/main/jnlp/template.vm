@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0+" codebase="${codebase}" href="$outputFile">
+ <information>
+    <title>SVG Salamander Example</title>
+    <vendor>JFreeView Team</vendor>
+    <homepage href="http://code.google.com/p/jfreeview"/>
+    <description kind="one-line">SVG Salamander Example</description>
+    <description kind="short">Desktop application using SVG Salamander to render the SVG files</description>
+    <description kind="tooltip">Desktop application using SVG Salamander to render the SVG files</description>
+    <icon href="jfreeview-logo-32x32.png" kind="default"/>
+    <shortcut online="false"><desktop/><menu submenu="SVG Salamander Example"/></shortcut>
+ </information>
+ <security>
+ <all-permissions/>
+ </security>
+ <resources>
+    <j2se version="1.6+" initial-heap-size="32m" max-heap-size="128m"/>
+    <property name="jnlp.versionEnabled" value="false"/>
+    <property name="jnlp.packEnabled" value="false"/>    
+    $dependencies
+ </resources>
+ <application-desc main-class="$mainClass">
+ </application-desc>
+</jnlp>
