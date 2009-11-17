@@ -13,9 +13,9 @@
 	<description>Desktop SVG browser based on JSVGCanvas</description>
 	<dependencies>
 		<dependency>
-			<groupId>se.bluebrim</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>se.bluebrim.view.example.svg.resource</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.xmlgraphics</groupId>
