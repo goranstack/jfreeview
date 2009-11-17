@@ -11,6 +11,7 @@ import java.net.URL;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import javax.swing.JToolBar;
 
 import se.bluebrim.view.example.svg.resource.SVGSampleProvider;
@@ -41,7 +42,7 @@ public class SVGSalamanderExample
 		svgSamples = new SVGSampleProvider();
 		window = new JFrame();
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setTitle("JSVGCanvas Example");
+		window.setTitle("SVG Salamander Example");
 		window.setIconImage(new ImageIcon(getClass().getResource("jfreeview-logo-32x32.png")).getImage());
 		Container contentPane = window.getContentPane();
 		Component originatorBar = svgSamples.createOriginatorBar();
@@ -59,7 +60,7 @@ public class SVGSalamanderExample
 
 	private Component createContentPane()
 	{
-		return svgPanel;
+		return new JScrollPane(svgPanel);
 	}
 
 	private JToolBar createToolBar()
