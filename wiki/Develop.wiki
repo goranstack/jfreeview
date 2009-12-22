@@ -2,7 +2,7 @@
 
 ==Step by step how to getting started==
 
-  # Install Eclipse IDE for Java Developers from http://www.eclipse.org/downloads/
+  # Install Eclipse IDE for Java Developers from: http://www.eclipse.org/downloads/
   # Install the Subclipse plug-in from: http://subclipse.tigris.org/ 
   # Install the M2Eclipse plug-in from: http://m2eclipse.sonatype.org/
   # Open the SVN Repository Exploring Perspective in Eclipse
