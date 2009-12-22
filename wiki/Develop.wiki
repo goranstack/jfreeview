@@ -3,7 +3,8 @@
 ==Step by step how to getting started==
 
   # Install Eclipse IDE for Java Developers from http://www.eclipse.org/downloads/
-  # Install the M2Eclipse plugin from http://m2eclipse.sonatype.org/
+  # Install the Subclipse plug-in from: http://subclipse.tigris.org/ 
+  # Install the M2Eclipse plug-in from: http://m2eclipse.sonatype.org/
   # Open the SVN Repository Exploring Perspective in Eclipse
   # Press the "Add SVN Repository" button and add the following URL in the dialog: http://jfreeview.googlecode.com/svn/trunk
   # Select the jfreeview-parent folder and use the right button menu to perform: Checkout as Maven Project...
