@@ -26,6 +26,6 @@ public class JdbcConnectionMaker extends DesktopApp
 	@Override
 	protected String getApplicationPath()
 	{
-		return "Iprobe/JdbcConnectionMaker";
+		return "BlueBrim/JdbcConnectionMaker";
 	}	
 }
