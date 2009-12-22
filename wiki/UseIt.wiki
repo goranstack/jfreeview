@@ -57,7 +57,7 @@ To use the component include the following in your pom.xml:
 ===3. se.bluebrim.desktop.application.graphical===
 
 A component that extends _se.bluebrim.desktop.application_ with functions for
-creating a graphical desktop application using the _se.bluebrim.view_ component. Adds also functions for saving in the pdf and svg formats. The only difference from the using the _se.bluebrim.desktop.application_ component is that you subclass _se.bluebrim.desktop.graphical.GraphicalFileEditor_ instead of _se.bluebrim.desktop.FileEditor_.
+creating a graphical desktop application using the _se.bluebrim.view_ component. Adds also functions for saving in the pdf and svg formats. The only difference from using the _se.bluebrim.desktop.application_ component is that you subclass _se.bluebrim.desktop.graphical.GraphicalFileEditor_ instead of _se.bluebrim.desktop.FileEditor_.
 
 You can study the _se.bluebrim.view.example.architecturegraph_ example to see how this is done.
 
