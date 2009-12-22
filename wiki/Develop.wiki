@@ -11,4 +11,6 @@
 Your Eclipse workspace should now be populated with the modules of the JFreeView project.
 The dependency jars should be automatically downloaded by Maven. 
 
-Go to the Java perspective and run for example SVGRasterizerTest. The application is demo of the SVG rendering in the Batik framework. If a window showing a series of SVG images is displayed you have successfully checked out the source code and configured your Eclipse.  
+Go to the Java perspective and run for example SVGRasterizerTest. The application is demo of the SVG rendering in the Batik framework. If a window showing a series of SVG images is displayed you have successfully checked out the source code and configured your Eclipse.
+
+http://jfreeview.googlecode.com/svn/site/images/svg-rasterizer-test.png 
