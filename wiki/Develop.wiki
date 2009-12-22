@@ -1,1 +1,20 @@
 #summary Learn how to check out the source code using Eclipse.
+
+==Step by step how to getting started==
+
+  # Install Eclipse IDE for Java Developers from http://www.eclipse.org/downloads/
+
+  # Install the M2Eclipse plugin from http://m2eclipse.sonatype.org/
+
+  # Open the SVN Repository Exploring Perspective in Eclipse
+
+  # Press the Add SVN Repository button and add the following URL in the dialog:
+  http://jfreeview.googlecode.com/svn/trunk
+
+  # Select the jfreeview-parent folder and use the context menu to perform:
+  Checkout as Maven Project...
+
+Your Eclipse workspace should now be populated with the modules of the JFreeView project.
+The dependency jars should be automatically downloaded by Maven. 
+
+Go to the Java perspective and run for example SVGRasterizerTest. The application is demo of the SVG rendering in the Batik framework. If a window showing a series of SVG images is displayed you have successfully checked out the source code and configured your Eclipse.  
