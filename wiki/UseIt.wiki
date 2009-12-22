@@ -2,7 +2,7 @@
 
 ==Use Maven==
 
-Use Maven to include the artifacts from the JFreeView project in your project. Since    the artifacts do not appear in Maven Central Repository you have to add the following in your pom.xml file:
+Use Maven to include the artifacts from the JFreeView project in your project. By using Maven you will have all transitive dependencies included as well. Since the JFreeView artifacts do not appear in Maven Central Repository you have to add the following in your pom.xml file:
 
 {{{
         <repositories>
@@ -16,9 +16,9 @@ Use Maven to include the artifacts from the JFreeView project in your project. S
 }}}
 
 
-There are three different components you can use in the JFreeView project.
+There are three different components you can use from the JFreeView project.
 
-===se.bluebrim.view===
+===1. se.bluebrim.view===
 
 This component contains a 2D scene graph that can be used when implementing a graphical application in Swing. To use it include the following in your pom.xml:
 
@@ -31,7 +31,9 @@ This component contains a 2D scene graph that can be used when implementing a gr
 
 }}}
 
-===se.bluebrim.desktop.application===
+_se.bluebrim.view.example.movableviews_ contains an example how this component can be used.
+
+===2. se.bluebrim.desktop.application===
 
 Use this component to develop a multi document desktop application in Java Swing. You just have to create four classes to get the whole thing running:
 
@@ -40,14 +42,31 @@ Use this component to develop a multi document desktop application in Java Swing
   # YourModel extending se.bluebrim.crud.esox.DirtyPredicateModel
   # YourPanel extending se.bluebrim.crud.client.DirtyPredicatePanel
 
-Have a look at se.bluebrim.desktop.application.example.jdbc to se how this is done.
+Have a look at _se.bluebrim.desktop.application.example.jdbc_ to se how this is done.
 
-To use it include the following in your pom.xml:
+To use the component include the following in your pom.xml:
 
 {{{
     <dependency>
       <groupId>se.bluebrim</groupId>
       <artifactId>se.bluebrim.desktop.application</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+}}}
+
+===3. se.bluebrim.desktop.application.graphical===
+
+A component that is a extends the se.bluebrim.desktop.application with functions for
+creating a graphical desktop application using the se.bluebrim.view component. Adds also functions for saving in the pdf and svg formats. The only difference from the using the se.bluebrim.desktop.application component is that you subclass se.bluebrim.desktop.graphical.GraphicalFileEditor instead of se.bluebrim.desktop.FileEditor.
+
+You can study the _se.bluebrim.view.example.architecturegraph_ example to see how this is done.
+
+To use the component include the following in your pom.xml:
+
+{{{
+    <dependency>
+      <groupId>se.bluebrim</groupId>
+      <artifactId>se.bluebrim.desktop.application.graphical</artifactId>
       <version>1.0.0</version>
     </dependency>
 }}}
