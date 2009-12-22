@@ -1,1 +1,53 @@
 #summary Learn how to use the library in your project.
+
+==Use Maven==
+
+Use Maven to include the artifacts from the JFreeView project in your project. Since    the artifacts do not appear in Maven Central Repository you have to add the following in your pom.xml file:
+
+{{{
+        <repositories>
+		<repository>
+			<id>googlecode-jfreeview</id>
+			<name>JFreeView Maven Repo</name>
+			<url>http://jfreeview.googlecode.com/svn/repo</url>
+		</repository>
+	</repositories>
+
+}}}
+
+
+There are three different components you can use in the JFreeView project.
+
+===se.bluebrim.view===
+
+This component contains a 2D scene graph that can be used when implementing a graphical application in Swing. To use it include the following in your pom.xml:
+
+{{{
+    <dependency>
+      <groupId>se.bluebrim</groupId>
+      <artifactId>se.bluebrim.view</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+
+}}}
+
+===se.bluebrim.desktop.application===
+
+Use this component to develop a multi document desktop application in Java Swing. You just have to create four classes to get the whole thing running:
+
+  # YourDesktopApp extending se.bluebrim.desktop.DesktopApp
+  # YourFileEditor extending se.bluebrim.desktop.FileEditor
+  # YourModel extending se.bluebrim.crud.esox.DirtyPredicateModel
+  # YourPanel extending se.bluebrim.crud.client.DirtyPredicatePanel
+
+Have a look at se.bluebrim.desktop.application.example.jdbc to se how this is done.
+
+To use it include the following in your pom.xml:
+
+{{{
+    <dependency>
+      <groupId>se.bluebrim</groupId>
+      <artifactId>se.bluebrim.desktop.application</artifactId>
+      <version>1.0.0</version>
+    </dependency>
+}}}
