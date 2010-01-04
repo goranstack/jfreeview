@@ -20,7 +20,7 @@ There are three different components you can use from the JFreeView project.
 
 ===1. se.bluebrim.view===
 
-This component contains a 2D scene graph that can be used when implementing a graphical application in Swing. To use it include the following in your pom.xml:
+This component contains a 2D [http://en.wikipedia.org/wiki/Scene_graph scene graph] that can be used when implementing a graphical application in Swing. To use it include the following in your pom.xml:
 
 {{{
     <dependency>
