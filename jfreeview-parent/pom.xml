@@ -183,6 +183,10 @@
 			<name>Codehaus Repository</name>
 			<url>http://repository.codehaus.org/</url>
 		</repository>
+		<repository>
+			<id>c5-public-repository</id>
+			<url>http://mvn.carbonfive.com/public</url>
+		</repository>
 	</repositories>
 	<dependencyManagement>
 		<dependencies>
