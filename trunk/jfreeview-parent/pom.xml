@@ -12,13 +12,21 @@
 		connected handles.</description>
 	<url>http://code.google.com/p/jfreeview</url>
 	<scm>
-		<connection>scm:svn:http://jfreeview.googlecode.com/svn/trunk/${artifactId}
+		<connection>scm:svn:http://jfreeview.googlecode.com/svn/trunk
 		</connection>
-		<developerConnection>scm:svn:https://jfreeview.googlecode.com/svn/trunk/${artifactId}
+		<developerConnection>scm:svn:https://jfreeview.googlecode.com/svn/trunk
 		</developerConnection>
 		<url>http://code.google.com/p/jfreeview/source/browse</url>
 	</scm>
-
+	<dependencies>
+		<dependency>
+			<groupId>se.bluebrim</groupId>
+			<artifactId>screenshot-maven-plugin</artifactId>
+			<version>1.0.1-SNAPSHOT</version>
+			<type>maven-plugin</type>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 	<build>
 		<resources>
 			<resource>
@@ -102,7 +110,11 @@
 					</tasks>
 				</configuration>
 			</plugin>
-
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<version>2.1</version>
+			</plugin>			
 		</plugins>
 
 		<extensions>
@@ -188,6 +200,23 @@
 			<url>http://mvn.carbonfive.com/public</url>
 		</repository>
 	</repositories>
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>se.bluebrim</groupId>
+				<artifactId>screenshot-maven-plugin</artifactId>
+				<version>1.0.1-SNAPSHOT</version>
+				<reportSets>
+					<reportSet>
+						<id>set1</id>
+						<reports>
+      						<report>gallery</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+		</plugins>
+	</reporting>
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
@@ -235,5 +264,6 @@
 		<module>se.bluebrim.view.example.svg.resource</module>
 		<module>se.bluebrim.example.batik</module>
 		<module>se.bluebrim.example.svgsalamander</module>
+		<module>screenshot-maven-plugin</module>
 	</modules>
 </project>
