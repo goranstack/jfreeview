@@ -8,7 +8,28 @@
 	
 	<artifactId>se.bluebrim.view</artifactId>
 	<name>JFreeView Core</name>
-	
+
+	<reporting>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.6.1</version>
+				<configuration>
+					<doclet>org.umlgraph.doclet.UmlGraphDoc</doclet>
+
+					<!-- <docletPath>/path/to/UmlGraph.jar</docletPath> -->
+					<docletArtifact>
+						<groupId>org.umlgraph</groupId>
+						<artifactId>doclet</artifactId>
+						<version>5.1</version>
+					</docletArtifact>
+					<additionalparam>-views</additionalparam>
+					<useStandardDocletOptions>true</useStandardDocletOptions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 	<dependencies>
 		<dependency>
 			<groupId>org.swinglabs</groupId>
@@ -26,7 +47,7 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>itext</groupId>
+			<groupId>com.lowagie</groupId>
 			<artifactId>itext</artifactId>
 			<version>1.3</version>
 		</dependency>
