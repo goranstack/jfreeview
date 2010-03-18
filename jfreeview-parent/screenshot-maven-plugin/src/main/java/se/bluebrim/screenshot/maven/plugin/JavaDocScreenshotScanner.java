@@ -7,7 +7,7 @@ import java.util.List;
 import javax.swing.JComponent;
 
 import org.apache.maven.plugin.AbstractMojo;
-import org.springframework.util.ClassUtils;
+
 
 /**
  * Scans test classes for method annotated with the Screenshot annotation. Calls found methods and save a png-file with the same name as
@@ -26,16 +26,17 @@ public class JavaDocScreenshotScanner extends ScreenshotScanner
 		this.sourceDirectory = sourceDirectory;
 	}
 
-	@Override
+
 	/**	
 	 * Use the Javadoc convention to name the screen shot file. See:
 	 * <a href="http://java.sun.com/j2se/javadoc/writingdoccomments/#images">Including images in Javadoc</a>
 	 */
+	@Override
 	protected void handleFoundMethod(Class candidateClass, Method method) {
 		JComponent screenShotComponent = callScreenshotMethod(candidateClass, method);
-		File docFilesDirectory = new File(sourceDirectory, ClassUtils.classPackageAsResourcePath(candidateClass) + "/doc-files");
+		File docFilesDirectory = new File(sourceDirectory, org.springframework.util.ClassUtils.classPackageAsResourcePath(candidateClass) + "/doc-files");
 		docFilesDirectory.mkdirs();
-		File file = new File(docFilesDirectory, ClassUtils.getShortName(screenShotComponent.getClass()) + "-1.png");
+		File file = new File(docFilesDirectory, org.springframework.util.ClassUtils.getShortName(screenShotComponent.getClass()) + "-1.png");
 		takeScreenShot(screenShotComponent, file);
 		mojo.getLog().info("Saved screenshot to: " + file.getPath());
 	}
