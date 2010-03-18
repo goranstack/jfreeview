@@ -7,6 +7,7 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
@@ -113,6 +114,20 @@ public abstract class ScreenshotScanner {
 			    } 
 			}						
 		}			  
+	}
+	
+	/**
+	 * Use a named base comparison since we can't be sure that the annotation and the method
+	 * are loaded with the same class loader.
+	 */
+	private boolean isAnnotationPresent(Method method, String annotationName)
+	{
+		Annotation[] annotations = method.getAnnotations();
+		for (Annotation annotation : annotations) {
+			if (annotation.getClass().getName().equals(annotationName))
+				return true;
+		}
+		return false;
 	}
 	
 	private Class loadClass(String testClassName)

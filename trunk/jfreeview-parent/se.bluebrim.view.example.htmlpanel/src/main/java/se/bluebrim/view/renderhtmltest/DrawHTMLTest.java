@@ -25,24 +25,18 @@ public class DrawHTMLTest
 		new DrawHTMLTest().run();
 	}
 
-	public void run() throws Exception
+	private void run() throws Exception
 	{
 		JFrame frame = new JFrame();
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		Container contentPane = frame.getContentPane();
 		contentPane.setLayout(new BorderLayout());
-		HTMLPanel htmlPanel = createHTMLPanelWithSomeContent();
+		HTMLPanel htmlPanel = new HTMLPanel(getClass().getResource("/test.html"), HTMLPanel.createOpenInBrowserHyperlinkListener());
 		contentPane.add(new JScrollPane(htmlPanel), BorderLayout.CENTER);
 		frame.setSize(700, 800);
 		frame.setLocation(100, 100);
 		frame.setVisible(true);
 	}
 	
-	@Screenshot
-	public HTMLPanel createHTMLPanelWithSomeContent() throws IOException
-	{
-		return new HTMLPanel(getClass().getResource("/test.html"), HTMLPanel.createOpenInBrowserHyperlinkListener());
-	}
-
 	
 }
