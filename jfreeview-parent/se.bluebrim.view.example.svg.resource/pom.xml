@@ -6,4 +6,5 @@
     <version>1.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>se.bluebrim.view.example.svg.resource</artifactId>
+  <name>Batic Resources Provider</name>
 </project>
