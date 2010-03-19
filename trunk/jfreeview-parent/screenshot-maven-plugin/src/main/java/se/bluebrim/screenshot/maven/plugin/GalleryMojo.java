@@ -19,6 +19,7 @@ import org.apache.maven.reporting.MavenReportException;
  * @author G Stack
  * @goal gallery
  * @phase site
+ * @requiresDependencyResolution test
  * 
  */
 public class GalleryMojo extends AbstractMavenReport
