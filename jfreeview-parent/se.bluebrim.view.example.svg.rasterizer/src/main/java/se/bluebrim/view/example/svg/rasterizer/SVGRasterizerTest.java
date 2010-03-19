@@ -83,25 +83,29 @@ public class SVGRasterizerTest
 
 	private void run() throws TranscoderException, MalformedURLException
 	{
-		svgSamples = new SVGSampleProvider();
 		JFrame window = new JFrame();
 		window.setTitle("SVG Rasterizer Test");
 		window.setIconImage(new ImageIcon(getClass().getResource("jfreeview-logo-32x32.png")).getImage());
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		contentPane = window.getContentPane();
-		contentPane.setLayout(new BorderLayout());
-		contentPane.add(createCenterPanel(), BorderLayout.CENTER);
-		contentPane.add(svgSamples.createOriginatorBar(), BorderLayout.SOUTH);
-		contentPane.add(createNorthPanel(), BorderLayout.NORTH);
+		addContent(contentPane);
 		window.pack();
 		window.setLocationRelativeTo(null); // Center on screen
 
 		DropTarget dropTarget = new DropTarget(contentPane, TransferHandler.COPY_OR_MOVE, new FileDropListener());
 		contentPane.setDropTarget(dropTarget);
 		window.setVisible(true);
-		displayNextSample();
 	}
 
+	protected void addContent(Container container) throws MalformedURLException
+	{
+		svgSamples = new SVGSampleProvider();
+		container.setLayout(new BorderLayout());
+		container.add(createCenterPanel(), BorderLayout.CENTER);
+		container.add(svgSamples.createOriginatorBar(), BorderLayout.SOUTH);
+		container.add(createNorthPanel(), BorderLayout.NORTH);
+		displayNextSample();
+	}
 	
 	private void displayNextSample()
 	{
