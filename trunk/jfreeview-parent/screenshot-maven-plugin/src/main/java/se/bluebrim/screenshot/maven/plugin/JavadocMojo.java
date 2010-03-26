@@ -1,6 +1,7 @@
 package se.bluebrim.screenshot.maven.plugin;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -24,7 +25,7 @@ public class JavadocMojo extends AbstractMojo
 	/**
      * Screenshot scale factor. Must be > 0.0 and =< 1.0
      *
-     * @parameter
+     * @parameter default-value="1"
      */
     private float imageScale = 1f;
 
@@ -57,13 +58,12 @@ public class JavadocMojo extends AbstractMojo
      * @required
      * @readonly
      */
-    private List<String> testClasspathElements;
+    private ArrayList<String> testClasspathElements;
 
 
 	public void execute() throws MojoExecutionException, MojoFailureException
 	{
 		getLog().info("Generate screenshot executed. The source directory is: " + sourceDirectory.getPath(), null);
-		Locale.setDefault(new Locale("sv", "SE"));
 		JavaDocScreenshotScanner screenshotScanner = new JavaDocScreenshotScanner(this, testClassesDirectory, classesDirectory, testClasspathElements, sourceDirectory);
 		if (imageScale > 0 && imageScale <= 1)
 			screenshotScanner.setScaleFactor(imageScale);

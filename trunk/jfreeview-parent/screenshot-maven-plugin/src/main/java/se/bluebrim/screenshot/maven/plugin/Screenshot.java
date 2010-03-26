@@ -5,6 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import org.apache.commons.lang.ObjectUtils;
+
 /**
  * Used to annotate method in test classes that returns a JComponent suitable
  * for screen shot ripping.
@@ -15,4 +17,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Screenshot {
+	Class targetClass() default ObjectUtils.Null.class;
 }
