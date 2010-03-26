@@ -7,7 +7,6 @@ import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
@@ -19,7 +18,10 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.logging.Log;
+import org.apache.maven.project.MavenProject;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.io.DefaultResourceLoader;
@@ -37,12 +39,15 @@ import org.springframework.core.type.filter.AnnotationTypeFilter;
  */
 public abstract class ScreenshotScanner {
 
+	protected MavenProject project;
+	protected List reactorProjects;
 	protected AbstractMojo mojo;
 	private File testClassesDirectory;
 	private File classesDirectory;
 	private List<String> testClasspathElements;	
-	private ClassLoader classLoader;
 	private float scaleFactor = 1f;
+	private ClassLoader classLoader;
+	private Class<Screenshot> screenshotAnnotationClass;
 	
 		
 	public ScreenshotScanner(AbstractMojo mojo, File testClassesDirectory, File classesDirectory, List<String> testClasspathElements) 
@@ -53,6 +58,17 @@ public abstract class ScreenshotScanner {
 		this.classesDirectory = classesDirectory;
 		this.testClasspathElements = testClasspathElements;
 		classLoader = createClassLoader();
+		screenshotAnnotationClass = loadAnnotationClass(Screenshot.class.getName());
+	}
+	
+	public void setProject(MavenProject project) 
+	{
+		this.project = project;
+	}
+
+	public void setReactorProjects(List reactorProjects) 
+	{
+		this.reactorProjects = reactorProjects;
 	}
 
 	public void setScaleFactor(float scaleFactor) 
@@ -60,10 +76,36 @@ public abstract class ScreenshotScanner {
 		this.scaleFactor = scaleFactor;
 	}
 
-
 	protected abstract void handleFoundMethod(Class candidateClass, Method method);
 
-	private ClassLoader createClassLoader()
+	
+	protected File createNextAvailableFileName(String directory, String baseFileName)
+	{
+		int sequenceNumber = 1;
+		File file = new File(directory, baseFileName + "-" + sequenceNumber + ".png");
+		while (file.exists())
+		{
+			sequenceNumber++;
+			file = new File(directory, baseFileName + "-" + sequenceNumber + ".png");
+			if (sequenceNumber >= Integer.MAX_VALUE)
+				getLog().error("To many screenshot files for the target class: \"" + baseFileName + "\" in the directory: \"" + directory + "\"");
+		}
+		return file;		
+	}
+	
+	protected Class getJavadocClass(Method method, JComponent screenShotComponent)
+	{
+		Screenshot annotation = method.getAnnotation(Screenshot.class);
+		Class targetClass = annotation.targetClass();
+		getLog().debug("Screenshot annotation targetClass: " + targetClass);
+		return ObjectUtils.Null.class.equals(targetClass)  ? screenShotComponent.getClass()  : targetClass;		
+	}
+	
+	
+	protected abstract Log getLog(); 
+
+	
+	private List<URL> collectURLs()
 	{
 		List<URL> urls = new ArrayList<URL>();
 		try
@@ -85,9 +127,9 @@ public abstract class ScreenshotScanner {
 		{
 			throw new RuntimeException(e);
 		}
-		
-		return new URLClassLoader(urls.toArray(new URL[urls.size()]), ClassLoader.getSystemClassLoader());
+		return urls;
 	}
+	
 
 	
 	/**
@@ -96,19 +138,20 @@ public abstract class ScreenshotScanner {
 	 */
 	public void annotationScan()
 	{
-		Class screenshotAnnotation = loadClass(Screenshot.class.getName());
+		if (screenshotAnnotationClass == null)	// Skip modules missing dependency to Screenshot annotation
+			return;
 		ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
 		scanner.setResourceLoader(new DefaultResourceLoader(createAnnotationScanClassLoader()));
 		scanner.addIncludeFilter(new AnnotationTypeFilter(Screenshot.class)); 			 
 		for (BeanDefinition bd : scanner.findCandidateComponents(""))
 		{
-			mojo.getLog().debug("Found screenshot annotaded class: " + bd.getBeanClassName());			
+			getLog().debug("Found screenshot annotaded class: " + bd.getBeanClassName());			
 			Class candidateClass = loadClass(bd.getBeanClassName());
 			
 			for (Method method : candidateClass.getMethods()) 
 			{
-				mojo.getLog().debug("Checking method: \"" + method.getName() + "\" for screenshot annotation");
-				if (method.isAnnotationPresent(screenshotAnnotation)) 
+				getLog().debug("Checking method: \"" + method.getName() + "\" for screenshot annotation");
+				if (method.isAnnotationPresent(screenshotAnnotationClass)) 
 			    {
 					handleFoundMethod(candidateClass, method);
 			    } 
@@ -116,20 +159,7 @@ public abstract class ScreenshotScanner {
 		}			  
 	}
 	
-	/**
-	 * Use a named base comparison since we can't be sure that the annotation and the method
-	 * are loaded with the same class loader.
-	 */
-	private boolean isAnnotationPresent(Method method, String annotationName)
-	{
-		Annotation[] annotations = method.getAnnotations();
-		for (Annotation annotation : annotations) {
-			if (annotation.getClass().getName().equals(annotationName))
-				return true;
-		}
-		return false;
-	}
-	
+
 	private Class loadClass(String testClassName)
 	{
 		try
@@ -148,7 +178,7 @@ public abstract class ScreenshotScanner {
 	{
 		try
 		{
-			return new URLClassLoader(new URL[]{testClassesDirectory.toURI().toURL()}, ClassLoader.getSystemClassLoader());
+			return new URLClassLoader(new URL[]{testClassesDirectory.toURI().toURL()});
 		} catch (MalformedURLException e)
 		{
 			throw new RuntimeException(e);
@@ -176,8 +206,18 @@ public abstract class ScreenshotScanner {
 			throw new RuntimeException(e);
 		} catch (InvocationTargetException e)
 		{
-			throw new RuntimeException(e);
-		}		
+			handleExceptionInCalledMethod(targetClass, screenshotMethod, e);
+			return null;
+		}catch (Exception e)
+		{
+			handleExceptionInCalledMethod(targetClass, screenshotMethod, e);
+			return null;
+		}			
+	}
+
+	private void handleExceptionInCalledMethod(Class targetClass, Method screenshotMethod, Exception e)
+	{
+		getLog().info("Unable to create screenshot by calling: " + targetClass.getName() + "." + screenshotMethod.getName(), e);
 	}
 
 	protected void takeScreenShot(JComponent component, File file)
@@ -224,6 +264,24 @@ public abstract class ScreenshotScanner {
 		} catch (IOException e) {
 			throw new RuntimeException("Unable to write screen shot to: " + file.getPath());
 		}		
+	}
+
+	private ClassLoader createClassLoader()
+	{
+		List<URL> urls = collectURLs();
+		return new URLClassLoader(urls.toArray(new URL[urls.size()]), Thread.currentThread().getContextClassLoader());
+	}
+
+	private Class<Screenshot> loadAnnotationClass(String className)
+	{
+		try
+		{
+			return (Class<Screenshot>) classLoader.loadClass(className);
+		} catch (ClassNotFoundException e)
+		{
+			getLog().debug("No screenshot annotation class found in: " + project.getArtifactId());
+			return null;
+		}
 	}
 
 	

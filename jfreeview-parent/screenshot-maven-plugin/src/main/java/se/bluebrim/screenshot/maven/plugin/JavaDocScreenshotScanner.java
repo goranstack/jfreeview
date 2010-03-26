@@ -6,7 +6,9 @@ import java.util.List;
 
 import javax.swing.JComponent;
 
+import org.apache.commons.lang.ClassUtils;
 import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.logging.Log;
 
 
 /**
@@ -34,11 +36,21 @@ public class JavaDocScreenshotScanner extends ScreenshotScanner
 	@Override
 	protected void handleFoundMethod(Class candidateClass, Method method) {
 		JComponent screenShotComponent = callScreenshotMethod(candidateClass, method);
-		File docFilesDirectory = new File(sourceDirectory, org.springframework.util.ClassUtils.classPackageAsResourcePath(candidateClass) + "/doc-files");
-		docFilesDirectory.mkdirs();
-		File file = new File(docFilesDirectory, org.springframework.util.ClassUtils.getShortName(screenShotComponent.getClass()) + "-1.png");
-		takeScreenShot(screenShotComponent, file);
-		mojo.getLog().info("Saved screenshot to: " + file.getPath());
+		if (screenShotComponent != null)
+		{
+			Class javadocClass = getJavadocClass(method, screenShotComponent);
+			File docFilesDirectory = new File(sourceDirectory, org.springframework.util.ClassUtils.classPackageAsResourcePath(javadocClass) + "/doc-files");
+			docFilesDirectory.mkdirs();
+			File file = createNextAvailableFileName(docFilesDirectory.getPath(), ClassUtils.getShortClassName(javadocClass));
+			takeScreenShot(screenShotComponent, file);
+			getLog().info("Saved screenshot to: " + file.getPath());
+		}
+	}
+	
+	@Override
+	protected Log getLog() 
+	{
+		return mojo.getLog();
 	}
 
 }

@@ -1,6 +1,7 @@
 package se.bluebrim.screenshot.maven.plugin;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -13,21 +14,20 @@ import org.apache.maven.reporting.MavenReportException;
 
 
 /**
- * Mojo that generates screen shots.
- 
+ * Mojo that generates a screen shots gallery report.
+ * <p> @see <a href="http://teleal.org/weblog/Howto%20write%20a%20Maven%20report%20plugin.html">How to write a Maven report plugin 2010-03-05T12:30:00CET</a>
  * 
  * @author G Stack
  * @goal gallery
  * @phase site
  * @requiresDependencyResolution test
- * 
  */
 public class GalleryMojo extends AbstractMavenReport
 {
 	/**
      * Screenshot scale factor. Must be > 0.0 and =< 1.0
      *
-     * @parameter
+     * @parameter default-value="1"
      */
     private float imageScale = 1f;
 
@@ -53,7 +53,7 @@ public class GalleryMojo extends AbstractMavenReport
      * @readonly
      */
 
-	private List<String> testClasspathElements;
+	private ArrayList<String> testClasspathElements;
     /**
      * Directory where reports will go.
      *
@@ -69,6 +69,12 @@ public class GalleryMojo extends AbstractMavenReport
      * @readonly
      */
     private MavenProject project;
+    
+    /**
+     * @parameter expression="${rectorProjects}"
+     * @readonly
+     */
+    private ArrayList reactorProjects;
 
     /**
      * @component
@@ -80,14 +86,15 @@ public class GalleryMojo extends AbstractMavenReport
 	@Override
 	protected void executeReport(Locale locale) throws MavenReportException {
 		getLog().info("Screenshot gallery executed. The report directory is: " + outputDirectory, null);
-		GalleryScreenshotScanner screenshotScanner = new GalleryScreenshotScanner(this, testClassesDirectory, classesDirectory, testClasspathElements, outputDirectory);
-		if (imageScale > 0 && imageScale <= 1)
-			screenshotScanner.setScaleFactor(imageScale);
-		else
-			getLog().error("The \"imageScale\" parameter must be > 0 and <= 1");
-		screenshotScanner.annotationScan();
-		screenshotScanner.close();
-		
+		GalleryScreenshotScanner screenshotScanner = new GalleryScreenshotScanner(this, project, testClassesDirectory, classesDirectory, testClasspathElements, outputDirectory);
+		screenshotScanner.setProject(project);
+		screenshotScanner.setReactorProjects(reactorProjects);
+		try {
+			screenshotScanner.annotationScan();
+		} catch (NoClassDefFoundError e) {
+			getLog().error("Unable to find class: " + e.getMessage() + " in the class path of: " + project.getArtifactId());
+		}
+		screenshotScanner.close();		
 	}
 
 	protected MavenProject getProject()
