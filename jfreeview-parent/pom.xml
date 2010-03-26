@@ -16,7 +16,7 @@
 		</connection>
 		<developerConnection>scm:svn:https://jfreeview.googlecode.com/svn/trunk
 		</developerConnection>
-		<url>http://code.google.com/p/jfreeview/source/browse</url>
+		<url>http://code.google.com/p/jfreeview/source/browse#svn/trunk/jfreeview-parent</url>
 	</scm>
 	<dependencies>
 		<dependency>
