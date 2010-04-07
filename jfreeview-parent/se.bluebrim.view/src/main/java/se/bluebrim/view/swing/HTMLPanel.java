@@ -13,6 +13,8 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.event.HyperlinkListener;
 
 /**
+ * <img src="doc-files/HTMLPanel.png" />
+ * </p>
  * Subclass configured to render HTML and handle hyper links
  * 
  * @author Goran Stack
