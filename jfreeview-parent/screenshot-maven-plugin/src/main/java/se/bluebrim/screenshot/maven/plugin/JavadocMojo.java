@@ -2,8 +2,6 @@ package se.bluebrim.screenshot.maven.plugin;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;

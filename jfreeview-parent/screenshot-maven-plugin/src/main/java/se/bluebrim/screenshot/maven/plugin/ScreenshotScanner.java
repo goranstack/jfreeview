@@ -47,7 +47,7 @@ public abstract class ScreenshotScanner {
 	private List<String> testClasspathElements;	
 	private float scaleFactor = 1f;
 	private ClassLoader classLoader;
-	private Class<Screenshot> screenshotAnnotationClass;
+//	private Class<Screenshot> screenshotAnnotationClass;
 	
 		
 	public ScreenshotScanner(AbstractMojo mojo, File testClassesDirectory, File classesDirectory, List<String> testClasspathElements) 
@@ -58,7 +58,7 @@ public abstract class ScreenshotScanner {
 		this.classesDirectory = classesDirectory;
 		this.testClasspathElements = testClasspathElements;
 		classLoader = createClassLoader();
-		screenshotAnnotationClass = loadAnnotationClass(Screenshot.class.getName());
+//		screenshotAnnotationClass = loadAnnotationClass(Screenshot.class.getName());
 	}
 	
 	public void setProject(MavenProject project) 
@@ -133,32 +133,55 @@ public abstract class ScreenshotScanner {
 
 	
 	/**
-	 * Make sure that the test class and the annotation class are loaded with the same class loader otherwise
-	 * the Method.isAnnotationPresent won't work.
+	 * Make sure that the test class and the annotation class are loaded with
+	 * the same class loader otherwise the Method.isAnnotationPresent won't
+	 * work.
 	 */
 	public void annotationScan()
 	{
-		if (screenshotAnnotationClass == null)	// Skip modules missing dependency to Screenshot annotation
-			return;
+//		if (screenshotAnnotationClass == null) // Skip modules missing
+//												// dependency to Screenshot
+//												// annotation
+//			return;
 		ClassPathScanningCandidateComponentProvider scanner = new ClassPathScanningCandidateComponentProvider(false);
 		scanner.setResourceLoader(new DefaultResourceLoader(createAnnotationScanClassLoader()));
-		scanner.addIncludeFilter(new AnnotationTypeFilter(Screenshot.class)); 			 
+		scanner.addIncludeFilter(new AnnotationTypeFilter(Screenshot.class));
+
+		ClassLoader oldContextClassLoader = Thread.currentThread().getContextClassLoader();
+		try
+		{
+			Thread.currentThread().setContextClassLoader(classLoader);
+			processCandidateClasses(scanner);
+		} catch (Exception e)
+		{
+			getLog().error(e);
+		} finally
+		{
+			Thread.currentThread().setContextClassLoader(oldContextClassLoader);
+		}
+
+	}
+
+	/**
+	 * Process classes with one ore more screenshot annotated method
+	 */
+	private void processCandidateClasses(ClassPathScanningCandidateComponentProvider scanner)
+	{
 		for (BeanDefinition bd : scanner.findCandidateComponents(""))
 		{
-			getLog().debug("Found screenshot annotaded class: " + bd.getBeanClassName());			
+			getLog().debug("Found screenshot annotaded class: " + bd.getBeanClassName());
 			Class candidateClass = loadClass(bd.getBeanClassName());
-			
-			for (Method method : candidateClass.getMethods()) 
+
+			for (Method method : candidateClass.getMethods())
 			{
 				getLog().debug("Checking method: \"" + method.getName() + "\" for screenshot annotation");
-				if (method.isAnnotationPresent(screenshotAnnotationClass)) 
-			    {
+				if (method.isAnnotationPresent(Screenshot.class))
+				{
 					handleFoundMethod(candidateClass, method);
-			    } 
-			}						
-		}			  
+				}
+			}
+		}
 	}
-	
 
 	private Class loadClass(String testClassName)
 	{
@@ -235,6 +258,7 @@ public abstract class ScreenshotScanner {
 		g.scale(scaleFactor, scaleFactor);
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 		component.setDoubleBuffered(false);
 		component.print(g);
 		g.dispose();

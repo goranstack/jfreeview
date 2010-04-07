@@ -1,11 +1,13 @@
 package se.bluebrim.screenshot.maven.plugin;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.List;
 
 import javax.swing.JComponent;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ClassUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.logging.Log;
@@ -41,9 +43,34 @@ public class JavaDocScreenshotScanner extends ScreenshotScanner
 			Class javadocClass = getJavadocClass(method, screenShotComponent);
 			File docFilesDirectory = new File(sourceDirectory, org.springframework.util.ClassUtils.classPackageAsResourcePath(javadocClass) + "/doc-files");
 			docFilesDirectory.mkdirs();
-			File file = createNextAvailableFileName(docFilesDirectory.getPath(), ClassUtils.getShortClassName(javadocClass));
-			takeScreenShot(screenShotComponent, file);
-			getLog().info("Saved screenshot to: " + file.getPath());
+			File file = new File(docFilesDirectory.getPath(), ClassUtils.getShortClassName(javadocClass) + ".png");
+			File tempFile = createTempFile(ClassUtils.getShortClassName(javadocClass), ".png", docFilesDirectory);
+			takeScreenShot(screenShotComponent, tempFile);
+			try
+			{
+				if (!FileUtils.contentEquals(file, tempFile))
+				{
+					FileUtils.copyFile(tempFile, file);
+					getLog().info("Saved screenshot to: " + file.getPath());
+				}
+			} catch (IOException e)
+			{
+				throw new RuntimeException("Unable to save screenshot: " + file.getPath(), e);
+			} finally
+			{
+				tempFile.delete();
+			}
+		}
+	}
+	
+	private File createTempFile(String prefix, String suffix,  File directory)
+	{
+		try
+		{
+			return File.createTempFile(prefix, suffix, directory);
+		} catch (IOException e)
+		{
+			throw new RuntimeException("Unable to create temp file for storing screenshot: " + directory.getPath() + "/" + prefix + "." + suffix, e);
 		}
 	}
 	
