@@ -18,7 +18,7 @@ public class SVGRasterizerTestTest {
 		SVGRasterizerTest.main(null);
 	}
 	
-	@Screenshot
+	@Screenshot (targetClass=SVGRasterizerTest.class)
 	public JComponent createScreenshot() throws MalformedURLException
 	{
 		JPanel panel= new JPanel();

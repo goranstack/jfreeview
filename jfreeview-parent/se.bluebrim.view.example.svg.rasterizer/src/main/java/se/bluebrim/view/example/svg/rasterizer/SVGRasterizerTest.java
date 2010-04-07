@@ -57,6 +57,8 @@ import org.jdesktop.swingx.error.ErrorInfo;
 import se.bluebrim.view.example.svg.resource.SVGSampleProvider;
 
 /**
+ * <img src="doc-files/SVGRasterizerTest.png" />
+ * </p>
  * Uses Batik framework to display SVG images in a Swing panel. This is
  * normally done by JSVGCanvas but we needed a more lightweight component that
  * only take care of the actual rendering. The SVGRasterizer can handle the SVG
