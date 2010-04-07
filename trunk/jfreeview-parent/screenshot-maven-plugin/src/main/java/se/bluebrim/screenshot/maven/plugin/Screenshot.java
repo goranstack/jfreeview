@@ -17,5 +17,15 @@ import org.apache.commons.lang.ObjectUtils;
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Screenshot {
+	/**
+	 * Specify the class who's Javadoc will include the screen shot. Can be omitted if the screen shot 
+	 * method returns that class. 
+	 */
 	Class targetClass() default ObjectUtils.Null.class;
+	
+	/**
+	 * Used to generate different file names for several screen shots of the same class 
+	 * 
+	 */
+	String scene() default "";
 }
