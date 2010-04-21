@@ -17,6 +17,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
+import javax.swing.SwingUtilities;
 
 import org.apache.commons.lang.ObjectUtils;
 import org.apache.maven.plugin.AbstractMojo;
@@ -26,6 +27,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
+
 
 /**
  * Abstract super class to objects that scans test classes for methods annotated with Screenshot annotation.
@@ -261,9 +263,35 @@ public abstract class ScreenshotScanner {
 		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 		component.setDoubleBuffered(false);
 		component.print(g);
+		decorateScreenshot(component, g);
 		g.dispose();
 		return image;
 	}
+	
+	private void decorateScreenshot(final JComponent rootComponent, final Graphics2D g2d)
+	{
+		eachComponent(rootComponent, new ComponentVisitor(){
+
+			@Override
+			public void visit(JComponent component) {
+				Object clientProperty = component.getClientProperty(ScreenshotDecorator.CLIENT_PROPERTY_KEY);
+				if (clientProperty instanceof ScreenshotDecorator)
+					((ScreenshotDecorator)clientProperty).paint(g2d, component, rootComponent);				
+			}});
+	}
+	
+	/**
+	 * Recursive method traversing the component hierarchy
+	 */
+	private void eachComponent(JComponent component, ComponentVisitor visitor)
+	{
+		for (Component child : component.getComponents())
+			if (child instanceof JComponent) {
+				eachComponent((JComponent) child, visitor);
+			}
+		visitor.visit(component);
+	}
+
 	
 	/**
 	 * Found at: <a href="http://forums.sun.com/thread.jspa?messageID=10852895#10852895"> Turning a component into a BufferedImage</a>
@@ -308,5 +336,9 @@ public abstract class ScreenshotScanner {
 		}
 	}
 
+	public interface ComponentVisitor
+	{
+		public void visit(JComponent component);
+	}
 	
 }
