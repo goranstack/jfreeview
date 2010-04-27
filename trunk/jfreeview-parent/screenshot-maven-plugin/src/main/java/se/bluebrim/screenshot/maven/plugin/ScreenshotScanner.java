@@ -1,5 +1,6 @@
 package se.bluebrim.screenshot.maven.plugin;
 
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Graphics2D;
@@ -17,17 +18,18 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.JComponent;
-import javax.swing.SwingUtilities;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.ObjectUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
+import org.jdesktop.swingx.graphics.GraphicsUtilities;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.type.filter.AnnotationTypeFilter;
-
 
 /**
  * Abstract super class to objects that scans test classes for methods annotated with Screenshot annotation.
@@ -41,6 +43,7 @@ import org.springframework.core.type.filter.AnnotationTypeFilter;
  */
 public abstract class ScreenshotScanner {
 
+	private static final String FORMAT_PNG = "png";
 	protected MavenProject project;
 	protected List reactorProjects;
 	protected AbstractMojo mojo;
@@ -79,23 +82,54 @@ public abstract class ScreenshotScanner {
 	}
 
 	protected abstract void handleFoundMethod(Class candidateClass, Method method);
+	
+	protected File createScreenshotFile(JComponent screenShotComponent, Class screenshotClass, File dir, Method method) 
+	{
+		String screenshotName = screenshotClass.getSimpleName() + getSceneName(method);
+		File file = new File(dir.getPath(), screenshotName + "." + FORMAT_PNG);
+		File tempFile = createTempFile(screenshotName, "." + FORMAT_PNG, dir);
+		takeScreenShot(screenShotComponent, tempFile);
+		overwriteIfChanged(file, tempFile);
+		return file;
+	}
 
 	
-	protected File createNextAvailableFileName(String directory, String baseFileName)
-	{
-		int sequenceNumber = 1;
-		File file = new File(directory, baseFileName + "-" + sequenceNumber + ".png");
-		while (file.exists())
+	private void overwriteIfChanged(File originalFile, File tempFile) {
+		try
 		{
-			sequenceNumber++;
-			file = new File(directory, baseFileName + "-" + sequenceNumber + ".png");
-			if (sequenceNumber >= Integer.MAX_VALUE)
-				getLog().error("To many screenshot files for the target class: \"" + baseFileName + "\" in the directory: \"" + directory + "\"");
+			if (!FileUtils.contentEquals(originalFile, tempFile))
+			{
+				FileUtils.copyFile(tempFile, originalFile);
+				getLog().info("Saved screenshot to: " + originalFile.getPath());
+			}
+		} catch (IOException e)
+		{
+			throw new RuntimeException("Unable to save screenshot: " + originalFile.getPath(), e);
+		} finally
+		{
+			tempFile.delete();
 		}
-		return file;		
 	}
 	
-	protected Class getJavadocClass(Method method, JComponent screenShotComponent)
+	private File createTempFile(String prefix, String suffix,  File directory)
+	{
+		try
+		{
+			File tempFile = File.createTempFile(prefix, suffix, directory);
+			tempFile.deleteOnExit();
+			return tempFile;
+		} catch (IOException e)
+		{
+			throw new RuntimeException("Unable to create temp file for storing screenshot: " + directory.getPath() + "/" + prefix + "." + suffix, e);
+		}
+	}
+
+	/**
+	 * 
+	 * @return The class that should be associated with the screenshot. There are cases where the screenShotComponent
+	 * is a generic panel class containing the specific screenshot class.
+	 */
+	protected Class getTargetClass(Method method, JComponent screenShotComponent)
 	{
 		Screenshot annotation = method.getAnnotation(Screenshot.class);
 		Class targetClass = annotation.targetClass();
@@ -103,6 +137,15 @@ public abstract class ScreenshotScanner {
 		return ObjectUtils.Null.class.equals(targetClass)  ? screenShotComponent.getClass()  : targetClass;		
 	}
 	
+
+	private String getSceneName(Method method)
+	{
+		Screenshot annotation = method.getAnnotation(Screenshot.class);
+		String scene = annotation.scene();
+		getLog().debug("Screenshot annotation scene: " + scene);
+		return (StringUtils.isEmpty(scene))  ? ""  : "-" + scene;		
+	}
+
 	
 	protected abstract Log getLog(); 
 
@@ -251,26 +294,35 @@ public abstract class ScreenshotScanner {
 	}
 	
 	
+	/**
+	 * Scaling the image by setting the scale factor of the Graphics2D gives a pore result.
+	 * Use the scaling method described in "Filthy Rich Clients" implemented in Swingx GraphicsUtilities.
+	 */
 	protected BufferedImage ripSwingComponent(JComponent component)
 	{
 		component.setSize(component.getPreferredSize());
 		propagateDoLayout(component);
-		BufferedImage image = new BufferedImage(Math.round(component.getWidth() * scaleFactor), Math.round(component.getHeight() * scaleFactor), BufferedImage.TYPE_INT_RGB);
+		BufferedImage image = new BufferedImage(component.getWidth(),component.getHeight(), BufferedImage.TYPE_INT_ARGB);			
 		Graphics2D g =  image.createGraphics();
-		g.scale(scaleFactor, scaleFactor);
+		if (component.isOpaque())
+		{
+			g.setColor(new Color(0xE5EDF5));
+			g.fillRect(0, 0, image.getWidth(), image.getHeight());
+		}
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
-		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
 		component.setDoubleBuffered(false);
 		component.print(g);
 		decorateScreenshot(component, g);
 		g.dispose();
-		return image;
+
+		return (scaleFactor < 1)  ? GraphicsUtilities.createThumbnailFast(image, (int)(image.getWidth() * scaleFactor), (int)(image.getHeight() * scaleFactor)) : image;
+
 	}
 	
 	private void decorateScreenshot(final JComponent rootComponent, final Graphics2D g2d)
 	{
-		eachComponent(rootComponent, new ComponentVisitor(){
+		DecoratorUtils.eachComponent(rootComponent, new DecoratorUtils.ComponentVisitor(){
 
 			@Override
 			public void visit(JComponent component) {
@@ -279,19 +331,6 @@ public abstract class ScreenshotScanner {
 					((ScreenshotDecorator)clientProperty).paint(g2d, component, rootComponent);				
 			}});
 	}
-	
-	/**
-	 * Recursive method traversing the component hierarchy
-	 */
-	private void eachComponent(JComponent component, ComponentVisitor visitor)
-	{
-		for (Component child : component.getComponents())
-			if (child instanceof JComponent) {
-				eachComponent((JComponent) child, visitor);
-			}
-		visitor.visit(component);
-	}
-
 	
 	/**
 	 * Found at: <a href="http://forums.sun.com/thread.jspa?messageID=10852895#10852895"> Turning a component into a BufferedImage</a>
@@ -312,7 +351,7 @@ public abstract class ScreenshotScanner {
 	private void writeScreenshot(BufferedImage screenshot, File file)
 	{
 		try {
-			ImageIO.write(screenshot, "png", file);
+			ImageIO.write(screenshot, FORMAT_PNG, file);
 		} catch (IOException e) {
 			throw new RuntimeException("Unable to write screen shot to: " + file.getPath());
 		}		
@@ -334,11 +373,6 @@ public abstract class ScreenshotScanner {
 			getLog().debug("No screenshot annotation class found in: " + project.getArtifactId());
 			return null;
 		}
-	}
-
-	public interface ComponentVisitor
-	{
-		public void visit(JComponent component);
 	}
 	
 }

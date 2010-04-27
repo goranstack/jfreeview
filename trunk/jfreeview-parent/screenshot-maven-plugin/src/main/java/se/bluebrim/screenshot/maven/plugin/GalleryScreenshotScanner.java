@@ -22,7 +22,7 @@ import org.apache.maven.reporting.AbstractMavenReport;
 public class GalleryScreenshotScanner extends ScreenshotScanner 
 {
 	private AbstractMavenReport reportMojo;
-	private String outputDirectory;
+	private File outputDirectory;
 	private Sink sink;
 	private MavenProject project;
 
@@ -31,9 +31,10 @@ public class GalleryScreenshotScanner extends ScreenshotScanner
 		super(reportMojo, testClassesDirectory, classesDirectory, testClasspathElements);
 		this.reportMojo = reportMojo;
 		this.project = project;
-		this.outputDirectory = outputDirectory;
+		this.outputDirectory = new File(outputDirectory);
+		this.outputDirectory.mkdirs();
 		sink = reportMojo.getSink();
-		new File(outputDirectory).mkdirs();
+		
 	}
 
 	/**	
@@ -47,17 +48,15 @@ public class GalleryScreenshotScanner extends ScreenshotScanner
 		JComponent screenShotComponent = callScreenshotMethod(candidateClass, method);
 		if (screenShotComponent != null)
 		{
-			Class javadocClass = getJavadocClass(method, screenShotComponent);
-			File file = createNextAvailableFileName(outputDirectory, ClassUtils.getShortClassName(javadocClass));
-			takeScreenShot(screenShotComponent, file);
-			getLog().info("Saved screenshot to: " + file.getPath());
+			Class screenshotClass = getTargetClass(method, screenShotComponent);
+			File file = createScreenshotFile(screenShotComponent, screenshotClass, outputDirectory, method);
 			sink.paragraph();
 			sink.figure();
 			sink.figureGraphics(file.getName());
 			sink.figure_();
 			sink.lineBreak();
-			sink.link(getScmPath() + getSourceDirectory() + "/" + org.springframework.util.ClassUtils.convertClassNameToResourcePath(javadocClass.getName()) + ".java");
-			sink.text(javadocClass.getName());
+			sink.link(getScmPath() + getSourceDirectory() + "/" + org.springframework.util.ClassUtils.convertClassNameToResourcePath(screenshotClass.getName()) + ".java");
+			sink.text(screenshotClass.getName());
 			sink.link_();
 			sink.paragraph_();
 		}

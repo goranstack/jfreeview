@@ -6,6 +6,9 @@
 	<version>1.0.1-SNAPSHOT</version>
 	<packaging>maven-plugin</packaging>
 	<name>Screenshot Maven Plugin</name>
+	<scm>
+		<url>http://code.google.com/p/jfreeview/source/browse#svn/trunk/jfreeview-parent/screenshot-maven-plugin</url>
+	</scm>
 	<build>
 		<plugins>
 			<plugin>
@@ -64,6 +67,13 @@
 			<artifactId>plexus-utils</artifactId>
 			<version>2.0.1</version>
 			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.swinglabs</groupId>
+			<artifactId>swingx</artifactId>
+			<version>1.6</version>
+			<type>jar</type>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 </project>
