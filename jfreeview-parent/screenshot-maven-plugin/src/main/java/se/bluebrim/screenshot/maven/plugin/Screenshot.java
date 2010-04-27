@@ -18,8 +18,8 @@ import org.apache.commons.lang.ObjectUtils;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Screenshot {
 	/**
-	 * Specify the class who's Javadoc will include the screen shot. Can be omitted if the screen shot 
-	 * method returns that class. 
+	 * Specify the class that should be associated with the screen shot. Can be omitted if the screen shot 
+	 * method returns that class.
 	 */
 	Class targetClass() default ObjectUtils.Null.class;
 	
