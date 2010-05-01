@@ -311,6 +311,7 @@ public abstract class ScreenshotScanner {
 		}
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		g.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+		g.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		component.setDoubleBuffered(false);
 		component.print(g);
 		decorateScreenshot(component, g);
@@ -320,7 +321,11 @@ public abstract class ScreenshotScanner {
 
 	}
 	
-	private void decorateScreenshot(final JComponent rootComponent, final Graphics2D g2d)
+	/**
+	 * The method is public static to enable use from test classes to show decorated panels in 
+	 * a JFrame.
+	 */
+	public static void decorateScreenshot(final JComponent rootComponent, final Graphics2D g2d)
 	{
 		DecoratorUtils.eachComponent(rootComponent, new DecoratorUtils.ComponentVisitor(){
 
