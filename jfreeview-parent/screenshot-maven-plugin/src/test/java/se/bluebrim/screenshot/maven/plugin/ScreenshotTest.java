@@ -1,6 +1,8 @@
 package se.bluebrim.screenshot.maven.plugin;
 
-import java.awt.Point;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -36,7 +38,7 @@ public class ScreenshotTest {
 	@Screenshot (targetClass=RedFrameDecorator.class)
 	public JComponent createRedFrameDecoratorPanel()
 	{
-		JPanel panel = new JPanel();
+		JPanel panel = new DecoratedPanel();
 		addComponents(panel);
 		button.putClientProperty(ScreenshotDecorator.CLIENT_PROPERTY_KEY, new RedFrameDecorator());
 		return panel;
@@ -45,20 +47,38 @@ public class ScreenshotTest {
 	@Screenshot (targetClass=CalloutDecorator.class)
 	public JPanel createCalloutDecoratorPanel()
 	{
-		JPanel panel = new JPanel();
+		JPanel panel = new DecoratedPanel();
 		addComponents(panel);
-		textField.putClientProperty(ScreenshotDecorator.CLIENT_PROPERTY_KEY, new CalloutDecorator(2, new Point(20, -8)));
+		textField.putClientProperty(ScreenshotDecorator.CLIENT_PROPERTY_KEY, new CalloutDecorator(8));
 		return panel;
 	}
 	
 	@Screenshot (targetClass=CalloutDecorator.class, scene="transparent")
-	public JPanel createCalloutDecoratorBlackPanel()
+	public JPanel createCalloutDecoratorTransparentPanel()
 	{
 		JPanel panel = createCalloutDecoratorPanel();
 		panel.setOpaque(false);
 		return panel;
 	}
+	
+	@Screenshot (targetClass=CompositeDecorator.class)
+	public JPanel createCompositeDecoratorPanel()
+	{
+		JPanel panel = new DecoratedPanel();
+		JButton comp = new JButton("Button");
+		panel.add(comp);
+		CompositeDecorator composite = new CompositeDecorator();
+		composite.add(new TextDecorator("left", new LeftSide()));
+		composite.add(new TextDecorator("right", new RightSide()));
+		composite.add(new TextDecorator("top", new Top()));
+		composite.add(new TextDecorator("bottom", new Bottom()));
+		composite.add(new CalloutDecorator(1, new BottomLeftCorner()));
+		comp.putClientProperty(ScreenshotDecorator.CLIENT_PROPERTY_KEY, composite);
 
+		return panel;
+	}
+	
+	
 	
 	public static void main(String[] args) {
 		final ScreenshotTest instance = new ScreenshotTest();
@@ -76,10 +96,26 @@ public class ScreenshotTest {
 		JPanel panel = new JPanel();
 		panel.add(createRedFrameDecoratorPanel());
 		panel.add(createCalloutDecoratorPanel());
+		panel.add(createCompositeDecoratorPanel());
 		window.getContentPane().add(panel);
 		window.pack();
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);		
+	}
+	
+	private static class DecoratedPanel extends JPanel
+	{
+		@Override
+		public void paint(Graphics g) 
+		{
+			super.paint(g);
+			Graphics2D g2d = (Graphics2D) g;
+			g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+			g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+			g2d.setClip(null);
+			ScreenshotScanner.decorateScreenshot(this, g2d);
+		}
 	}
 
 }
