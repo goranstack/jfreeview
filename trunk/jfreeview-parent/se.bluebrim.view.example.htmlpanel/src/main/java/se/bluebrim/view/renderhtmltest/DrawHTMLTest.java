@@ -2,13 +2,11 @@ package se.bluebrim.view.renderhtmltest;
 
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.io.IOException;
 
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 
-import se.bluebrim.screenshot.maven.plugin.Screenshot;
 import se.bluebrim.view.swing.HTMLPanel;
 
 /**
