@@ -20,10 +20,9 @@
 	</scm>
 	<dependencies>
 		<dependency>
-			<groupId>se.bluebrim</groupId>
-			<artifactId>screenshot-maven-plugin</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
-			<type>maven-plugin</type>
+			<groupId>se.bluebrim.maven.plugin</groupId>
+			<artifactId>screenshot-maven-plugin-api</artifactId>
+			<version>0.0.2</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -177,9 +176,12 @@
 			</properties>
 		</profile>
 	</profiles>
-
-
 	<repositories>
+		<repository>
+			<id>googlecode-screenshot-maven-plugin</id>
+			<name>JFreeCrud Maven Repo</name>
+			<url>http://screenshot-maven-plugin.googlecode.com/svn/mavenrepo</url>
+		</repository>
 		<repository>
 			<id>googlecode-jfreecrud</id>
 			<name>JFreeCrud Maven Repo</name>
@@ -203,9 +205,9 @@
 	<reporting>
 		<plugins>
 			<plugin>
-				<groupId>se.bluebrim</groupId>
+				<groupId>se.bluebrim.maven.plugin</groupId>
 				<artifactId>screenshot-maven-plugin</artifactId>
-				<version>1.0.1-SNAPSHOT</version>
+				<version>0.0.2</version>
 				<reportSets>
 					<reportSet>
 						<id>set1</id>
@@ -264,6 +266,5 @@
 		<module>se.bluebrim.view.example.svg.resource</module>
 		<module>se.bluebrim.example.batik</module>
 		<module>se.bluebrim.example.svgsalamander</module>
-		<module>screenshot-maven-plugin</module>
 	</modules>
 </project>
