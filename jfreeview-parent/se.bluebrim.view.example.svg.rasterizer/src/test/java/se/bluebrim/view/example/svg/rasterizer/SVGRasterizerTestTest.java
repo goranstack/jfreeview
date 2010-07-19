@@ -9,7 +9,7 @@ import javax.swing.JPanel;
 import org.apache.batik.transcoder.TranscoderException;
 import org.junit.Test;
 
-import se.bluebrim.screenshot.maven.plugin.Screenshot;
+import se.bluebrim.maven.plugin.screenshot.Screenshot;
 
 public class SVGRasterizerTestTest {
 

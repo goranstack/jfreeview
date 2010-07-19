@@ -3,8 +3,7 @@ package se.bluebrim.view.swing;
 import java.awt.Dimension;
 import java.io.IOException;
 
-import se.bluebrim.screenshot.maven.plugin.Screenshot;
-import se.bluebrim.view.swing.HTMLPanel;
+import se.bluebrim.maven.plugin.screenshot.Screenshot;
 
 public class HTMLPanelTest {
 
