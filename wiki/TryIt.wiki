@@ -21,3 +21,12 @@ http://jfreeview.googlecode.com/svn/site/images/schema-graph-builder.png
 The ArchitectureGraph class that can be run by checking out the source code in your IDE. The class creates an example of an architecture graph. The blocks in the graph are created programmatically and the layout of the blocks are handled by Swing layout managers. The position of the blocks and additional graphic elements that are created from resources files can be manually adjusted in the GUI by dragging around the elements. The resulting layout is saved in a properties file. The graph is inspired by [http://java.sun.com/products/hotspot/images/javase.gif JavaSE architecture graph].
 
 http://jfreeview.googlecode.com/svn/site/images/architecture-graph.png
+
+==JSVGCanvas Example==
+
+The SVGCanvasExample class is a desktop application with one single JSVGCanvas browsing a series of SVG-files The icons for the tool bar was found at: http://www.iconfinder.net 
+The purpose for the class is to demonstrate how to include SVG graphics into Swing components. It's not obvious how this is done with the Batik framework.
+
+http://jfreeview.googlecode.com/svn/site/images/jsvgcanvas.png
+
+ 
