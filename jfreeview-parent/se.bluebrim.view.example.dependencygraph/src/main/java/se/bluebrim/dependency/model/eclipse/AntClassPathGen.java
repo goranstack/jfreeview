@@ -25,7 +25,7 @@ import se.bluebrim.dependency.model.eclipse.DependentsSorter.CycleException;
  * 
  * Have look at: http://www.geocities.com/richard_hoefter/eclipse2ant/
  * 
- * @author Göran Stäck
+ * @author Gï¿½ran Stï¿½ck
  *  
  */
 public class AntClassPathGen
@@ -127,9 +127,10 @@ public class AntClassPathGen
 			if (isProjectIgnored(projectName))
 				continue;
 			File classPathFile = new File(projectFolders[i], ".classpath");
+			File mavenPomFile = new File(projectFolders[i], "pom.xml");
 			if (classPathFile.exists())
 			{
-				EclipseProject eclipseProject = new EclipseProject(this, projectName, classPathFile);
+				EclipseProject eclipseProject = new EclipseProject(this, projectName, classPathFile, mavenPomFile);
 				projects.put(eclipseProject.getName(), eclipseProject);
 			}
 		}
