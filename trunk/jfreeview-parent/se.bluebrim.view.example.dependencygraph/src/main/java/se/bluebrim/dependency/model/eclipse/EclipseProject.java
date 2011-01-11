@@ -15,6 +15,7 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -24,6 +25,7 @@ import org.jdom.Comment;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.JDOMException;
+import org.jdom.Namespace;
 import org.jdom.Text;
 import org.jdom.input.SAXBuilder;
 import org.jdom.output.Format;
@@ -67,7 +69,7 @@ import se.bluebrim.dependency.model.eclipse.DependentsSorter.CycleException;
  * A good place to start learning processing XML with Java is:
  * http://www.cafeconleche.org/books/xmljava/chapters/index.html
  * 
- * @author Göran Stäck
+ * @author Gï¿½ran Stï¿½ck
  *  
  */
 public class EclipseProject implements OrderDependent, Comparable<EclipseProject>, JarFilePathProvider
@@ -122,6 +124,7 @@ public class EclipseProject implements OrderDependent, Comparable<EclipseProject
 	private AntClassPathGen projectMap;
 	private File projectDir;
 	private File classPathFile;
+	private File mavenPomFile;
 	private String name;
 
 	// Projects checked in the "Projects" tab of the project properties
@@ -136,12 +139,13 @@ public class EclipseProject implements OrderDependent, Comparable<EclipseProject
 	// Jars checked in the "Order and export tab" of the project properties
 	private Collection<ExternalJarFile> exportedExternalJars; 
 
-	public EclipseProject(AntClassPathGen projectMap, String name, File classPathFile)
+	public EclipseProject(AntClassPathGen projectMap, String name, File classPathFile, File mavenPomFile)
 	{
 		this.projectMap = projectMap;
 		this.name = name;
 		this.projectDir = classPathFile.getParentFile();
 		this.classPathFile = classPathFile;
+		this.mavenPomFile = mavenPomFile;
 	}
 	
 	/**
@@ -167,35 +171,94 @@ public class EclipseProject implements OrderDependent, Comparable<EclipseProject
 		initCollections();
 		if (!classPathFile.exists())
 			throw new FileNotFoundException("Hittar inte filen: " + classPathFile.getPath());
-		Document doc = createDocument(classPathFile);
-		Element classpath = doc.getRootElement();
-		Iterator iterator = classpath.getChildren().iterator();
-		while (iterator.hasNext())
+		if (mavenPomFile.exists())
+			parseMavenPomFile();
+		else
 		{
-			Element element = (Element)iterator.next();
-			String kind = element.getAttributeValue("kind");
-			String path = element.getAttributeValue("path");
-			String exported = element.getAttributeValue("exported");
-			exported = (exported == null) ? "" : exported;
-			boolean isExported = exported.equals("true");
-			if (kind.equals("src") && path.startsWith("/"))
+			Document doc = createDocument(classPathFile);
+			Element classpath = doc.getRootElement();
+			Iterator iterator = classpath.getChildren().iterator();
+			while (iterator.hasNext())
 			{
-				String projectName = path.substring(1);
-				EclipseProject project = projectMap.getProject(projectName);
+				Element element = (Element)iterator.next();
+				String kind = element.getAttributeValue("kind");
+				String path = element.getAttributeValue("path");
+				String exported = element.getAttributeValue("exported");
+				exported = (exported == null) ? "" : exported;
+				boolean isExported = exported.equals("true");
+				if (kind.equals("src") && path.startsWith("/"))
+				{
+					String projectName = path.substring(1);
+					EclipseProject project = projectMap.getProject(projectName);
+					if (project != null) // The project will be null in case the project is one of the ignored projects
+					{
+						requiredProjects.add(project);
+						if (isExported)
+							exportedRequiredProjects.add(project);
+					}
+				}
+				else if (kind.equals("lib"))
+				{
+					ExternalJarFile externalJarFile = new ExternalJarFile(path, this, isExported);
+					externalJars.add(externalJarFile);
+					if (isExported)
+						exportedExternalJars.add(externalJarFile);
+				}
+			}
+		}
+	}
+	
+	/**
+	 * Parse the dependencies part of the pom.xml file. Example:
+	 * 
+	 * <xmp> 
+	<dependencies>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>se.bluebrim.desktop.application.graphical</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.jdom</groupId>
+			<artifactId>jdom</artifactId>
+			<version>1.1</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+	</xmp>
+	* 
+	* It's important that the convention of specifying groupId and version is followed for
+	* dependency to other modules in the project. That's the only way we can differ then from
+	* external jars dependencies. Do not handle external jars dependencies since the present
+	* model is very file centric and the pom.xml has no information about jar files. 
+	*/
+	public void parseMavenPomFile() throws JDOMException, IOException
+	{
+		Document doc = createDocument(mavenPomFile);
+		Element pom = doc.getRootElement();
+		Namespace namespace = Namespace.getNamespace("http://maven.apache.org/POM/4.0.0");
+		Element dependencies = pom.getChild("dependencies", namespace);
+		if (dependencies == null)
+			return;
+		List children = dependencies.getChildren();
+		for (Object object : children) {
+			Element element = (Element)object;
+			String groupId = element.getChildText("groupId", namespace);
+			String artifactId = element.getChildText("artifactId", namespace);
+			if (groupId.startsWith("${"))
+			{
+				EclipseProject project = projectMap.getProject(artifactId);
 				if (project != null) // The project will be null in case the project is one of the ignored projects
 				{
 					requiredProjects.add(project);
-					if (isExported)
-						exportedRequiredProjects.add(project);
+					exportedRequiredProjects.add(project);
 				}
 			}
-			else if (kind.equals("lib"))
-			{
-				externalJars.add(new ExternalJarFile(path, this, isExported));
-				if (isExported)
-					exportedExternalJars.add(new ExternalJarFile(path, this, isExported));
-			}
+				
 		}
+		
 	}
 	
 	private void initCollections()
