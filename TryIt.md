@@ -1,0 +1,32 @@
+## Movable Views Example ##
+This application show many features of the JFreeView library.
+
+![http://jfreeview.googlecode.com/svn/site/images/movableviews.png](http://jfreeview.googlecode.com/svn/site/images/movableviews.png)
+
+[![](http://jfreeview.googlecode.com/svn/site/jnlp/webstart.png)](http://jfreeview.googlecode.com/svn/site/jnlp/se.bluebrim.view.example.movableviews.jnlp)
+
+## Database Schema Graph Example ##
+
+Reads the meta data from a database and creates a graph of the tables and the foreign key
+relations. This demo uses an embedded memory based HSQLDB containing a simple Pet Store database model.
+
+![http://jfreeview.googlecode.com/svn/site/images/schema-graph-builder.png](http://jfreeview.googlecode.com/svn/site/images/schema-graph-builder.png)
+
+[![](http://jfreeview.googlecode.com/svn/site/jnlp/webstart.png)](http://jfreeview.googlecode.com/svn/site/jnlp/se.bluebrim.view.example.dbschemagraph.jnlp)
+
+## Architecture Graph Example ##
+
+The ArchitectureGraph class that can be run by checking out the source code in your IDE. The class creates an example of an architecture graph. The blocks in the graph are created programmatically and the layout of the blocks are handled by Swing layout managers. The position of the blocks and additional graphic elements that are created from resources files can be manually adjusted in the GUI by dragging around the elements. The resulting layout is saved in a properties file.
+
+![http://jfreeview.googlecode.com/svn/site/images/architecture-graph.png](http://jfreeview.googlecode.com/svn/site/images/architecture-graph.png)
+
+The graph is inspired by [JavaSE architecture graph](http://java.sun.com/products/hotspot/images/javase.gif).
+
+
+## JSVGCanvas Example ##
+
+The SVGCanvasExample class is a desktop application with one single JSVGCanvas browsing a series of SVG-files The icons for the tool bar was found at: http://www.iconfinder.net
+The purpose for the class is to demonstrate how to include SVG graphics into Swing components. It's not obvious how this is done with the Batik framework.
+
+![http://jfreeview.googlecode.com/svn/site/images/jsvgcanvas.png](http://jfreeview.googlecode.com/svn/site/images/jsvgcanvas.png)
+
