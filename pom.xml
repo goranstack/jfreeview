@@ -10,19 +10,17 @@
 		and editing various kinds of models. The central objects are views
 		that render them selfs on a JPanel. Views can be moved and resized by
 		connected handles.</description>
-	<url>http://code.google.com/p/jfreeview</url>
+	<url>https://github.com/goranstack/jfreeview</url>
 	<scm>
-		<connection>scm:svn:http://jfreeview.googlecode.com/svn/trunk
-		</connection>
-		<developerConnection>scm:svn:https://jfreeview.googlecode.com/svn/trunk
-		</developerConnection>
-		<url>http://code.google.com/p/jfreeview/source/browse/trunk/jfreeview-parent</url>
+		<connection>scm:git:git@github.com:goranstack/jfreeview.git</connection>
+		<developerConnection>scm:git:git@github.com:goranstack/jfreeview.git</developerConnection>
+		<url>scm:git:https://github.com/goranstack/jfreeview</url>
 	</scm>
 	<dependencies>
 		<dependency>
 			<groupId>se.bluebrim.maven.plugin</groupId>
 			<artifactId>screenshot-maven-plugin-api</artifactId>
-			<version>0.0.2</version>
+			<version>1.0.2</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -58,8 +56,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.0.2</version>
 				<configuration>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.8</source>
+					<target>1.8</target>
 				</configuration>
 			</plugin>
 			<!--
@@ -172,36 +170,24 @@
 		<profile>
 			<id>codebase-project-site</id>
 			<properties>
-				<codebase>http://jfreeview.googlecode.com/svn/site/jnlp</codebase>
+				<codebase>https://github.com/goranstack/jfreeview/tree/master/site/jnlp</codebase>
 			</properties>
 		</profile>
 	</profiles>
 	<repositories>
 		<repository>
-			<id>googlecode-screenshot-maven-plugin</id>
-			<name>JFreeCrud Maven Repo</name>
-			<url>http://screenshot-maven-plugin.googlecode.com/svn/mavenrepo</url>
-		</repository>
-		<repository>
-			<id>googlecode-jfreecrud</id>
-			<name>JFreeCrud Maven Repo</name>
-			<url>http://jfreecrud.googlecode.com/svn/repo</url>
-		</repository>
-		<repository>
-			<id>googlecode-esox</id>
-			<name>Esox Maven Repo</name>
-			<url>http://esox.googlecode.com/svn/repo</url>
-		</repository>
-		<repository>
-			<id>codehaus-repository</id>
-			<name>Codehaus Repository</name>
-			<url>http://repository.codehaus.org/</url>
-		</repository>
-		<repository>
-			<id>c5-public-repository</id>
-			<url>http://mvn.carbonfive.com/public</url>
+			<id>spring.io</id>
+			<name>Spring Plugins</name>
+			<url>http://repo.spring.io/plugins-release/</url>
 		</repository>
 	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>spring.io</id>
+			<name>Spring Plugins</name>
+			<url>http://repo.spring.io/plugins-release/</url>
+		</pluginRepository>
+	</pluginRepositories>		
 	<reporting>
 		<plugins>
 			<plugin>
@@ -235,17 +221,35 @@
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
-	<!--
-		Found at Don Brown's Weblog:
-		http://www.jroller.com/mrdon/entry/find_of_the_day_wagon
-	-->
+
+	<developers>
+		<developer>
+			<id>goran.stack</id>
+			<name>Göran Stäck</name>
+			<email>goran.stack@bluebrim.se</email>
+			<roles>
+				<role>maintainer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+		</license>
+	</licenses>
+
 	<distributionManagement>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
 		<repository>
-			<uniqueVersion>false</uniqueVersion>
-			<id>googlecode-jfreeview</id>
-			<url>svn:https://jfreeview.googlecode.com/svn/repo</url>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
-	</distributionManagement>
+	</distributionManagement>	
 
 	<modules>
 		<module>se.bluebrim.view</module>
