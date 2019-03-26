@@ -5,12 +5,14 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.geom.Dimension2D;
 
+import com.itextpdf.text.PageSize;
+
 import se.bluebrim.view.impl.AbstractParentView;
 import se.bluebrim.view.impl.ViewContext;
 import se.bluebrim.view.layout.AbstractLayout;
 import se.bluebrim.view.paint.Paintable;
 
-import com.lowagie.text.PageSize;
+
 
 /**
  * Background for the shadowed paper view. Included in the
@@ -64,18 +66,18 @@ public class DesktopView extends AbstractParentView
 			paperView.setY(PAPER_INSET);
 				
 			double resolutionFactor = Toolkit.getDefaultToolkit().getScreenResolution() / 72.0;
-			com.lowagie.text.Rectangle paperSize = PageSize.A3.rotate();
-			paperView.setHeight((float)(paperSize.height() * resolutionFactor));
-			paperView.setWidth((float)(paperSize.width() * resolutionFactor));
+			com.itextpdf.text.Rectangle paperSize = PageSize.A3.rotate();
+			paperView.setHeight((float)(paperSize.getHeight() * resolutionFactor));
+			paperView.setWidth((float)(paperSize.getWidth() * resolutionFactor));
 		}
 		
 		@Override
 		public Dimension2D getMinimumLayoutSize(ParentView container)
 		{
 			double resolutionFactor = Toolkit.getDefaultToolkit().getScreenResolution() / 72.0;
-			com.lowagie.text.Rectangle paperSize = PageSize.A3.rotate();			
+			com.itextpdf.text.Rectangle paperSize = PageSize.A3.rotate();			
 			Dimension2D dim = new Dimension();
-			dim.setSize(paperSize.width() * resolutionFactor + (2 * PAPER_INSET), paperSize.height() * resolutionFactor + (2 * PAPER_INSET));
+			dim.setSize(paperSize.getWidth() * resolutionFactor + (2 * PAPER_INSET), paperSize.getHeight() * resolutionFactor + (2 * PAPER_INSET));
 			return dim;
 		}
 

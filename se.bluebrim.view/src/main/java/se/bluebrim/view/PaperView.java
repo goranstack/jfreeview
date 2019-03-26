@@ -35,13 +35,13 @@ import se.bluebrim.view.impl.ViewContext;
 import se.bluebrim.view.paint.Graphics2DWrapper;
 import se.bluebrim.view.paint.Paintable;
 
-import com.lowagie.text.Document;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.PageSize;
-import com.lowagie.text.pdf.DefaultFontMapper;
-import com.lowagie.text.pdf.PdfContentByte;
-import com.lowagie.text.pdf.PdfTemplate;
-import com.lowagie.text.pdf.PdfWriter;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.awt.DefaultFontMapper;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfTemplate;
+import com.itextpdf.text.pdf.PdfWriter;
 
 /**
  * View that gives the illusion of a paper by painting a white surface, border and a drop shadow.
@@ -129,9 +129,9 @@ public class PaperView extends AbstractParentView implements Selectable
 
 	public void saveAsPdf(File outFile, Component dialogParent)
 	{
-		com.lowagie.text.Rectangle landscape = PageSize.A3.rotate();
-		float w = landscape.width();
-		float h = landscape.height();
+		com.itextpdf.text.Rectangle landscape = PageSize.A3.rotate();
+		float w = landscape.getWidth();
+		float h = landscape.getHeight();
 		double xScale = w/getWidth();
 		double yScale = h/getHeight();
 		double scaleToFit = Math.min(xScale, yScale);

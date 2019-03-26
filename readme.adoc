@@ -55,9 +55,9 @@ To use the component include the following in your pom.xml:
 [source,xml]
 ----
 <dependency>
-<groupId>se.bluebrim</groupId>
-<artifactId>se.bluebrim.desktop.application.graphical</artifactId>
-<version>1.x.x</version>
+    <groupId>se.bluebrim</groupId>
+    <artifactId>se.bluebrim.desktop.application.graphical</artifactId>
+    <version>1.x.x</version>
 </dependency>
 ----
 

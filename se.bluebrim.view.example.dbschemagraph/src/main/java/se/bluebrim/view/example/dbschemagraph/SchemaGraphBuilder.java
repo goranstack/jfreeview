@@ -64,6 +64,12 @@ import javax.swing.WindowConstants;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
+import com.carbonfive.db.migration.DriverManagerMigrationManager;
+import com.carbonfive.db.migration.Migration;
+import com.carbonfive.db.migration.MigrationResolver;
+import com.carbonfive.db.migration.SQLScriptMigration;
+import com.carbonfive.db.migration.SimpleVersionExtractor;
+
 import se.bluebrim.desktop.graphical.PropertyPersistableHTMLView;
 import se.bluebrim.desktop.graphical.PropertyPersistableView;
 import se.bluebrim.view.DesktopView;
@@ -87,12 +93,6 @@ import se.bluebrim.view.tool.Tool;
 import se.bluebrim.view.transaction.MockTransactionManager;
 import se.bluebrim.view.zoom.Scale;
 import se.bluebrim.view.zoom.ZoomController;
-
-import com.carbonfive.db.migration.DriverManagerMigrationManager;
-import com.carbonfive.db.migration.Migration;
-import com.carbonfive.db.migration.MigrationResolver;
-import com.carbonfive.db.migration.SQLScriptMigration;
-import com.carbonfive.db.migration.SimpleVersionExtractor;
 
 
 /**
@@ -334,7 +334,7 @@ public class SchemaGraphBuilder
 	    	 if (printerJob.printDialog())
 	    	 	printerJob.print();
 	    } catch (PrinterException e) {
-	    	JOptionPane.showMessageDialog(frame, "Kunde inte skriva ut beroende på\n" + e, "Fel vid utskrift", JOptionPane.ERROR_MESSAGE);
+	    	JOptionPane.showMessageDialog(frame, "Kunde inte skriva ut beroende pï¿½\n" + e, "Fel vid utskrift", JOptionPane.ERROR_MESSAGE);
 	    }
 	}
 
